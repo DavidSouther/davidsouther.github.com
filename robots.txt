@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://DavidSouther.github.io/sitemap.xml 
