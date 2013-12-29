@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Science | My Octopress Blog]]></title>
+  <link href="http://DavidSouther.github.io/blog/categories/science/atom.xml" rel="self"/>
+  <link href="http://DavidSouther.github.io/"/>
+  <updated>2013-12-29T14:06:10-05:00</updated>
+  <id>http://DavidSouther.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[This Rationalist's World-View]]></title>
+    <link href="http://DavidSouther.github.io/blog/2013/01/11/this-rationalists-world-view/"/>
+    <updated>2013-01-11T00:32:51-05:00</updated>
+    <id>http://DavidSouther.github.io/blog/2013/01/11/this-rationalists-world-view</id>
+    <content type="html"><![CDATA[<p>The myriad parameters to support human life are nearly all emergent.</p>
+
+<p>Look out in the night sky. How many stars do you see? (In the suburbs, maybe 2000). How many of those are actually galaxies? About a dozen. How many planets can you see? 5. How many stars do our telescopes see, <a href="https://www.google.com/search?q=stars%20in%20the%20milky%20way&amp;aq=f&amp;oq=stars%20in%20the%20&amp;aqs=chrome.0.59j0j57j5j61j60.2058&amp;sugexp=chrome,mod=0&amp;sourceid=chrome&amp;ie=UTF-8">in the Milky Way</a>? 300 billion. <a href="https://www.google.com/search?q=galaxies%20in%20the%20universe&amp;aq=0&amp;oq=Galaxies%20in%20the%20uni&amp;aqs=chrome.2.57j5j0l2j62l2.2777&amp;sugexp=chrome,mod=0&amp;sourceid=chrome&amp;ie=UTF-8">Galaxies</a>? 170 billion. Planets? Nearly 1000 confirmed (ok, only a dozen or so extra solar have been directly imaged) and another 2,000 awaiting data analysis, and we are literally just getting started. The latest analysis estimates 100 billion planets in the milky way (one every three stars, but more like 3 &ndash; 5 every 10 stars, given the way planetary systems form). 17 billion or so of those are <a href="http://www.slate.com/blogs/bad_astronomy/2013/01/07/alien_earths_new_study_indicates_there_are_billions_of_earth_sized_planets.html">probably Earth-like</a> (rocky, with masses between Mars and ~1.5x Earth).</p>
+
+<!-- more -->
+
+
+<p>How many of those 17 billion orbit their star at a distance which would have surface temperatures between -10 and 110c? (Water freezing to boiling, because water does some really neat phase shifts in those ranges that make possible quite a bit of really interesting chemistry.) Probably quite a few. Let&rsquo;s be conservative, and say 7 billion. We&rsquo;re not considering moons, asteroids, extreme environments, or any exotic chemistry, just worlds where chemistry would behave about the way it&rsquo;s presented in undergrad classes. That&rsquo;s one planet potentially capable of harboring chemical reactions that we see in living organisms for every human being alive today. In one of a hundred billion galaxies. Think about that for a moment.</p>
+
+<p>Let&rsquo;s think about that organic chemistry for a moment. We don&rsquo;t really know how, exactly, life got started. We&rsquo;ve got quite a few great experiments, but they depend on a bit of speculation of the Earth&rsquo;s environment over 3 billion years ago, so they are no where near &ldquo;theorum&rdquo; yet. (Thank you, Richard Dawkins, for that phrase.) There were some great experiments in the 70s that mixed water, basic chemicals (amonias and some carbon dioxide and whatnot), added sparks, and got amino acids. Pretty cool, but not life.</p>
+
+<p>What do we need to have life? I&rsquo;m going with: (1) self-replicating and (2) produces energy. You can have one without the other, but you&rsquo;ll probably need both to meet the basic criteria for life. RNA as a molecule works surprisingly well, <a href="http://www.amazon.com/gp/product/B008RYSKKS/ref=kinw_myk_ro_title">because it can self replicate</a>, and with a couple other enzymes can start producing energy. Again, not sure on all the details, but the broad strokes are plausible with today&rsquo;s understanding of chemistry. Once you have a self-replicating bit of life (a cynaobacteria, on Earth), the very well understood mechanisms of evolution kick in.</p>
+
+<p>Specifically, those are genetic recombination and natural selection. Genetic recombination creates viable varieties of living organisms, and natural selection culls those which are most suited to their (changing) environment. Over 3 and a half billion years, <a href="http://www.amazon.com/gp/product/B002LVVCQM/ref=kinw_myk_ro_title">those two forces end up creating a species</a> capable of reasoning about its environment, of building telescopes that pick up light emitted 13.4 billion years ago, and deducing very accurately that the universe in which it lives is 13.75 billion years ago, and &ldquo;flat&rdquo; in the terminology of what many consider its greatest scientist.</p>
+
+<p>So, that&rsquo;s how you get from a rock in space to sentience. How did you get that rock? The rock is made of elements that were fused together in shells of an exploding star. Stars the mass of our sun spend all their lives fusing single protons into light Helium. Stars a bit larger than the sun, however, have enough gravity and energy to smash that Helium-3 into Helium-4, and then (this is the fun part), that Helium-4 with more He and H to get Carbon-12. Once you have Carbon-12, it fuses to make Nitrogen, then more Carbon (13), then some Oxygen, a bit more Nitrogen, before fissing back to Carbon-12. If you turn around and look at those chemical processes in the second paragraph here, you notice a lot of, you guessed it, Carbon, Hydrogen, Oxygen, and Nitrogen. Other (heavier) stars break <em>way</em> out of that cycle, burning Carbon into Neon into Silicon eventually into Nickle and Zinc (which decay back to Iron), before blowing up. In even heavier stars, they blow up so violently that so many neutrons get thrown around that that iron very quickly gets fused all the way up the chain of atomic elements until you get Uranium and other heavy stuff with names of universities attached to them.</p>
+
+<p>All that, from three basic concepts: Some gravity, a bit of nuclear fusion, a touch of organic chemistry (electromagnetism), and the simple mechanisms of evolution. All that variety and beauty and wonder in the universe, emerging from a few basic processes.</p>
+
+<p>How does it get started? We&rsquo;re really not 100% sure, but quantum mechanics has some answers. I&rsquo;m not as familiar with the material, so this one is going to be very short: <a href="http://www.amazon.com/gp/product/B004T4KQJS/ref=kinw_myk_ro_title">Laurence Krauss</a> describes some theories in quantum vacuum fluctuations that could give rise to new universes. This is not quack science, these are discussions of theories and results of data being gathered at the LHC and other colliders today. (Don&rsquo;t take that as me saying we&rsquo;ll have answers tomorrow, just saying we can confidently say we&rsquo;re probably asking the right questions.)</p>
+
+<p>So, what does this all mean? I take it to mean this:</p>
+
+<ol>
+<li><p> There is a natural world.</p></li>
+<li><p> That natural world is consistent.</p></li>
+<li><p> We are a part of the natural world.</p></li>
+</ol>
+
+
+<p>There is a notion in physics (and science) called the anthropic principle. Naively, it says &ldquo;The universe must be this way because we are in a universe.&rdquo; More subtly, it says there are a myriad of potential, possible, or conceivable universes, and we happen to be in one arranged in such a way we can observe and reason about it. On the one hand, it&rsquo;s a sanity check on theories in the avant garde of physics. On the other, it is the basis for a worldview that recognizes the grandiosity of the universe, but depends on a rational exploration of that universe.</p>
+
+<p>It&rsquo;s not easy being a rationalist, but it&rsquo;s taught us a tremendous deal about the world we live in. From a pragmatic policy point, if you truly believe Earth was created 10,000 years ago in 6 literal days (as some US senators have indicated they do), we must immediately disarm all nuclear warheads, because we haven&rsquo;t got a damned clue how they work, and they could mystically detonate at any moment.</p>
+
+<p>Back to the theology, we know enough about the universe that there is no need to invoke a god, or religion, to explain any aspect of life. There is no evidence for a soul or afterlife, you will neither be reincarnated nor go to heaven (or hell). There is no need for a violent deity who demands homage and the destruction of a tribe&rsquo;s enemy, nor is there a need for a loving deity to provide a reason to be compassionate to your fellow H. sapien, fellow animal, or the environment around you.</p>
+
+<p>Does my worldview have faith? No. I have something much stronger than faith: evidence and reason.</p>
+
+<p>Evidence and reason are the birthright of the enlightenment. This tradition has improved society in innumerable ways, but chief among them is the <a href="http://www.amazon.com/gp/product/B0052REUW0/ref=kinw_myk_ro_title">drastic plunge in violence</a> rates throughout the world (roughly commensurate to the level of accepting enlightenment philosophy into their societies).</p>
+
+<blockquote><p>&ldquo;To each their own, by their greatest ability, with malice toward none.&rdquo; &ndash; David Souther</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unified Augmented Reality]]></title>
+    <link href="http://DavidSouther.github.io/blog/2011/08/15/unified-augmented-reality/"/>
+    <updated>2011-08-15T01:49:18-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2011/08/15/unified-augmented-reality</id>
+    <content type="html"><![CDATA[<p>A group I&rsquo;m active on in Facebook posted a link to a comment on the <a href="http://www.elementalled.com/leducation/blog/innovative-technology/led-lights-make-augmented-vision-a-reality/">possibilities of LED contact lenses</a>. Unfortunately, the post&rsquo;s author barely scratches the surface of what&rsquo;s possible with the potential applications. Also, the author calls this &ldquo;Freaky.&rdquo; Not cool. For a unified approach to augmented reality, I want all the research resources of my desktop integrated into a complete hands-free environment. While this could just be fancy glasses and a bluetooth headset, I&rsquo;m going to take freaky to the extreme, and only consider approaches that require surgery. Also, I&rsquo;m going to try to stay in the realm of things I can sketch on how to make a technical possibility, and try to highlight everything I know is still science fiction. So, how can I make myself better with technology?</p>
+
+<h3><!-- more --></h3>
+
+<h3>Hearing</h3>
+
+<p>This one&rsquo;s actually pretty close to reality. Take current <a href="http://en.wikipedia.org/wiki/Hearing_aid#Invisible_In_canal_hearing_aids_.28IIC.29">invisible in ear canal hearing aids</a>, make them a bit smaller, and surgically implant them in a way replacing some cartilage of the exterior acoustic meatus and some of the mastoid process (requiring reattaching some muscles to this new device. No one ever said Science was easy.). Power could be provided by extending a flap of skin around a battery access point near the base of the aricula, or even as a gauge earing in the lobule. Necessary components would be the speaker, a the power, and a local minicomputer handling incoming audio. Also possible would be a small microphone in the area, for recording what you hear.</p>
+
+<h3>Speech</h3>
+
+<p>Replace the third molar with a microphone. This will be a bit tricky, since speech isn&rsquo;t fully formed until it hits the lips, but I conjecture with appropriate software the intended audio signal could be reconstituted correctly. Power could come from wires run to to the aricula battery.</p>
+
+<h3>Vision</h3>
+
+<p>The hardest, but coolest. Here, I want to replace the entire lens system with a camera/projector combo. This way, we don&rsquo;t need to reverse engineer the operation of the retina and optic nerve. Instead, we take advantage of our (relatively better) understanding of light and light hitting the retina. Power and transmitting data I could see being&hellip; difficult. Possibly taking advantage of EM inductance by placing a dielectric between the eye and the eyelid? The camera would capture image, then get composited with whatever we need to display from the control system.</p>
+
+<h3>Command and Control</h3>
+
+<p>The coolest part I see of the camera/projector combo is the potential to virtually overlay a keyboard on any surface. Similar to <a href="http://www.celluon.com/products/laserkey1_3.htm?sm=2_1">Celluon&rsquo;s Magic Cube</a>, I could use my arm as the &ldquo;surface&rdquo; for a right-handed Dvorak keyboard, or sit down at an empty table and type by tapping on the table, the motion picked up and translated by the camera, then overlayed onto the projected image. Combined with a <a href="http://davidsouther.com/2011/08/verbal-shell/">verbal shell</a>, I see a lot of possibilities software-wise that could run on this platform. Say, adding a USB port in your arm, that the system accesses, and displays on your eye overlay using the same window manager as your OS.</p>
+
+<p>Transmitting data has two possibilities. First, equipping every piece with a short-range wireless device (you&rsquo;d need about 10cm for the ear, mouth, and eye). Or, running wires everywhere (following the nervous system, probably). Power could come from batteries at strategic locations, but there&rsquo;s also the turbines from a Swiss team that <a href="http://spectrum.ieee.org/biomedical/devices/swiss-scientists-design-a-turbine-to-fit-in-human-arteries">fit inside arteries</a>. With the levels of miniaturization I&rsquo;ve described, I would target the system to 100 milliwatts. That would be enough to power 100 hearing aids.</p>
+
+<h3>Is it possible?</h3>
+
+<p>Sure, these bionic mods are more sci-fi than sci-fact at this point in time. Still, I think these are reasonable goals I&rsquo;ve laid out for a system. Honestly, I think with 5 years and a couple billion in dedicated funding, serious progress could be made on this project. The question, then, is how many people would want something like this&hellip; I would, but a lot might call it &ldquo;freaky.&rdquo;</p>
+
+<h4>Disclaimer</h4>
+
+<p>I am WAY out of my field of computer science on this one, and sadly do not work with these parts of the body in this way on a daily basis. If I&rsquo;ve said anything incredibly wrong (or even subtly stupid) please let me know in the comments. I really do think this project is possible, and want to keep thinking about it for some time (like, until it&rsquo;s a reality).</p>
+
+<h3>PS.</h3>
+
+<p>I didn&rsquo;t even start on things like potential muscle enhancements. I&rsquo;m a much more cerebral guy, but all the mods from <a href="http://en.wikipedia.org/wiki/Deus_Ex">Deus Ex</a>&hellip; I think are closer than those game makers though.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Why Is Time Special?]]></title>
+    <link href="http://DavidSouther.github.io/blog/2011/08/12/why-is-time-special/"/>
+    <updated>2011-08-12T11:17:50-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2011/08/12/why-is-time-special</id>
+    <content type="html"><![CDATA[<p>In Special Relativity, the spacetime interval between two events is [latex]s<sup>2</sup> = &ndash;(c{\Delta}t)<sup>2</sup>+({\Delta}x)<sup>2</sup>+({\Delta}y)<sup>2</sup>+({\Delta}z)<sup>2</sup>[/latex] giving the Minkowski metric [latex]\eta_{\mu\nu}=\text{diag}(-1, 1, 1, 1)[/latex]. What is the justification for making time have a negative coefficient, and how closely is that related to the 2nd law of thermodynamics? Sure, by letting [latex]\eta = \text{diag}(1, 1, 1, 1)[/latex], we get a pretty boring spacetime, and the boosts in the Poincaré group become trig instead of hyperbolic functions, but what&rsquo;s the physical reasoning behind this?</p>
+
+<p>(Cross-posted at <a href="http://physics.stackexchange.com/questions/13451/why-is-time-special">http://physics.stackexchange.com/questions/13451/why-is-time-special</a>)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Particle Indistinguishability Scale Limit]]></title>
+    <link href="http://DavidSouther.github.io/blog/2011/08/11/particle-indistinguishability-scale-limit/"/>
+    <updated>2011-08-11T01:14:24-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2011/08/11/particle-indistinguishability-scale-limit</id>
+    <content type="html"><![CDATA[<p><a href="http://en.wikipedia.org/wiki/Quantum_field_theory">QFT</a> says that all particles are indistinguishable from one-another [1]. That is, take a proton from cosmic ray from a supernova a billion light-yeas away, and compare it to a proton that just got smashed out in the LHC, and they are indistinguishable from one-another. Replace either with the other, and nothing will change. (As I understand) this applies to all particles that arise from the standard model fields- fermions and bosons. So if I have an atom, all the electrons in the atom are indistinguishable from all the other electrons in the atom. Theoretically I then take that atom and interchange it with any other &ldquo;indistinguishable&rdquo; atom. Or can I?<!-- more --></p>
+
+<p>Obviously I can&rsquo;t replace hydrogen-1 with deuterium (their masses are different), so atoms are at least distinguishable to their isotopes. What about within isotopes? The volume of an orbital in an electron cloud is larger than the Compton length of the electron by a factor of about [latex]10<sup>7</sup>[/latex], giving a tremendous volume that is vacuum, and the probability of getting the election clouds just right to have negligible effects on the quantum field seems unlikely. So, are two [latex]{}^2\text{H}[/latex] atoms indistinguishable from one another? Let&rsquo;s say that does work, and we can say isotopes are indistinguishable. Now, I pose the same question for molecules. What do I need to know about two water molecules? In QFT and GR, there are the 4 spacetime dimensions. I clearly can&rsquo;t just take a water and replace it with another water by swapping their <a href="\vec{x},%20t">latex</a>[/latex] properties, because they might be &ldquo;upside -down&rdquo; and then all the hydrogen bonds will get messed up and their dipole moments will be wacky (and let&rsquo;s not even think about ionic or superionic water). So, it seems I have at least answered my question at that scale &ndash; molecules are not indistinguishable from one another on their physical properties alone. For polar molecules in a &ldquo;normal&rdquo; form, we have at least 6 dimensions that must be swapped (assuming we can get away with calling the atoms themselves indistinguishable).</p>
+
+<p>The final question, then, is what is the limit that systems are no longer indistinguishable based on just their physical properties?</p>
+
+<p>[1] <a href="http://www.damtp.cam.ac.uk/user/tong/qft/qft.pdf">http://www.damtp.cam.ac.uk/user/tong/qft/qft.pdf</a> page 3.</p>
+
+<p>(Cross-posted at <a href="http://physics.stackexchange.com/questions/13455/particle-indistinguishability-scale-limit">http://physics.stackexchange.com/questions/13455/particle-indistinguishability-scale-limit</a>)</p>
+]]></content>
+  </entry>
+  
+</feed>

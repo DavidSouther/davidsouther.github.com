@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://DavidSouther.github.io/atom.xml" rel="self"/>
   <link href="http://DavidSouther.github.io/"/>
-  <updated>2013-12-29T14:04:25-05:00</updated>
+  <updated>2013-12-29T14:06:10-05:00</updated>
   <id>http://DavidSouther.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -12,5 +12,807 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Testing. It's Hard. Just Do It!]]></title>
+    <link href="http://DavidSouther.github.io/blog/2013/10/30/testing-its-hard-just-do-it/"/>
+    <updated>2013-10-30T13:31:11-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2013/10/30/testing-its-hard-just-do-it</id>
+    <content type="html"><![CDATA[<p><a href="http://en.wikipedia.org/wiki/Linus's_Law">&ldquo;With enough eyeballs, all bugs are shallow.&rdquo;</a></p>
+
+<p>The bug might be shallow when it&rsquo;s first found, but how does it never happen again? Automated Testing. When a bug is found, prove it exists with a test. Then, that bug is guaranteed to never happen again &ndash; a little computer gremlin with eagle-eye focus will look at that bug every time your program runs, and the bug will NEVER HAPPEN AGAIN. It will never happen, because if you come close to making that bug, the gremlin will make your console bleed with the red of a failed test.</p>
+
+<!-- more -->
+
+
+<p>&ldquo;The three chief virtues of a programmer are: Laziness, Impatience and Hubris.&rdquo;</p>
+
+<ul>
+<li>Larry Wall (creator of Perl)</li>
+</ul>
+
+
+<p>That little gremlin I wrote to prove the (non)existence of a bug? That&rsquo;s me being lazy. I have absolutely zero desire to fix a bug a second time &ndash; that&rsquo;s time I could be playing ping pong, or writing a new operating system. That little gremlin better be fast, too, or I&rsquo;m not going to wait around for him. The gremlin must be small and focused, with a family of small, focused gremlins that can run all my critical tests (the features I&rsquo;m touching) in under 5 seconds, and my entire codebase quickly enough to not block anyone else on my team (<a href="http://codeascraft.com/2013/09/23/lxc-running-14000-tests-per-day-and-beyond-part-1/">or they will not test, because it takes too long to be useful</a>). My code always works correctly, the first time. At least, it does every time I write a test before I write a feature. I know most developers aren&rsquo;t as egotistical as I am, but I don&rsquo;t know a single good developer who doesn&rsquo;t want to take pride in the code they&rsquo;ve written. It&rsquo;s damned easy to take pride in code that Works Right.</p>
+
+<p>Why don&rsquo;t I test more often?</p>
+
+<h2><img src="https://lh3.googleusercontent.com/OkcCl_KVOvD6J7q4w_mWsgvj01mc_3jqS_fKcKIZbJDqq5HMCoPE0J2fnJld_XA9Zxs21XSH429Rnwk9V-T_MHB19-Wk090pYtvHD0pGOUdf_QKls6HXaX-dUA" alt="" /></h2>
+
+<p>Testing is hard. It&rsquo;s not the way most programmers learned to program. The other side of the laziness sword? If it&rsquo;s easier to take a shortcut, to get code out the door, I probably will. Testing is in many cases as hard as writing production code, but for a completely different reason: testing requires discipline. Discipline is not, in my experience, something prided by the great hackers of our field. It is a completely different way to approach building software, and requires an equal level of commitment and experience to become comfortable for a developer or team. Without that discipline, shortcuts will happen, and developers won&rsquo;t write code.</p>
+
+<p>Three things need to happen when a team gets to that point. The tests need to be easier to write. This is half experience and half toolkit &ndash; the test suite must be fast to run and easy to add tests, and I personally need to be familiar enough with the testing library to write the tests. The test suite must run, and pass, before any code is allowed out the door (coverage testing will guarantee a level of certainty that tests have indeed been written). The third and equally critical piece is support from the project&rsquo;s leadership. If the leadership of the team allows developers to slide and be (bad) lazy, testing will slip.</p>
+
+<p>Metaphorical Interlude</p>
+
+<pre><code>       Drawing from a well,
+
+
+
+
+   Deep and full and crystal clear.
+
+
+
+
+     A ratchet won't slip.
+</code></pre>
+
+<p><img src="https://lh4.googleusercontent.com/4dgJC56kg--PvW2NHWSTtKr6H0RbQHFAi4pKitQOyUhOBT0KgAyX_Yau1efUdBnI4USrPk63-KEBB9Twrd-yRK8nN_yevJLYOpOullHdpi0hmpdHQgblbjwQYw" alt="" />Programming is like drawing water from a well. When the well is shallow, and the bucket small, it&rsquo;s not too difficult a task. When the bucket is big, and the well deep, it becomes harder to draw the bucket, and every mistake can be more disastrous. Automated testing is like installing a ratchet on the rope &ndash; every time you write tested code, that bit of rope will never slip. Embracing test driven development is installing a pulley to hoist the bucket with the program. The force and exertion to write a feature halves, because you only write the actual half of the feature the customer needs.</p>
+
+<p>Excoriation of Excuses</p>
+
+<p>If you&rsquo;re a programmer and you don&rsquo;t write tests, I&rsquo;m going to assume you don&rsquo;t care enough about your code. I&rsquo;m going to assume that the code you&rsquo;re working on, you&rsquo;re fine with it being 80%. I&rsquo;m going to assume you are smarter than me, in a bad way. I am not smart enough to know whether I did or did not break the code you wrote, if I don&rsquo;t have a test suite that tells me if I broke it or not. I am probably not going to want to work on your project or component. I say this not because I think less of you, or want to belittle you, but because this is as much a wake-up call to myself. I say this to myself when I visit old code of my own, that I wrote without tests. It is disgusting and reprehensible to visit those code bases, and I have no desire to return to those projects, no matter how well intentioned they were.</p>
+
+<p>If you&rsquo;re a manager and don&rsquo;t demand your team writes tests, I&rsquo;m going to assume you&rsquo;re penny-wise and pound-foolish. If your project is doing well now, I will put money on it collapsing with a bit of churn in your team. After about a quarter of your team has moved on or been replaced, your codebase will collapse into a mess of hard to find bugs, weird edge cases, and increasingly continued pressure to deliver new features when your team is simply unable to write a line of code that doesn&rsquo;t unexpectedly change behavior elsewhere in the application. I will not volunteer for your team. Similarly, if I ever find myself leading a team in such a position, I would be incredibly reticent to hire a developer willing to work in my environment. (Unless, of course, I am being hired or hiring a <a href="https://www.google.com/about/jobs/search/#!t=jo&amp;jid=35182&amp;">Software Engineer in Test</a> specifically to fix these testing deficiencies.)</p>
+
+<p>Prototypes, Too!</p>
+
+<p><a href="http://davidsouther.com/wp-content/uploads/2013/10/post-10513-Code-Refactoring-Cat-in-Bathtu-yRZT.gif"><img src="http://davidsouther.com/wp-content/uploads/2013/10/post-10513-Code-Refactoring-Cat-in-Bathtu-yRZT.gif" alt="Evils of the Refactoring Cat" /></a>I reject the concept of one-off code. If you&rsquo;re at a hackathon, there is that point, about three hours before demo, where your project is AWESOME, and going to win best of show, but you have three hours so you might as well implement a new feature. Without tests, your demo will fail. You will accidentally, in the heat of the moment, break the old, MVP feature with that whiz-bang animation, and have no idea how to get back. At best, you will have a commit to roll back to. At worst, your hackathon time was ruined. With a prototype, you are trying to convince someone to go out of their way to do you a favor. Don&rsquo;t play the lottery &ndash; write tests.</p>
+
+<h2>Call to Action</h2>
+
+<p>At this point, it should be pretty clear I care, very deeply, about code and code quality. I want to use good software, and I want to write good software. Help me! If you write code, find a way to test! Challenge me! Don&rsquo;t let me off the hook when testing gets hard, and I won&rsquo;t let you! Together we can craft better software!</p>
+
+<h3>Some resources for getting on the testing train:</h3>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><a href="http://www.codinghorror.com/blog/2006/07/i-pity-the-fool-who-doesnt-write-unit-tests.html">I Pity the Fool</a></p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><a href="http://www.amazon.com/exec/obidos/ISBN=0131177052/portlandpatternrA/">Working Effectively with Legacy Code</a> &ndash; <a href="http://www.objectmentor.com/resources/articles/WorkingEffectivelyWithLegacyCode.pdf">Intro PDF</a></p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><a href="http://msdn.microsoft.com/en-us/magazine/gg655487.aspx">Unit Testing 101: Are you testing your javascript?</a></p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><a href="http://www.obeythetestinggoat.com/">Obey the Testing Goat</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Sitting at Home, Listening to Beethoven, Thinking of Maenee]]></title>
+    <link href="http://DavidSouther.github.io/blog/2013/04/25/sitting-at-home/"/>
+    <updated>2013-04-25T22:37:22-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2013/04/25/sitting-at-home</id>
+    <content type="html"><![CDATA[<p>The fire in your eyes sets my heart aflame</p>
+
+<p>the spark that lights the tinder in my soul
+which, bereft of the waters of love, dried
+but did not blow away. Waiting,
+instead, to flame up, &lsquo;till, engulfed with passion,
+the detritus burned away leaving
+fertile fields to sow the tears of your beauty.</p>
+
+<p>Nurtured by the passions of our love,
+tended by the tender touch we share,
+blooming in a garden we share
+in my breast, my mind.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[National Gallery, West Building]]></title>
+    <link href="http://DavidSouther.github.io/blog/2013/03/18/national-gallery-west-building/"/>
+    <updated>2013-03-18T11:51:56-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2013/03/18/national-gallery-west-building</id>
+    <content type="html"><![CDATA[<p>Art in the halls art on the walls
+Paintings and sculpture oh my
+A Garden inside to read if you will
+Galleries filled for the eyes</p>
+
+<!-- more -->
+
+
+<p>An Ancient Pine forest with a mountain stream
+Serene to behold, even without green
+That babbling Brook flows strong in winter
+The beauty of Swiss caught with watercolor
+(Alexandre calame 1847)</p>
+
+<p>Hippolyte Petitjean dimples so tight
+Her watercolors still capture light
+Sedative scenes made of single points
+Each lovingly placed with a deft touch
+(promenade by a lake, a river landscape, etc)</p>
+
+<p>Fishing boats tossed before a storm
+Isabey throws the paint ashore
+The fishermen cower &lsquo;fore nature&rsquo;s roar
+Yet ride it through in courageous form
+(1840)</p>
+
+<p>Degas, Rodin! Their sculptures show
+Humanity in all our throws
+Romantic: grotesque
+Or plump, yet true?</p>
+
+<p>Hunting in the Pontine Marches
+Mighty Oaks felled low as passing time
+The moment captures rifle&rsquo;s aim
+The Hound, faithful, pointing, leaves impression
+(Horace Vernet, 1833)</p>
+
+<p>People move through
+some with opinions, Others thoughts
+One in a few, even appreciation
+The creations of peers moving them so</p>
+
+<p>Too much to see in a day or a life,
+so we pick and we choose
+what fancies delights;
+then, at the end, the cherubs alight.</p>
+
+<p>&lt;/div&lt;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[7th Ave Between the Square and the Park]]></title>
+    <link href="http://DavidSouther.github.io/blog/2013/03/14/7th-ave-between-the-square-and-the-park/"/>
+    <updated>2013-03-14T21:03:09-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2013/03/14/7th-ave-between-the-square-and-the-park</id>
+    <content type="html"><![CDATA[<p>I walk her streets alone, awake;
+I walk her streets with friends.
+Alive we feel some million folks
+enjoying her embrace.</p>
+
+<!-- more -->
+
+
+<p>Her lights are bright,
+yet throw shadows
+enough in length to hide
+where sounds abound, yet lie.</p>
+
+<p>Her grids ensnare
+whom drives across.
+&ldquo;Go below&rdquo; her whisper,
+strong but soft.</p>
+
+<p>Then a whoosh and a rattle
+goes her train!
+The clank crescendo
+from her veins!</p>
+
+<p>A honk, a squeal! The rubber grips
+while I on foot move apace,
+Hundreds, thousands, also walk
+free from the bonds of oil to race.</p>
+
+<p>The buildings are tall, her skin.
+Steel and concrete, for those within
+to sit above and look upon
+her lustrous fair visage.</p>
+
+<p>Green still is found near every where.
+Her parks day and night for lovers wait.
+The squirrels beg, the rats grow fat.
+And pigeons? Crap on your hat.</p>
+
+<p>Her shops will sell most anything.
+&ldquo;What Price&rdquo; you ask without a tag.
+Her people though surprise you so,
+&ldquo;It&rsquo;s my gift, you need it more.&rdquo;</p>
+
+<p>Of course with millions all around
+Some less savory can be found.
+&ldquo;What Price&rdquo; you ask without a fare-
+less pleasant a night you&rsquo;re not aware.</p>
+
+<p>She is a bitch, when she wants to be.
+Abusive, yes, but then, so welcoming.
+Keep your wits, and love her too.
+She will always be with you.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Readable D3]]></title>
+    <link href="http://DavidSouther.github.io/blog/2013/02/25/readable-d3/"/>
+    <updated>2013-02-25T22:26:58-05:00</updated>
+    <id>http://DavidSouther.github.io/blog/2013/02/25/readable-d3</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/mbostock/d3/wiki/Gallery">d3 example code</a> is horribly convoluted, depending on dozens of unstructured variables (and often some global magic) to achieve even the simplest effects. To improve the readability of my d3 projects, I&rsquo;ve introduced a Canvas container, with the most commonly used properties conveniently encapsulated in a single object. Combined with mbostocks discussion in <a href="http://bost.ocks.org/mike/chart/">Towards Reusable Charts</a>, the canvas container can be used in nearly any project to greatly improve the structure and quality of d3 code.</p>
+
+<!-- more -->
+
+
+<p>[gist id=5035560 file=canvas.js]</p>
+
+<p>This version binds the Canvas closure function to Window. Most of the code is to ensure the appropriate fields are set on the options object. The returned object has the final details of the drawing surface, including its size, the margins, and d3 scales calibrated to the canvas&#8217; coordinates. It also includes a refernce to the root SVG element, as well as the svg:defs element containing any filters or gradients defined for the image.</p>
+
+<p>This object works exceptionally well as the config parameter for reusable charts.</p>
+
+<p>[gist id=5035560 file=starmap.gist]</p>
+
+<p>In this example, StarMap will draw a Herzsprung Russel diagram on the layer. An HR diagram is a log-linear scatterplot of stellar temperature to luminosity. This example takes a canvas to attach Gradient definitions to, and returns a function that will draw the HR diagram on a layer. The stencil function loads data from a CSV file, and uses an inner stencil funtion to draw the individual stars.</p>
+
+<p>Using the two is similarly easy.</p>
+
+<p>[gist id=5035560 file=starmap.html]</p>
+
+<p>In this example, the SVG is preloaded in the HTML with a filter already defined. The script gets a canvas with a few custom properties, attaches a background image, then creates the Starmap and uses it immediately.</p>
+
+<p>This pattern has been very helpful keeping my code clean.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[This Rationalist's World-View]]></title>
+    <link href="http://DavidSouther.github.io/blog/2013/01/11/this-rationalists-world-view/"/>
+    <updated>2013-01-11T00:32:51-05:00</updated>
+    <id>http://DavidSouther.github.io/blog/2013/01/11/this-rationalists-world-view</id>
+    <content type="html"><![CDATA[<p>The myriad parameters to support human life are nearly all emergent.</p>
+
+<p>Look out in the night sky. How many stars do you see? (In the suburbs, maybe 2000). How many of those are actually galaxies? About a dozen. How many planets can you see? 5. How many stars do our telescopes see, <a href="https://www.google.com/search?q=stars%20in%20the%20milky%20way&amp;aq=f&amp;oq=stars%20in%20the%20&amp;aqs=chrome.0.59j0j57j5j61j60.2058&amp;sugexp=chrome,mod=0&amp;sourceid=chrome&amp;ie=UTF-8">in the Milky Way</a>? 300 billion. <a href="https://www.google.com/search?q=galaxies%20in%20the%20universe&amp;aq=0&amp;oq=Galaxies%20in%20the%20uni&amp;aqs=chrome.2.57j5j0l2j62l2.2777&amp;sugexp=chrome,mod=0&amp;sourceid=chrome&amp;ie=UTF-8">Galaxies</a>? 170 billion. Planets? Nearly 1000 confirmed (ok, only a dozen or so extra solar have been directly imaged) and another 2,000 awaiting data analysis, and we are literally just getting started. The latest analysis estimates 100 billion planets in the milky way (one every three stars, but more like 3 &ndash; 5 every 10 stars, given the way planetary systems form). 17 billion or so of those are <a href="http://www.slate.com/blogs/bad_astronomy/2013/01/07/alien_earths_new_study_indicates_there_are_billions_of_earth_sized_planets.html">probably Earth-like</a> (rocky, with masses between Mars and ~1.5x Earth).</p>
+
+<!-- more -->
+
+
+<p>How many of those 17 billion orbit their star at a distance which would have surface temperatures between -10 and 110c? (Water freezing to boiling, because water does some really neat phase shifts in those ranges that make possible quite a bit of really interesting chemistry.) Probably quite a few. Let&rsquo;s be conservative, and say 7 billion. We&rsquo;re not considering moons, asteroids, extreme environments, or any exotic chemistry, just worlds where chemistry would behave about the way it&rsquo;s presented in undergrad classes. That&rsquo;s one planet potentially capable of harboring chemical reactions that we see in living organisms for every human being alive today. In one of a hundred billion galaxies. Think about that for a moment.</p>
+
+<p>Let&rsquo;s think about that organic chemistry for a moment. We don&rsquo;t really know how, exactly, life got started. We&rsquo;ve got quite a few great experiments, but they depend on a bit of speculation of the Earth&rsquo;s environment over 3 billion years ago, so they are no where near &ldquo;theorum&rdquo; yet. (Thank you, Richard Dawkins, for that phrase.) There were some great experiments in the 70s that mixed water, basic chemicals (amonias and some carbon dioxide and whatnot), added sparks, and got amino acids. Pretty cool, but not life.</p>
+
+<p>What do we need to have life? I&rsquo;m going with: (1) self-replicating and (2) produces energy. You can have one without the other, but you&rsquo;ll probably need both to meet the basic criteria for life. RNA as a molecule works surprisingly well, <a href="http://www.amazon.com/gp/product/B008RYSKKS/ref=kinw_myk_ro_title">because it can self replicate</a>, and with a couple other enzymes can start producing energy. Again, not sure on all the details, but the broad strokes are plausible with today&rsquo;s understanding of chemistry. Once you have a self-replicating bit of life (a cynaobacteria, on Earth), the very well understood mechanisms of evolution kick in.</p>
+
+<p>Specifically, those are genetic recombination and natural selection. Genetic recombination creates viable varieties of living organisms, and natural selection culls those which are most suited to their (changing) environment. Over 3 and a half billion years, <a href="http://www.amazon.com/gp/product/B002LVVCQM/ref=kinw_myk_ro_title">those two forces end up creating a species</a> capable of reasoning about its environment, of building telescopes that pick up light emitted 13.4 billion years ago, and deducing very accurately that the universe in which it lives is 13.75 billion years ago, and &ldquo;flat&rdquo; in the terminology of what many consider its greatest scientist.</p>
+
+<p>So, that&rsquo;s how you get from a rock in space to sentience. How did you get that rock? The rock is made of elements that were fused together in shells of an exploding star. Stars the mass of our sun spend all their lives fusing single protons into light Helium. Stars a bit larger than the sun, however, have enough gravity and energy to smash that Helium-3 into Helium-4, and then (this is the fun part), that Helium-4 with more He and H to get Carbon-12. Once you have Carbon-12, it fuses to make Nitrogen, then more Carbon (13), then some Oxygen, a bit more Nitrogen, before fissing back to Carbon-12. If you turn around and look at those chemical processes in the second paragraph here, you notice a lot of, you guessed it, Carbon, Hydrogen, Oxygen, and Nitrogen. Other (heavier) stars break <em>way</em> out of that cycle, burning Carbon into Neon into Silicon eventually into Nickle and Zinc (which decay back to Iron), before blowing up. In even heavier stars, they blow up so violently that so many neutrons get thrown around that that iron very quickly gets fused all the way up the chain of atomic elements until you get Uranium and other heavy stuff with names of universities attached to them.</p>
+
+<p>All that, from three basic concepts: Some gravity, a bit of nuclear fusion, a touch of organic chemistry (electromagnetism), and the simple mechanisms of evolution. All that variety and beauty and wonder in the universe, emerging from a few basic processes.</p>
+
+<p>How does it get started? We&rsquo;re really not 100% sure, but quantum mechanics has some answers. I&rsquo;m not as familiar with the material, so this one is going to be very short: <a href="http://www.amazon.com/gp/product/B004T4KQJS/ref=kinw_myk_ro_title">Laurence Krauss</a> describes some theories in quantum vacuum fluctuations that could give rise to new universes. This is not quack science, these are discussions of theories and results of data being gathered at the LHC and other colliders today. (Don&rsquo;t take that as me saying we&rsquo;ll have answers tomorrow, just saying we can confidently say we&rsquo;re probably asking the right questions.)</p>
+
+<p>So, what does this all mean? I take it to mean this:</p>
+
+<ol>
+<li><p> There is a natural world.</p></li>
+<li><p> That natural world is consistent.</p></li>
+<li><p> We are a part of the natural world.</p></li>
+</ol>
+
+
+<p>There is a notion in physics (and science) called the anthropic principle. Naively, it says &ldquo;The universe must be this way because we are in a universe.&rdquo; More subtly, it says there are a myriad of potential, possible, or conceivable universes, and we happen to be in one arranged in such a way we can observe and reason about it. On the one hand, it&rsquo;s a sanity check on theories in the avant garde of physics. On the other, it is the basis for a worldview that recognizes the grandiosity of the universe, but depends on a rational exploration of that universe.</p>
+
+<p>It&rsquo;s not easy being a rationalist, but it&rsquo;s taught us a tremendous deal about the world we live in. From a pragmatic policy point, if you truly believe Earth was created 10,000 years ago in 6 literal days (as some US senators have indicated they do), we must immediately disarm all nuclear warheads, because we haven&rsquo;t got a damned clue how they work, and they could mystically detonate at any moment.</p>
+
+<p>Back to the theology, we know enough about the universe that there is no need to invoke a god, or religion, to explain any aspect of life. There is no evidence for a soul or afterlife, you will neither be reincarnated nor go to heaven (or hell). There is no need for a violent deity who demands homage and the destruction of a tribe&rsquo;s enemy, nor is there a need for a loving deity to provide a reason to be compassionate to your fellow H. sapien, fellow animal, or the environment around you.</p>
+
+<p>Does my worldview have faith? No. I have something much stronger than faith: evidence and reason.</p>
+
+<p>Evidence and reason are the birthright of the enlightenment. This tradition has improved society in innumerable ways, but chief among them is the <a href="http://www.amazon.com/gp/product/B0052REUW0/ref=kinw_myk_ro_title">drastic plunge in violence</a> rates throughout the world (roughly commensurate to the level of accepting enlightenment philosophy into their societies).</p>
+
+<blockquote><p>&ldquo;To each their own, by their greatest ability, with malice toward none.&rdquo; &ndash; David Souther</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Observers? In *my* Syntax?]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/12/07/observers-in-my-syntax/"/>
+    <updated>2012-12-07T10:13:24-05:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/12/07/observers-in-my-syntax</id>
+    <content type="html"><![CDATA[<p>Modern graphical programming is dependent on the <a href="http://en.wikipedia.org/wiki/Observer_pattern">observer pattern</a>. Its use in Model-View-Controller architectures vaulted the pattern into widespread use. Its continues to find applicability in event and interrupt based systems. The underlying conceptual pattern is astounding. In traditional APIs, the user is allowed to call library code arbitrarily, but there is no mechanism for a library to call user space code. While this is somewhat obviated by extensive callback usage, having formally defined and documented locations where library code calls user code is a great boon in large-scale software architectures. The observer pattern provides such a mechanism. In short, observers are great. How can they be worked even tighter into a coding environment?</p>
+
+<!-- more -->
+
+
+<p>This past year has seen an abundance of metamorphic languages targeting JavaScript. <a href="http://gkz.github.com/LiveScript/">LiveScript</a> especially has added a glut of incredibly useful syntax to CoffeeScript, borrowing heavily from Haskell. These improvements capture, in concise syntax, a myriad of concepts that normally take many lines of code. Users of the LiveScript language have access to functional currying, piping, backcalls, and dozens of other operations resulting in less typing and more straightforward programs. The results of these symbols occur in a myriad of ways- some are converted into appropriate JavaScript, while others are handled by introducing hidden functions to introduce the new features. The two mechanisms both work well and in tandem, allowing nearly any combination of additional language features.</p>
+
+<p>I would like to add a series of operations for handling observers in a language&rsquo;s syntax. The operations I propose have been implemented in a <a href="http://gkz.github.com/LiveScript/">fork</a> of LiveScript, and used to great effect in several programs compiled with the fork.</p>
+
+<p>The three symbols are</p>
+
+<ul>
+<li><p><code>:&gt;</code> Observe</p></li>
+<li><p><code>-:&gt;</code> Unobserve</p></li>
+<li><p><code>&lt;:</code> Trigger</p></li>
+</ul>
+
+
+<p>Each is a binary operation, taking on its left hand side a reference to some event, and on its right hand side either a function reference (for observe and unobserve) or a value (for trigger). Events in this syntax are simply properties on an object. Specifically, the left hand side can be a reference to any object, with the right-most property being the property and its container being the scope of the event. In practice:</p>
+
+<pre><code>&lt;code&gt;source = {}
+pass = false
+source :&gt; !(e) -&gt; pass := e
+source &lt;: true
+ok pass
+&lt;/code&gt;
+</code></pre>
+
+<p>Here, <code>source</code> itself is the event. It has a single observer, which sets the global value of <code>pass</code> to the value that <code>source</code> was triggered with. Another example:</p>
+
+<pre><code>&lt;code&gt;/* "Observers and Advisors trigger in correct deep context" */
+source = {}
+source.child = new -&gt;
+  @pass = 0
+  this
+
+add = !-&gt; @pass++
+source.child.event :&gt; add
+source.child.event &lt;: {}
+equal source.child.pass, 1
+&lt;/code&gt;
+</code></pre>
+
+<p>Here, the object <code>source</code> has a single <code>child</code> with some <code>event</code>. When <code>event</code> is triggered, the observers are called with <code>this</code> bound to <code>source.child</code>, one level up from the event property.</p>
+
+<p>Having these operators is a huge boon in writing event-driven programs. Not only does the codified syntax mean less typing, it provides a clear visual symbol for the concept of observing and triggering a variable. The actual implementation of the eventing is abstracted behind whatever event library the compiler chooses to delegate to. In my original implementation, the event listeners are attached to an array on the event itself, but another library could make the event property a function, a la jQuery, or register it in a private list of event sources, a la string-keyed pub/sub libraries.</p>
+
+<p>My branch is available at <a href="http://github.com/DavidSouther/LiveScript">github.com/DavidSouther/LiveScript</a>. I intend to rewrite the eventing library used in two places. First, it should compile to a known method signature, with options on whether to include the function definition in the compiled scope. This will allow the eventing implementation to decouple from the compiler. Second, I would like to rework the implementation to detect if the event source is a function. This will allow the syntax to handle jQuery events natively.</p>
+
+<p>I would ask <a href="https://github.com/gkz">gkz</a> and other users of LiveScript to consider this approach to an eventing syntax.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Election 2012: Referendum on War]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/08/31/election-2012-referendum-on-war/"/>
+    <updated>2012-08-31T14:06:52-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/08/31/election-2012-referendum-on-war</id>
+    <content type="html"><![CDATA[<p>All domestic policies will be for nothing if <a href="http://www.nytimes.com/2012/08/31/world/middleeast/report-on-iran-nuclear-work-puts-israel-in-a-box.html">Israel starts a war with Iran</a>.</p>
+
+<p>The Economy is on everyone&rsquo;s mind, but the economy&rsquo;s not going to change overnight (so says Ryan, and I can agree on that point). The Environment is in serious danger of long-term damage that will make it materially more difficult for us as a species to prosper. Our Education system has many calling for a complete overhaul, but that will take years before our best and brightest children are able to make positive changes from such changes.</p>
+
+<p>These are all long-term issues which are critical to building a bright future, and require serious thought in the mid-term.</p>
+
+<p>These will be for nothing if Israel attacks Iran.</p>
+
+<!-- more -->
+
+
+<p>Israel&rsquo;s sabre-rattling over the past decade has convinced Iran of the need for nuclear weapons to act as a deterrent in defending their sovereign self-interests. US-Israeli espionage has been wildly successful in tempering and mitigating this threat in the short-term, but Iran was never playing a &ldquo;let&rsquo;s get nukes fast&rdquo; game. They saw what happened to the Hussein regime, and are smart enough to not fall into that trap.</p>
+
+<p>So now, we have an <a href="http://www.bbc.co.uk/news/world-middle-east-19424097">Iran with full scale uranium enrichment facilities</a>, built into a hardened bunker that only the United States has the technological capability to pose a feasible threat.</p>
+
+<p>We have an Israel that has repeatedly demonstrated they are more than willing to prefer force to diplomacy.</p>
+
+<p>The Israeli leadership has every intention of launching a unilateral military strike against the sovereign Islamic Republic of Iran, and the Israeli leadership full expects the United States to provide unconditional military support if it takes such actions. Such an attack would be the worst possible action to take against Iran. Iran is currently experiencing political turmoil inside its borders; attacking now would provide solidarity around the Ahmadinejad regime. Iran has already moved its nuclear production underground; <a href="http://www.newyorker.com/reporting/2012/09/03/120903fa_fact_remnick">attacking now would prove to Iran how necessary those plans truly were</a>.</p>
+
+<p>Domestically, we have a sitting president who has a checkered record of handling situations in the middle east, though many observers and commentators on the world scene tend to credit President Obama with having learned from his earlier mistakes, and <a href="http://www.thedailybeast.com/articles/2012/07/16/how-obama-s-middle-east-policy-has-worked.html">think he&rsquo;s doing much better now than at the beginning of his presidency</a>. He is surrounded by advisers who argue against conflict, and supported by a base who also oppose those conflicts.</p>
+
+<p>Mr. Romney&rsquo;s foreign policy is guided by an <a href="http://cnnpressroom.blogs.cnn.com/2012/03/26/romney-russia-is-our-number-one-geopolitical-foe/">archaic view of Russia as a credible military threat</a>, who begs financial support from the most wealthy and powerful of the Israeli right-wing, and has hinted he agrees with the assessment of Iran as a religious threat. He is surrounded by supporters who call for direct support of Israel in such a conflict with Iran, and who do not see diplomacy as a viable option.</p>
+
+<p>Israel intends to attack Iran. They intend to attack within the next six months. <a href="http://www.telegraph.co.uk/news/worldnews/mitt-romney/9436624/Mitt-Romney-backs-Israeli-military-action-against-Iran.html">Mr. Romney has stated he will encourage that attack</a>, and would likely commit US forces to such an engagement. President Obama&rsquo;s rhetoric is less transparent, and does include support for Israel, but at least stops short of pushing for war with Iran and instead includes continued pushes for a diplomatic solution to the situation.</p>
+
+<p>The three Es and Health Care are issues this nation will need to grapple with, and are serious issues. They are not the pressing issue that will come to a head in the next six months, defining the next decade of international conflict.</p>
+
+<p>This election will be a referendum on US policy in Israel. Will that be a policy of war?</p>
+
+<p><strong>Update Monday, September 2nd:</strong></p>
+
+<p>It seems the Obama administration is <a href="http://www.timesofisrael.com/us-to-iran-in-case-of-israeli-strike-dont-fire-on-our-bases/">increasingly vocal in opposing</a> a unilateral Israeli strike. I&rsquo;m very interested in what Senator Kerry has in his speech at the DNC, and in what Obama will say at the UN on the 25th.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Salmon Bake]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/07/27/salmon-bake/"/>
+    <updated>2012-07-27T14:00:05-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/07/27/salmon-bake</id>
+    <content type="html"><![CDATA[<p>Fresh fish feels fantastically filling. This salmon bake is great year round, but an especially nice light summer dish.</p>
+
+<!-- more -->
+
+
+<ul>
+<li><p>Salmon Fillets</p></li>
+<li><p>1 Bell Pepper</p></li>
+<li><p>half-dozen spears asparagus</p></li>
+<li><p>4 medium red potatoes</p></li>
+<li><p>Olive Oil</p></li>
+<li><p>Lemon juice</p></li>
+</ul>
+
+
+<p>Pre-heat oven to 350.</p>
+
+<p>Cover your baking sheet with aluminum foil (makes cleanup much easier, just throw the foil away). Drizzle light oil over the baking sheet.</p>
+
+<p>Scallop potatoes, slicing them between an eighth and a quarter inch, and place the slices on an oiled baking sheet. Add a light dash salt and splash of lemon juice.</p>
+
+<p>Slice pepper. To slice a bell pepper, cut from the top, near the stem, radially down. Rip out the seeds, throw out the stem, and keep slicing along the length of the bell until you have the thickness you want. Alternate pepper slices and asparagus spears in a layer on top of the potatoes. Add a light dash of salt and splash of lemon juice.</p>
+
+<p>Place salmon fillet skin-down on the veggies, and add a splash of lemon juice.</p>
+
+<p>Bake 15 minutes, or until salmon is nice and white.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Spaghetti]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/07/25/spaghetti/"/>
+    <updated>2012-07-25T14:00:50-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/07/25/spaghetti</id>
+    <content type="html"><![CDATA[<p>The quickest Italian dish ever. If you can&rsquo;t cook this, you shouldn&rsquo;t cook. (Actually, you should try it a few more times and figure out how to cook.) If you can&rsquo;t make this tasty, try a couple more times.</p>
+
+<!-- more -->
+
+
+<ul>
+<li><p>Spaghetti noodles</p></li>
+<li><p>1 lbs ground beef</p></li>
+<li><p>1 can Classico spaghetti sauce</p></li>
+<li><p>Salt</p></li>
+<li><p>Olive Oil</p></li>
+</ul>
+
+
+<p>You&rsquo;re probably cooking your pasta wrong. Don&rsquo;t add pasta to boiling water. There&rsquo;s a weird reaction the outer pasta has that makes it sticky when you do that (and no, oil doesn&rsquo;t help much). Instead, put your dry pasta in a pan, cover with cold water (maybe a &frac14; inch above the pasta), and then turn on the heat. This lets the pasta get all wet and cooked before it starts to get soggy and clump. Add a dash of oil to keep the water from foaming and boiling over. You know now how to cook awesome pasta, of any kind. The only difference is thicker pastas will take longer.</p>
+
+<p>For the sauce, brown the beef. Put a bit of oil in the pan, let it get nice and hot, add the beef, stir until well cooked. Again, don&rsquo;t fuck around with ground beef. Add the sauce, and let it simmer until hot. Depending on the noodles, it should be just the right temperature when the noodles finish.</p>
+
+<h3>Alternatives</h3>
+
+<ol>
+<li><p> Different pastas. There are so many friggin pastas. Use the same cold water on top approach, and they&rsquo;ll come out well every time. Except rice noodles, I still can&rsquo;t figure out how to cook those fuckers.</p></li>
+<li><p> Make your own sauce! (Guest post, coming soon!) There are probably as many sauce options than there are noodle options, so this is another great place to play around. Even with just the store-bought sauces, try adding different things to your beef when you fry it. I personally like diced onions, bell peppers, and olives.</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Chili]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/07/23/chili/"/>
+    <updated>2012-07-23T14:00:06-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/07/23/chili</id>
+    <content type="html"><![CDATA[<p>Cold day or hot, nothing quite says tasty like a bowl of home-made chili. Probably the easiest dish to take and make your own, so many easy things go into the flavors of a pot of easy chili, you can&rsquo;t help but not experiment with this recipe!</p>
+
+<!-- more -->
+
+
+<ul>
+<li><p>&frac12; lbs ground beef</p></li>
+<li><p>1 12oz can salsa (your choice, determines spicy level)</p></li>
+<li><p>1 8oz can refried beans</p></li>
+<li><p>1 12oz bottle beer (your choice, determines secondary flavors)</p></li>
+<li><p>Olive Oil</p></li>
+</ul>
+
+
+<p>This recipe goes easy by trusting the brewer and salsa-er (one who makes salsa?) for the flavors in the chili. With that in mind, choose your favorite salsa and a beer you think would go with that salsa, and start your burners!</p>
+
+<p>Brown the beef. Put a bit of oil in the pan, let it get nice and hot, add the beef, stir until well cooked. Seriously, don&rsquo;t fuck around with ground beef, cook it all the way through.</p>
+
+<p>Add salsa the refried beans. Stir, let beans melt.</p>
+
+<p>Add beer, more beer for thinner, less for thicker. Let simmer, while drinking second beer. Stir occasionally. Simmer at least 10 minutes, longer for more flavor but less stock.</p>
+
+<p>Wipe off counter, serve with beer! You&rsquo;ll be delighted how well the</p>
+
+<h3>Alternatives:</h3>
+
+<ol>
+<li><p> Cube cheddar and mozzarella cheese, and replace for beer. Stir <em>constantly</em>, but only until heated. Serve with chips (and beer). Cubing the cheeses into &frac14; inch chunks is important, otherwise they melt weird and you get a really odd texture. Don&rsquo;t use shredded cheese.</p></li>
+<li><p> Different salsas, different beers. For the true chef, cook your own salsa and brew your own beer. Brewing is not Lazy-Ass Gourmet, and I don&rsquo;t brew myself, but it is a noble hobby.</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Lazy-Ass Gourmet]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/07/21/lazy-ass-gourmet/"/>
+    <updated>2012-07-21T14:00:51-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/07/21/lazy-ass-gourmet</id>
+    <content type="html"><![CDATA[<h3>The art of cooking Fast, Cheap, Clean</h3>
+
+<p>Why aren&rsquo;t you cooking for yourself? Do you think it&rsquo;s too expensive? Do you think you don&rsquo;t know how to cook? Or do you just think you don&rsquo;t have enough time in the day? If any of those are your excuse, you&rsquo;re about to lose them. Cooking great food isn&rsquo;t that difficult once you have a few basic dishes, and with the right recipes, you can be cooking great dinners for yourself or your family in half an hour. This is lazy-ass gourmet, and we&rsquo;re going to cook the most fantastic meals in no time at all.</p>
+
+<!-- more -->
+
+
+<p>I&rsquo;m a busy guy, but man, I love to cook. I&rsquo;ve yet to find a restaurant that can consistently satisfy me with their cooking more than I can do on my own. My secret is finding recipes, and ways to cook those recipes, that take as long to cook as it takes me to watch an episode of the Daily Show (then I watch Colbert while I eat!). Here at lazy-ass gourmet, I&rsquo;ll share a bunch of these recipes, and ways to cook them so that we have a wide combination of things to do with our dishes that we&rsquo;ll always have great food at home, and never get bored with what we&rsquo;re eating.</p>
+
+<p>This isn&rsquo;t <a href="http://www.brokeassgourmet.com">Broke-ass Gourmet</a> (I absolutely recommend her recipes, they are fantastic), but you&rsquo;ll find that while the ingredients for a meal are about the same as a plate would be if you went out, you&rsquo;ll several plates worth, and it will definitely come out much cheaper in the long run. The ingredients I recommend are a step up from college dorm food, but you can have fun shopping around for the best prices on what you find are your favorite things. On the other hand, this isn&rsquo;t Iron Chef. I don&rsquo;t use that many ingredients, I just play with what I have in slightly different ways.</p>
+
+<p>There are a lot of techniques in cooking. It takes some time to get comfortable with a knife. There are a lot of spices and flavors to discover and find out how they work together. These all take your time and experimentation, and frankly half the fun of cooking is trying new things, especially when they go wrong! These are things you really can&rsquo;t learn in a book (though you can make good headway), but just have to try on your own.</p>
+
+<p>There is one thing, however, that I can tell you in the spirit of Lazy-Ass Gourmet. Clean up immediately. As in, before you go on to the next step, wipe off your utensils you just used and the surface you just used. It takes 10 seconds, but saves so much time from the daunting task of cleaning everything at once after you&rsquo;ve cooked. Also, do things that make it easier to keep clean. When you&rsquo;re chopping and peeling onions, keep the trash can right there for the peelings. When you&rsquo;re working at the stove, put a splash guard over your pan and a lid on your pots. These little things make it a hundred times easier to keep your kitchen clean, and yourself happy and lazy.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Steak & Potatoes]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/07/21/steak-potatoes/"/>
+    <updated>2012-07-21T14:00:14-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/07/21/steak-potatoes</id>
+    <content type="html"><![CDATA[<p>Nothing says good eating like a steaming plate of steaks, mashed potatoes, and country veggies. The best part? It&rsquo;s one of the easiest things you can cook. Follow along, and in half an hour you&rsquo;ll be having better steaks than they server at Morton&rsquo;s.</p>
+
+<!-- more -->
+
+
+<ul>
+<li><p>2 to 4 Fillets, 1-2&#8221; thick.</p></li>
+<li><p>1 can whole kernel corn</p></li>
+<li><p>1 can sliced carrots</p></li>
+<li><p>1 can french-cut green beans</p></li>
+<li><p>1 white onion</p></li>
+<li><p>4-6 red potatoes</p></li>
+<li><p>2 tblsp butter</p></li>
+<li><p>&frac14; quart half-and-half</p></li>
+<li><p>Salt</p></li>
+<li><p>Lawry&rsquo;s</p></li>
+<li><p>Olive oil</p></li>
+</ul>
+
+
+<p>Quarter the potatoes. We&rsquo;re doing mashed potatoes, so go fast and dirty here. Find the longest, thinnest part of the potato, cut in half, find the next thinnest side, cut in half, then cut the last side two or three times. At this point you&rsquo;ll have &lt;1&#8221; cubes of potato. Put those potatoes &amp; some salt in pot. Add water to ~1&#8221; above the potatoes. Add a dash (~1 teaspoon) of oil (this stops the water from boiling over. Place the pot over high heat.</p>
+
+<p>Chop the onion. Start by cutting off the ends. I like larger chunks of onion, so I usually slice once through the thickest part of the onion, once through each half, then slice one of the quarters the long way and the other quarter radially. That gives a good combination of fat slices and long slices. Pour a couple dashes of oil into pan (not too much, just enough to start searing the onion). Bring oil to temperature. Over high heat this should take less than a minute; you&rsquo;ll know its ready when the oil starts to have rivulets when it flows over itself. Add the onions, stirring regularly until the onions are lightly cooked. Add some Lawry&rsquo;s. Clear out an area of the pan moving the onions to the side. Add steaks in the clearing, let them cook for about a minute, dash the uncooked side  with Lawry&rsquo;s, turn them over. Drain veggies from the can. Add veggies to the pan, add Lawry&rsquo;s to taste, stir, and cover. Wait about 15 minutes, stirring occasionally.</p>
+
+<p>When potatoes are done (easily pierced by fork), drain in colander and put back in pot. Rinse colander and place on drying rack. Add butter, half-and- half, and salt to potatoes. Mash. This makes the consistency I like; for thicker use more potatoes or less half-and-half; for thinner use less potatoes or thinner milk (whole, skim).</p>
+
+<p>Steaks will take about 5 minutes / level: 5 minutes rare, 10 minutes medium rare, 15 minutes medium well, 20 minutes well done. Test by cutting open; after a few times, you&rsquo;ll get a feel for your stove and know when they&rsquo;re done without needing to check.</p>
+
+<p>Wipe off counter, serve, &amp; enjoy!</p>
+
+<h3>Alternatives:</h3>
+
+<ol>
+<li><p> Add clove, then onion.</p></li>
+<li><p> Use fresh veggies (adds ~5 minutes to dice).</p></li>
+<li><p> Use different meat: different steak cuts, pork, chicken, etc.</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HTML5 Form Validation]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/07/09/html5-form-validation/"/>
+    <updated>2012-07-09T09:23:43-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/07/09/html5-form-validation</id>
+    <content type="html"><![CDATA[<p>Client-side form validation is a cross-cutting concern helping users get the most correct data into a form as quickly as possible. Good form validation will tell users what fields are most important in your form and exactly what is expected of their input. Form validation is not concerned with guaranteeing correct data gets sent from the user agent to the service backing the form &mdash; the service should define its own data ingestion and validation concerns. This discussion is only concerned with client-side form validation and helping users input acceptable data.</p>
+
+<!-- more -->
+
+
+<p>In this view, the form itself is an entire application, independent of any other piece of software. The form, rendered in the browser DOM, provides visual elements for a user to provide input. As the user provides input, the form will indicate whether that data is correct, perhaps by highlighting the field in green, or provide warnings that the data is invalid, perhaps by highlighting the field in red and displaying a light-weight pop-up with a polite message describing what, exactly, is wrong with the input. When the user tells the form to submit data, the form can decide if the input is appropriate, and if so pass that data on to some other service. Generally, this will be an HTTP POST, but could occur as a full page redirect or an AJAX request. In a more exotic workflow, the form could aggregate the input and generate an event to some other element, or publish a message to a web-worker.</p>
+
+<p>To achieve this view of form validation, a single library must meet a variety of concerns.</p>
+
+<ul>
+<li><strong>Semantic</strong></li>
+</ul>
+
+
+<p>Validation markup should describe the expected data as fully as possible. Semantic descriptions of data should be as consistent as possible, ensuring a consistent and quality experience across the forms on the domain.</p>
+
+<pre><code>* _HTML5 Native_
+</code></pre>
+
+<p>The HTML5 specification provides a wealth of expressive form and validation features. HTML4 forms not served as strict XHTML are able to access these attributes programmatically. Any implementation should at least look to the design decisions made by the HTML5 working group.</p>
+
+<pre><code>* _Settings in markup_
+</code></pre>
+
+<p>Any validation settings, including rules and error behavior, should be described as close to the input field as possible, preferably as an attribute directly. Localization and internationalization may require settings stored in alternative locations, in which case the l10n and i18n keys should be as close to the element as possible.</p>
+
+<pre><code>* _Error markup_
+</code></pre>
+
+<p>The markup rendering errors and notifications should have semantic descriptions, probably achieved with specific classes. Browser support for pseudo-selectors would also be an excellent hook for designers to use.</p>
+
+<pre><code>* _Form &amp; field_
+</code></pre>
+
+<p>Validation rules will apply both to input fields individually, as well as to groups of input fields and forms as a whole. The library needs a mechanism to support business logic at any level of field aggregation. For instance, a form may need to ask for multiple email addresses. A component could be built around a <code>&lt;ul&gt;</code> and adding <code>&lt;li&gt;&lt;input type="email" name="to[]" class="distinct" /&gt;</code> for every new email address the user wishes to add. Each input must contain a valid email address, and the <code>&lt;ul&gt;</code> as a whole should guarantee that each address in the <code>to[]</code> array is unique.</p>
+
+<ul>
+<li><strong>Aspect</strong></li>
+</ul>
+
+
+<p>Form validation is a cross-cutting concern. Form code should not need to take any actions beyond describing the validation rules (in as little code as possible). The validation tools should apply without further intervention to any form and form element available.</p>
+
+<pre><code>* _Applies with no intervention_
+</code></pre>
+
+<p>Including the code on a page should be the most intervention necessary by client code. If the validation library is part of the browser itself, purely semantic html/css forms will work with no developer intervention (though library extensions may still be necessary to bridge incompatible or incomplete implementations).</p>
+
+<pre><code>* _Hooks to sensible events_
+</code></pre>
+
+<p>There are places where forms&#8217; business logic will need additional or non-standard logic given its data descriptions. While the validation library should attach to forms automatically, it should also provide appropriate events and hooks for forms to extend additional behaviors. Further, some forms libraries may attempt to make disparate user agents behave consistently; in this case, the library must provide a common event interface across implementations.</p>
+
+<ul>
+<li><strong>Non-invasive</strong></li>
+</ul>
+
+
+<p>As validation logic gets applied cross-cuttingly, it is imperative the library not cause render, layout, page-reflow, and other errors.</p>
+
+<pre><code>* _Doesn't change page flow_
+</code></pre>
+
+<p>Under no circumstances can the validation library cause a page reflow under normal CSS conditions. Any elements added to the page must be given a default style removing them from page flow. Any classes added should be well-described, and chosen to minimize the chance of conflicting with other common class names.</p>
+
+<pre><code>  * _Float with arrow_
+</code></pre>
+
+<p>HTML5 browsers have independently adopted the convention of a floating div with an arrow pointing at the input element.</p>
+
+<pre><code>* _Doesn't interupt the user_
+</code></pre>
+
+<p>Validation should not occur while the user is actively providing input. In particular, if an element has focus validation should wait until absolutely certain the user is done inputting data to display validation errors. In a similar vein, if a user is rapidly jumping between fields, validation should not display errors in a way allowing users to miss the prompts.</p>
+
+<pre><code>* _Page data must remain visible_
+</code></pre>
+
+<p>Validation error messages should not cover page content, unless the validation message explicitly replaces that information.</p>
+
+<ul>
+<li><strong>Extensible</strong></li>
+</ul>
+
+
+<p>Forms will need to have business logic that does not fit in the default configuration of any particular validation library. The default error messages may not correctly describe the validation concern with the form.</p>
+
+<pre><code>* _Add, override validator functions_
+</code></pre>
+
+<p>Some validation functions may be incorrect. Forms may wish to constrain a URL to only accept <code>ftp:</code> connections. Emails may want to restrict to a certain mail domain. In any of these cases, the form will need to either add additional rules, or override the default rules.</p>
+
+<pre><code>* _Configure errors_
+</code></pre>
+
+<p>The default errors will not describe every error of some class. A form may wish to tell a user that not only is the email invalid, it must be in a certain domain.</p>
+
+<pre><code>* _Markup, messages, settings_
+</code></pre>
+
+<p>Form designers demand as much control as possible. Business analysts will want to tweak and localize error messages. Developers will need to edit some default settings at some point. These should all be trivially easy to override piecemeal, as needed.</p>
+
+<h3>Current solutions</h3>
+
+<p>There are several libraries and tools today meeting some of these concerns.</p>
+
+<p><strong>HTML5 Form Validation</strong></p>
+
+<p>HTML5 has a variety of validation features in place and implemented by the newer browsers. The specification covers what is likely to be 90% of the validation criteria in a fully standards compliant way (no more need to implement a grammar recognizing RFCs 5321 and 5322). Any additional rules can be added by a javascript library, focused on adding only the small subset of features a particular forms application needs.</p>
+
+<p><em><a href="http://www.alistapart.com/articles/forward-thinking-form-validation/">Usage</a></em></p>
+
+<p>This article from A List Apart is a fantastic discussion of ways to control validation using almost purely CSS.</p>
+
+<p><em><a href="https://github.com/ryanseddon/H5F">Shim</a></em></p>
+
+<p>A shim for HTML4 browsers adding most of the utilities now provided by HTML5 browsers. Has some flaws:</p>
+
+<ul>
+<li><p>Doesn&rsquo;t fall back on native implementation</p></li>
+<li><p>Pseudo-selectors don&rsquo;t work for CSS2.</p></li>
+</ul>
+
+
+<p><em><a href="http://stephenwalther.com/archive/2012/03/13/html5-form-validation.aspx">More discussion</a></em></p>
+
+<p>Another article, with some intriguing uses of <code>title</code> and <code>x-moz-errormessage</code> attributes.</p>
+
+<p><strong>jQuery plugin</strong></p>
+
+<p>The bassistance jQuery plugin has become the de-facto standard jQuery validation library. It provides nearly every feature and meets all the concerns mentioned here, though is not as strictly focused as a pure HTML5 solution might be.</p>
+
+<p><em><a href="http://bassistance.de/jquery-plugins/jquery-plugin-validation/">Article</a></em></p>
+
+<p>The original discussion, highlighting its usefulness at meeting the criteria for a robust validation library. Claims &ldquo;Most used validation library.&rdquo;</p>
+
+<p><em><a href="https://github.com/jzaefferer/jquery-validation">GitHub</a></em></p>
+
+<p>Github repo for the project.</p>
+
+<p><em><a href="http://docs.jquery.com/Plugins/Validation">jQuery Plugin</a></em></p>
+
+<p>jQuery.com plugin page.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mass Effect 3: The Actual Ending]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/06/27/mass-effect-3-the-actual-ending/"/>
+    <updated>2012-06-27T00:38:01-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/06/27/mass-effect-3-the-actual-ending</id>
+    <content type="html"><![CDATA[<p>Oh look ME3 has a real ending! You know, the kind of ending that has resolution to a storyline! Still not as good an ending as I could have written, but oh well. More tomorrow, when I&rsquo;ve played more than one of the endings and am not buzzed. PS Scotch Parties FTW!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Superscore]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/06/16/superscore/"/>
+    <updated>2012-06-16T10:27:06-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/06/16/superscore</id>
+    <content type="html"><![CDATA[<p><a href="http://underscorejs.org/">Underscore.js</a> is a fantastic tool, something that nearly every javascript project will probably want to pull in at some point. Underscore is the collections framework for Javascript. It does all the collectiony things, in a functional way, very quickly and efficiently. There are still a couple other every-day things that JS libraries need, that don&rsquo;t quite touch the DOM, making jQuery a bit too heavy. To that end, I&rsquo;ve put those features in a library called Superscore, a few additions to the underscore library. Many of these stand on their own, but since you should already be using underscore, it makes sense to namespace them there.</p>
+
+<p>The project is available on <a href="https://github.com/DavidSouther/superscore">github</a>, along with all the <a href="http://davidsouther.github.com/superscore/">documentation</a>. Take a look and see if there&rsquo;s a place for it in your projects!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fedora Chrome Installer]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/06/16/fedora-chrome-installer/"/>
+    <updated>2012-06-16T10:26:33-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/06/16/fedora-chrome-installer</id>
+    <content type="html"><![CDATA[<p><a href="https://raw.github.com/gist/81046a9002616bbfab54/14b3a3be6def4bb25a880513cbf052e853d8f6f9/fedora-16-x86_64-chrome">This gist</a> saves the Chrome repo block and installs latest stable.</p>
+
+<p>[bash]
+sudo su -c &lsquo;curl <a href="https://raw.github.com/gist/81046a9002616bbfab54/14b3a3be6def4bb25a880513cbf052e853d8f6f9/fedora-16-x86_64-chrome">https://raw.github.com/gist/81046a9002616bbfab54/14b3a3be6def4bb25a880513cbf052e853d8f6f9/fedora-16-x86_64-chrome</a> 2>/dev/null | sh&rsquo;
+[/bash]</p>
+
+<!-- more -->
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[It's a Spetus!]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/05/06/its-a-spetus/"/>
+    <updated>2012-05-06T12:11:00-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/05/06/its-a-spetus</id>
+    <content type="html"><![CDATA[<p><a href="http://apod.nasa.gov/apod/ap080825.html">2008 August 25&rsquo;s NASA Astronomy Picture of the Day</a></p>
+
+<p>NASA makes a joke about this not being a planetary forming nebula. While they are correct in that this nebula is not a fetus, it looks like a fetus. Ergo, spetus.</p>
+
+<p><a href="http://apod.nasa.gov/apod/ap080825.html"><img src="http://apod.nasa.gov/apod/image/0808/ngc7008_hagercollab_c800.jpg" alt="The Spetus!" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Need Firefox, Have Bash]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/04/29/need-firefox-have-bash/"/>
+    <updated>2012-04-29T09:56:48-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/04/29/need-firefox-have-bash</id>
+    <content type="html"><![CDATA[<p>For web development, we often need to test our code on multiple browsers. Firefox makes it really easy to run multiple versions side-by-side, so long as we take some care to not clobber profiles. This is a quick script to download and install the production versions of Firefox from 4 through 12 (13 is in beta1 as of this writing; 3.6 has no x86_64 support)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[*boink*]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/04/14/boink/"/>
+    <updated>2012-04-14T10:44:41-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/04/14/boink</id>
+    <content type="html"><![CDATA[<p><a href="http://davidsouther.com/wp-content/uploads/2012/04/funny-animal-gifs-animal-gifs-boink.gif"><img src="http://davidsouther.com/wp-content/uploads/2012/04/funny-animal-gifs-animal-gifs-boink.gif" alt="" /></a></p>
+
+<p><a href="http://icanhascheezburger.com/2012/04/12/funny-animal-gifs-boink/">via</a></p>
+]]></content>
+  </entry>
   
 </feed>

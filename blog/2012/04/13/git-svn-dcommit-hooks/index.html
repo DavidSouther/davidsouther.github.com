@@ -1,0 +1,479 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Git Svn Dcommit Hooks - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Working with git and svn is as easy as git svn init ; git svn rebase ; git svn dcommit. What is slightly less trivial is adding hooks to enforce &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://DavidSouther.github.io/blog/2012/04/13/git-svn-dcommit-hooks">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:DavidSouther.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Git Svn Dcommit Hooks</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-13T16:47:34-04:00" pubdate data-updated="true">Apr 13<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Working with git and svn is as easy as <code>git svn init ; git svn rebase ; git svn dcommit</code>. What is slightly less trivial is adding hooks to enforce certain project behavior when working with git-svn. Specifically, I want to ensure and enforce that the build (locally, at least) is successful before I push to Subversion. In this case, I don&rsquo;t have access to the Subversion server, so adding the hooks server-side is impossible. The <a href="http://stackoverflow.com/questions/2014422/hooks-for-git-svn">recommended approach</a> is to use an intermediate bare repository, but that presents problems with running build scripts on the repository, since there is no working directory to build in. There is <a href="http://git.661346.n2.nabble.com/PATCH-v2-git-svn-hook-before-git-svn-dcommit-td6688978.html">some discussion</a> on adding svn-dcommit hooks, but that does not look like it will be landing in git any time soon. The  solution I have is to have a repository with split heads. Most of the time, the intermediate repository will have an empty working directory. When a push happens, it will check out master, verify the build, and push to svn, before returning to the empty branch. Let&rsquo;s look at this in practice.</p>
+
+<!-- more -->
+
+
+<p>If you want to follow along, the script is <a href="https://gist.github.com/8dfc6575f4d3a293be7c">available as a gist</a>.</p>
+
+<h3>Step 0: Upstream SVN</h3>
+
+<p>This is just so we have an SVN repo to look at. This step requires svn, svnadmin, and ssh. Having keys configured for ssh on localhost will make life easier.</p>
+
+<p>[bash]
+ROOT=~/devel/$USER/git-experiments/svnhooks
+mkdir $ROOT ; cd $ROOT
+svnadmin create svn</p>
+
+<p>cd svn
+cat >| conf/svnserve.conf &lt;&lt;SVN
+[general]
+anon-access = write
+SVN
+cd ..</p>
+
+<p>svn mkdir &mdash;parents file://$ROOT/svn/experiments/{trunk,branches,tags} -m &lsquo;Initial structure&rsquo;
+svnserve -d -r $ROOT/svn</p>
+
+<p>svn co svn://localhost/experiments/ svnwork
+cd svnwork/trunk
+echo &ldquo;Mashed Potatoes&rdquo; >> recipe
+svn add recipe
+svn commit -m &lsquo;Added recipe.&rsquo;
+[/bash]</p>
+
+<h3>Step 1: Interim git Repo</h3>
+
+<p>We&rsquo;re going to set up an intermediate git repo with two branches. master will still point to the SVN repo, and the new branch stage will let us keep the working directory clean and in sync with downstream changes.
+[bash]
+cd $ROOT
+git svn clone -s svn://localhost/experiments/ upstream
+cd upstream
+rm .git/hooks/*
+git symbolic-ref HEAD refs/heads/stage
+rm .git/index
+git clean -fdx
+touch .empty
+git add .empty
+git ci -am &lsquo;Empty stage.&rsquo;
+[/bash]</p>
+
+<h3>Step 2: Working git Repo</h3>
+
+<p>We now want to create a normal git repo, whose remote/origin is the intermediate repo.</p>
+
+<p>[bash]
+cd $ROOT
+git clone upstream/ work
+cd work
+git checkout master #Get up to date
+[/bash]</p>
+
+<h3>Step 3.0: Build script</h3>
+
+<p>Before we delve too deep into the hooks, we need a build script. This &ldquo;build&rdquo; script just checks if the file passes our &ldquo;test&rdquo; &ndash; the recipe has a &lsquo;Servings:&rsquo; list
+[bash]
+cat >|$ROOT/build &lt;&lt;BUILD</p>
+
+<h1>!/bin/sh</h1>
+
+<p>grep &lsquo;Servings:&rsquo; recipe >/dev/null 2>&amp;1
+BUILD
+chmod a+x $ROOT/build
+[/bash]</p>
+
+<h3>Step 3: Intermediate Repo hooks</h3>
+
+<p>Now, the heart of this. We are going to set up two hooks. The pre-receive hook is going to verify there are no upstream changes. The post-update hook is going to ensure the build passes, and if so push the changes to SVN.</p>
+
+<h4>pre-receive</h4>
+
+<p>[bash]
+cat >| $ROOT/upstream/.git/hooks/pre-receive &lt;&lt;PRE</p>
+
+<h1>!/bin/bash</h1>
+
+<p>echo &ldquo;pre-receive&rdquo;
+DIR=&ldquo;\$(pwd)&rdquo;</p>
+
+<p>export GIT_DIR=&ldquo;\$DIR&rdquo;
+export GIT_WORK_TREE=&ldquo;\${DIR%/.git}&rdquo;</p>
+
+<p>CUR=\$(git rev-list master | wc -l)</p>
+
+<p>echo &ldquo;Before rebase, had \$CUR commits&rdquo;</p>
+
+<p>cd \$GIT_WORK_TREE
+git checkout master
+git svn rebase
+REBASED=\$?
+git checkout stage >/dev/null 2>&amp;1</p>
+
+<p>if [ -not \$REBASED -eq 0 ]
+then</p>
+
+<pre><code>echo "Rebase failed"
+exit $REBASED
+</code></pre>
+
+<p>fi</p>
+
+<p>POST=\$(git rev-list master | wc -l)
+echo &ldquo;After rebase, have \$POST commits&rdquo;</p>
+
+<p>echo &ldquo;Object counts were \$CUR::\$POST&rdquo;
+if [ ! \$CUR = \$POST ]
+then</p>
+
+<pre><code>echo "New changes from SVN, please merge."
+exit 1
+</code></pre>
+
+<p>fi
+echo &ldquo;pre-receive found SVN is up to date.&rdquo;
+exit 0
+PRE
+chmod a+x $ROOT/upstream/.git/hooks/pre-receive
+[/bash]</p>
+
+<h4>post-update</h4>
+
+<p>[bash]
+cat >| $ROOT/upstream/.git/hooks/post-update &lt;&lt;POST</p>
+
+<h1>!/bin/bash</h1>
+
+<p>echo &ldquo;post-update&rdquo;</p>
+
+<p>DIR=\$(pwd)
+echo &ldquo;In \$DIR&rdquo;
+export GIT_DIR=&ldquo;\$DIR&rdquo;
+export GIT_WORK_TREE=&ldquo;\${DIR%/.git}&rdquo;</p>
+
+<p>echo &ldquo;GIT: \$GIT_DIR; in \$GIT_WORK_TREE (`pwd`)&rdquo;</p>
+
+<p>cd \$GIT_WORK_TREE</p>
+
+<p>git checkout master</p>
+
+<p>$ROOT/build #CHANGE THIS TO YOUR BUILD LINE
+BUILT=\$?</p>
+
+<p>echo &ldquo;Build finished with \$BUILT&rdquo;</p>
+
+<p>if [ \$BUILT -eq 0 ]
+then</p>
+
+<pre><code>git svn dcommit
+</code></pre>
+
+<p>else</p>
+
+<pre><code>echo "Could not build, not pushing to SVN."
+</code></pre>
+
+<p>fi</p>
+
+<p>git checkout stage >/dev/null 2>&amp;1
+POST
+chmod a+x $ROOT/upstream/.git/hooks/post-update
+[/bash]</p>
+
+<h3>Step 4: Test</h3>
+
+<h4>Push &ndash;> Break</h4>
+
+<p>In our first test, we want to try and commit code that will break the build. After this operation, the Intermediate repo and the working repo will have consistent code, but those commits will not have been passed to the upstream SVN server.</p>
+
+<p>[bash]
+cd $ROOT/work
+cat >> recipe &lt;<ing
+4 Potatoes, diced
+salt, 4 cups
+water, 1 tablespoon
+ing
+git ci -am 'Added ingredients list.'
+git push 2>&amp;1 | tee $ROOT/tmp
+fgrep &ldquo;remote: Could not build, not pushing to SVN.&rdquo; $ROOT/tmp || echo &ldquo;Couldn&rsquo;t find fail line&rdquo;
+[/bash]</p>
+
+<h4>Push &ndash;> dcommit</h4>
+
+<p>In our second test, we want to make sure we see a push to SVN.</p>
+
+<p>[bash]
+cd $ROOT/work
+cat >> recipe &lt;<ing
+Servings: 3
+ing
+git ci -am 'Added Serving size.'
+git push 2>&amp;1 | tee $ROOT/tmp
+fgrep &ldquo;remote: Resetting to the latest&rdquo; $ROOT/tmp || echo &ldquo;Couldn&rsquo;t find fail line&rdquo;
+[/bash]</p>
+
+<h4>Push &ndash;> Rebase</h4>
+
+<p>What happens when other developers commit to the upstream svn? If the commits don&rsquo;t conflict, ideally we&rsquo;d like the hooks to pull down the upstream changes, rebase the new changes on top, and check if the build has broken. Assuming it hasn&rsquo;t, it should push the new tree, and politely inform us that there are new changes we need to rebase our working repo onto.</p>
+
+<p>[bash]
+cd $ROOT/svnwork/trunk
+svn update
+cat >| shopping &lt;&lt;LIST
+Potatoes
+LIST
+svn add shopping
+svn commit -m &lsquo;Started a shopping list.&rsquo;</p>
+
+<p>cd $ROOT/work
+cat >> recipe &lt;<INST
+Begin by adding salt to the water and bringing it to a boil.
+INST
+git ci -am "Added step 1"
+git pull --rebase #Get upstream changes
+git push 2>&amp;1 | tee $ROOT/tmp
+fgrep &ldquo;New changes from SVN, please merge.&rdquo; $ROOT/tmp || echo &ldquo;SVN Should be more recent&rdquo;
+git pull &mdash;rebase
+git push 2>&amp;1 | tee $ROOT/tmp
+fgrep &ldquo;pre-receive found SVN is up to date&rdquo; $ROOT/tmp || echo &ldquo;SVN Should be up to date&rdquo;
+[/bash]</p>
+
+<h4>Push &ndash;> Conflict</h4>
+
+<p>The last test of our script is what happens when there is a conflicting upstream commit. Here, the pre-commit will fail after pulling the change, warn of the commit, and recommend a pull &mdash;rebase. After completing the rebase in work, we push it back up and the project is healthy again.</p>
+
+<p>[bash]
+cd $ROOT/svnwork/trunk
+svn update
+sed -i &rsquo;s/salt, 4 cups/Salt, 4 tablespoons/&lsquo; recipe
+svn commit -m &#8216;Reduced the salt level.&rsquo;</p>
+
+<p>cd $ROOT/work
+git pull &mdash;rebase
+sed -i &rsquo;s/salt, 4 cups/Salt, 1 tablespoon/&lsquo; recipe
+sed -i &rsquo;s/water, 1 tablespoon/Water, 1 cup/&rsquo; recipe
+git ci -am &lsquo;Fixed salt/water qty mismatch&rsquo;
+git push 2>&amp;1 | tee $ROOT/tmp
+git pull &mdash;rebase</p>
+
+<p>ed -s recipe &lt;&lt;ED
+3d
+4,6d
+4s/&frac14;/
+5d
+w
+q
+ED</p>
+
+<p>git add recipe
+git rebase &mdash;continue
+git push
+[/bash]</p>
+
+<p>That&rsquo;s it. Work flows in the normal branch/hack/commit/merge approach git emphasizes, and git push works upstream with no difficulties. Frequent use of <code>git pull --rebase</code> is always recommended, and works here as expected. The full script for all these blocks of code is <a href="https://gist.github.com/8dfc6575f4d3a293be7c">available as a gist</a>.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-13T16:47:34-04:00" pubdate data-updated="true">Apr 13<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/technology/'>Technology</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://DavidSouther.github.io/blog/2012/04/13/git-svn-dcommit-hooks/" data-via="" data-counturl="http://DavidSouther.github.io/blog/2012/04/13/git-svn-dcommit-hooks/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/04/13/agile-development-consulting/" title="Previous Post: Agile Development Consulting">&laquo; Agile Development Consulting</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/04/14/boink/" title="Next Post: *boink*">*boink* &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/10/30/testing-its-hard-just-do-it/">Testing. It's Hard. Just Do It!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/25/sitting-at-home/">Sitting at Home, Listening to Beethoven, Thinking of Maenee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/18/national-gallery-west-building/">National Gallery, West Building</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/14/7th-ave-between-the-square-and-the-park/">7th Ave Between the Square and the Park</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/25/readable-d3/">Readable D3</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

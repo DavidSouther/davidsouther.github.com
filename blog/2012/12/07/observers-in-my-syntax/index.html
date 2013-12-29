@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Observers? In *my* Syntax? - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Modern graphical programming is dependent on the observer pattern. Its use in Model-View-Controller architectures vaulted the pattern into widespread &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://DavidSouther.github.io/blog/2012/12/07/observers-in-my-syntax">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:DavidSouther.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Observers? In *my* Syntax?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-07T10:13:24-05:00" pubdate data-updated="true">Dec 7<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Modern graphical programming is dependent on the <a href="http://en.wikipedia.org/wiki/Observer_pattern">observer pattern</a>. Its use in Model-View-Controller architectures vaulted the pattern into widespread use. Its continues to find applicability in event and interrupt based systems. The underlying conceptual pattern is astounding. In traditional APIs, the user is allowed to call library code arbitrarily, but there is no mechanism for a library to call user space code. While this is somewhat obviated by extensive callback usage, having formally defined and documented locations where library code calls user code is a great boon in large-scale software architectures. The observer pattern provides such a mechanism. In short, observers are great. How can they be worked even tighter into a coding environment?</p>
+
+<!-- more -->
+
+
+<p>This past year has seen an abundance of metamorphic languages targeting JavaScript. <a href="http://gkz.github.com/LiveScript/">LiveScript</a> especially has added a glut of incredibly useful syntax to CoffeeScript, borrowing heavily from Haskell. These improvements capture, in concise syntax, a myriad of concepts that normally take many lines of code. Users of the LiveScript language have access to functional currying, piping, backcalls, and dozens of other operations resulting in less typing and more straightforward programs. The results of these symbols occur in a myriad of ways- some are converted into appropriate JavaScript, while others are handled by introducing hidden functions to introduce the new features. The two mechanisms both work well and in tandem, allowing nearly any combination of additional language features.</p>
+
+<p>I would like to add a series of operations for handling observers in a language&rsquo;s syntax. The operations I propose have been implemented in a <a href="http://gkz.github.com/LiveScript/">fork</a> of LiveScript, and used to great effect in several programs compiled with the fork.</p>
+
+<p>The three symbols are</p>
+
+<ul>
+<li><p><code>:&gt;</code> Observe</p></li>
+<li><p><code>-:&gt;</code> Unobserve</p></li>
+<li><p><code>&lt;:</code> Trigger</p></li>
+</ul>
+
+
+<p>Each is a binary operation, taking on its left hand side a reference to some event, and on its right hand side either a function reference (for observe and unobserve) or a value (for trigger). Events in this syntax are simply properties on an object. Specifically, the left hand side can be a reference to any object, with the right-most property being the property and its container being the scope of the event. In practice:</p>
+
+<pre><code>&lt;code&gt;source = {}
+pass = false
+source :&gt; !(e) -&gt; pass := e
+source &lt;: true
+ok pass
+&lt;/code&gt;
+</code></pre>
+
+<p>Here, <code>source</code> itself is the event. It has a single observer, which sets the global value of <code>pass</code> to the value that <code>source</code> was triggered with. Another example:</p>
+
+<pre><code>&lt;code&gt;/* "Observers and Advisors trigger in correct deep context" */
+source = {}
+source.child = new -&gt;
+  @pass = 0
+  this
+
+add = !-&gt; @pass++
+source.child.event :&gt; add
+source.child.event &lt;: {}
+equal source.child.pass, 1
+&lt;/code&gt;
+</code></pre>
+
+<p>Here, the object <code>source</code> has a single <code>child</code> with some <code>event</code>. When <code>event</code> is triggered, the observers are called with <code>this</code> bound to <code>source.child</code>, one level up from the event property.</p>
+
+<p>Having these operators is a huge boon in writing event-driven programs. Not only does the codified syntax mean less typing, it provides a clear visual symbol for the concept of observing and triggering a variable. The actual implementation of the eventing is abstracted behind whatever event library the compiler chooses to delegate to. In my original implementation, the event listeners are attached to an array on the event itself, but another library could make the event property a function, a la jQuery, or register it in a private list of event sources, a la string-keyed pub/sub libraries.</p>
+
+<p>My branch is available at <a href="http://github.com/DavidSouther/LiveScript">github.com/DavidSouther/LiveScript</a>. I intend to rewrite the eventing library used in two places. First, it should compile to a known method signature, with options on whether to include the function definition in the compiled scope. This will allow the eventing implementation to decouple from the compiler. Second, I would like to rework the implementation to detect if the event source is a function. This will allow the syntax to handle jQuery events natively.</p>
+
+<p>I would ask <a href="https://github.com/gkz">gkz</a> and other users of LiveScript to consider this approach to an eventing syntax.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-07T10:13:24-05:00" pubdate data-updated="true">Dec 7<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/technology/'>Technology</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://DavidSouther.github.io/blog/2012/12/07/observers-in-my-syntax/" data-via="" data-counturl="http://DavidSouther.github.io/blog/2012/12/07/observers-in-my-syntax/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/08/31/election-2012-referendum-on-war/" title="Previous Post: Election 2012: Referendum on War">&laquo; Election 2012: Referendum on War</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/01/11/this-rationalists-world-view/" title="Next Post: This Rationalist's World-View">This Rationalist's World-View &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/10/30/testing-its-hard-just-do-it/">Testing. It's Hard. Just Do It!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/25/sitting-at-home/">Sitting at Home, Listening to Beethoven, Thinking of Maenee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/18/national-gallery-west-building/">National Gallery, West Building</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/14/7th-ave-between-the-square-and-the-park/">7th Ave Between the Square and the Park</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/25/readable-d3/">Readable D3</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

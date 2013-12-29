@@ -1,0 +1,695 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="I freakin love bash. The thing&rsquo;s amazing, with some ridiculous language constructs that even perl can&rsquo;t dream of. If the unix philosophy &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://DavidSouther.github.io/blog/page/5">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:DavidSouther.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/20/fun-with-bash/">Fun With Bash</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-20T17:31:56-04:00" pubdate data-updated="true">Aug 20<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I freakin love bash. The thing&rsquo;s amazing, with some ridiculous language constructs that even perl can&rsquo;t dream of. If the unix philosophy is &ldquo;one task, one tool,&rdquo; Bash&rsquo;s task is glue.</p>
+
+<p>I&rsquo;ve been using it over the past week on a digital forensics case. This is a project that involves examining a dozen production hard disks for any artifacts of inappropriate or malicious use (hacking, malware, unauthorized websites, breach of data policy, etc etc). The disks I&rsquo;m analyzing are about 120GB a piece, dual-boot between Windows XP and various linux distros. After some initial analysis, we have 3 data partitions per disk, and somewhere between 300 and 400 thousand artifacts per partition. That&rsquo;s over 10 million artifacts to collect and analyse, from 12 different physical devices. This is for a court case, so rules of evidence and expert witness rules apply- notes. Lots and lots of meticulous notes. Guess what? Bash makes it easy.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2011/08/20/fun-with-bash/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/19/bkvs-bash-keyvalue-store/">Bkvs - Bash Key/Value Store</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-19T04:30:49-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I like me my associative arrays and key/value stores. They&rsquo;re really really useful. I wanted one in bash, and tada,</p>
+
+<p>[bash]
+declare -A aa
+aa[hello]=world
+aa[ab]=cd
+[/bash]</p>
+
+<p>Well, I wanted something that could be used between sessions. Tada, the filesystem is a great key/value store.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2011/08/19/bkvs-bash-keyvalue-store/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/15/unified-augmented-reality/">Unified Augmented Reality</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-15T01:49:18-04:00" pubdate data-updated="true">Aug 15<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A group I&rsquo;m active on in Facebook posted a link to a comment on the <a href="http://www.elementalled.com/leducation/blog/innovative-technology/led-lights-make-augmented-vision-a-reality/">possibilities of LED contact lenses</a>. Unfortunately, the post&rsquo;s author barely scratches the surface of what&rsquo;s possible with the potential applications. Also, the author calls this &ldquo;Freaky.&rdquo; Not cool. For a unified approach to augmented reality, I want all the research resources of my desktop integrated into a complete hands-free environment. While this could just be fancy glasses and a bluetooth headset, I&rsquo;m going to take freaky to the extreme, and only consider approaches that require surgery. Also, I&rsquo;m going to try to stay in the realm of things I can sketch on how to make a technical possibility, and try to highlight everything I know is still science fiction. So, how can I make myself better with technology?</p>
+
+<h3></div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2011/08/15/unified-augmented-reality/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/14/coding-standards/">Coding Standards</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-14T00:46:48-04:00" pubdate data-updated="true">Aug 14<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Coding standards are a Good Thing™. When working in a team it is critically important to be able to read code written by other developers, immediately understand what is happening and how they are thinking. Coding standards facilitate this process in two critical ways. One, standards remove the uncertainty of reading a new piece of code. A unified, followed standard guarantees that similar blocks will be formatted the same. Two, standards allow an additional layer of semantics for the human readers of code on top of the language features recognized by the compiler. This technique is part of programming into a language. The criterion for a good standard is fourfold. First, it should visually highlight the “flow” of the code. Second, it should make common typographical errors become fatal code smells. Third, it should be flexible to adapt to new languages and technologies. Fourth, it should encourage programmers to write literate code. Above all, these requirements follow the guiding principle of making software better to use and easier to write. These are my standards for code, with explanations for how they fit in these goals.</p>
+
+<ul>
+<li><p><a href="http://davidsouther.com/2011/08/general-rules-for-program-source-files/">Files</a></p></li>
+<li><p><a href="http://davidsouther.com/2011/08/html-coding-standards/">HTML</a></p></li>
+<li><p><a href="http://davidsouther.com/2011/08/css-written-right/">CSS</a></p></li>
+<li><p><a href="http://davidsouther.com/2011/08/improved-allman-style/">C-Style (Improved Allman)</a></p></li>
+<li><p><a href="http://davidsouther.com/2011/08/gedit-tips-tricks/">gedit</a></p></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/14/gedit-tips-tricks/">Gedit Tips & Tricks</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-14T00:46:10-04:00" pubdate data-updated="true">Aug 14<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://projects.gnome.org/gedit/">gedit</a> is awesome. Lightweight, with an excellent plugin ecosystem. It is a text editor. Not an IDE. Not a programming environment. All it does it text. That is a Good Thing™. With a few small tweaks, gedit will do LaTeX, C, C#, Haskell, or any other text-based thing you want to do. It embodies the Unix principle of doing one thing only and one thing well, while providing all the modern conventions we expect text editors to follow today (sorry, but both Vi and Emacs are weird for anyone who&rsquo;s learned to type in the last 10 years). gedit provides plenty of configuration options. These are the tips and tricks to make gedit just that much more awesome to help developers (me) meet the style guidelines I have here.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2011/08/14/gedit-tips-tricks/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/14/improved-allman-style/">Improved Allman Style</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-14T00:35:38-04:00" pubdate data-updated="true">Aug 14<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>C-Based languages are those with “Brace” syntax describing blocks. Since the first C programming texts, there has been something of a holy war between zealots of different standards. Being an exemplar of the programming virtue of hubris, I have my entry. Allman-style bracing is the correct, best form for indenting block level code, provided a single addition: the opening brace MUST BE FOLLOWED BY AN INLINE COMMENT. The control statement might tell what the program is doing, but by always including a one-line verbal explanation of the block, other programmers know why the control statement is important. The following is an example mildly complex algorithm from the <a href="http://davidsouther.com/projects/jmtt/tree.js">jmtt analysis demo</a>.</p>
+
+<p>[javascript]
+this.calculate = function(li)
+/<em>*
+ * Recursive function to calculate all the scores for a row in our analysis.
+ * Gets the weight, grade, and cost from the children, then calcs the weighted
+ * average for each middle node. Finally, hands off the data for a second
+ * pass determining the target values.
+ *
+ * Params:
+ *  li  HTMLLiNode tree row to calculate for.
+ *
+ * Returns:
+ *  [weight, grade, cost]   Details for the current row.
+ </em>/
+{</p>
+
+<pre><code>var grade, weight, cost, children;
+if(undefined === li)
+{   //Calcing the entire analysis.
+    children = tree.treetable("body");
+    weight = 100;
+}
+else
+{   //Just doing one branch
+    children = $(li).children("ul").children("li");
+    weight = parseFloat($(li).children("span.weight:first").html().replace("%", ""));
+}
+
+if(children.length === 0)
+{   //A leaf, floating on the winds...
+    var span, input;
+    span = $(li).children("span.grade");
+    input = span.find("input")[0];
+    grade = parseInt((input &amp;&amp; input.value) || span.html());
+
+    span = $(li).children("span.cost");
+    input = span.find("input")[0];
+    cost = parseInt((input &amp;&amp; input.value) || span.html());
+}
+else
+{   //Weighted average the children.
+    grade = 0; cost = 0;
+    children.each(function(){
+        var calc = self.calculate(this);
+        grade += (calc[0] * calc[1]);
+        cost += calc[2];
+    });
+    grade /= 100;
+
+    grade = Math.rounder(grade);
+
+    //Fill in the node.
+    ((li &amp;&amp; $(li).children("span.grade")) || grade_total).html(grade).addClass("aggregate");
+    ((li &amp;&amp; $(li).children("span.cost")) || cost_total).html(cost).addClass("aggregate");
+}
+
+if(undefined === li)
+{   //At the head, so go back to calculate cost/value
+    return _calculate_value();
+}
+else
+{   // Pass the aggregate values back up the call chain.
+    return [weight, grade, cost];
+}
+</code></pre>
+
+<p>}
+[/javascript]</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2011/08/14/improved-allman-style/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/14/css-written-right/">CSS Written Right</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-14T00:10:47-04:00" pubdate data-updated="true">Aug 14<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have never seen a large CSS file that I thought was maintainable. In programming languages, we use indentation exhaustively to provide visual cues of related blocks of code. Unfortunately, CSS is often a giant wall of text, with all selectors at col 0 and all properties starting 1 tab deep. Instead, CSS blocks should be indented based on their selector’s expressiveness. In the example, we have body, a, and .content-wrapper all at the same level. Then, we indent .content-wrapper h1 one extra level, visually demarcating it as subordinate to .content-wrapper. In large CSS files, not only does this make it much easier to quickly scroll code, it discourages excessively deep selectors, encouraging designers to be more descriptive and accurate.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2011/08/14/css-written-right/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/14/html-coding-standards/">HTML Coding Standards</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-14T00:03:45-04:00" pubdate data-updated="true">Aug 14<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Doctype</h3>
+
+<ul>
+<li><p>&lt;!DOCTYPE html></p>
+
+<ul>
+<li>In the age of HTML5, this is all you need, and it’s a full 2/3s the length of an html4 transitional DOCTYPE.</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>html</h3>
+
+<ul>
+<li><p>No xmlns</p>
+
+<ul>
+<li>You’re writing html5. Even in xhtml, when’s the last time you needed to embed an alternative xmlns in your docs? (If you’re working on a project that actually does use namespacing, than you aren’t using HTML5)</li>
+</ul>
+</li>
+<li><p>Specify lang=&ldquo;en&rdquo; (or whatever your page’s language is)</p>
+
+<ul>
+<li>It’s just good practice to tell everyone what you’re speaking before you start talking. Plus, Google Chrome will pop up the little “Want to translate this page?” bar for your foreign visitors!</li>
+</ul>
+</li>
+</ul>
+
+
+<h3></div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2011/08/14/html-coding-standards/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/13/general-rules-for-program-source-files/">General Rules for Program Source Files</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-13T23:55:32-04:00" pubdate data-updated="true">Aug 13<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>General</h3>
+
+<ul>
+<li><p>Do not wrap lines of code.</p>
+
+<ul>
+<li><p>If a line starts getting longer than 79 characters, it should be refactored.</p>
+
+<ul>
+<li>Narrow screens are still not uncommon. Many programmers have toolbars and other windows taking up the sides of the screen. The human field of vision still needs to scan vertically. 80 is still the magic number for line width.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Wrap lines of comments at the 79th column</p></li>
+<li><p>Always break comment lines on a space, don’t hyphenate by hand.</p></li>
+</ul>
+
+
+<h3>File Format</h3>
+
+<ul>
+<li><p>Files should be saved with Unicode (UTF-8) encoding.</p>
+
+<ul>
+<li><p>It just works well, and most tools expect and handle UTF-8 well.</p></li>
+<li><p>The BOM should not be used.</p></li>
+</ul>
+</li>
+<li><p>Unix line endings should be used (LF, \n).</p>
+
+<ul>
+<li>Most source control tools expect, and greatly prefer, Unix line endings.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/12/why-is-time-special/">Why Is Time Special?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-12T11:17:50-04:00" pubdate data-updated="true">Aug 12<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In Special Relativity, the spacetime interval between two events is [latex]s<sup>2</sup> = &ndash;(c{\Delta}t)<sup>2</sup>+({\Delta}x)<sup>2</sup>+({\Delta}y)<sup>2</sup>+({\Delta}z)<sup>2</sup>[/latex] giving the Minkowski metric [latex]\eta_{\mu\nu}=\text{diag}(-1, 1, 1, 1)[/latex]. What is the justification for making time have a negative coefficient, and how closely is that related to the 2nd law of thermodynamics? Sure, by letting [latex]\eta = \text{diag}(1, 1, 1, 1)[/latex], we get a pretty boring spacetime, and the boosts in the Poincaré group become trig instead of hyperbolic functions, but what&rsquo;s the physical reasoning behind this?</p>
+
+<p>(Cross-posted at <a href="http://physics.stackexchange.com/questions/13451/why-is-time-special">http://physics.stackexchange.com/questions/13451/why-is-time-special</a>)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/6/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/4/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/10/30/testing-its-hard-just-do-it/">Testing. It&#8217;s Hard. Just Do It!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/25/sitting-at-home/">Sitting at Home, Listening to Beethoven, Thinking of Maenee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/18/national-gallery-west-building/">National Gallery, West Building</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/14/7th-ave-between-the-square-and-the-park/">7th Ave Between the Square and the Park</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/25/readable-d3/">Readable D3</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

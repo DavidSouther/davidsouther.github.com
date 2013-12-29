@@ -1,0 +1,766 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Coding Standards | My Octopress Blog]]></title>
+  <link href="http://DavidSouther.github.io/blog/categories/coding-standards/atom.xml" rel="self"/>
+  <link href="http://DavidSouther.github.io/"/>
+  <updated>2013-12-29T14:06:10-05:00</updated>
+  <id>http://DavidSouther.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Coding Standards]]></title>
+    <link href="http://DavidSouther.github.io/blog/2011/08/14/coding-standards/"/>
+    <updated>2011-08-14T00:46:48-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2011/08/14/coding-standards</id>
+    <content type="html"><![CDATA[<p>Coding standards are a Good Thing™. When working in a team it is critically important to be able to read code written by other developers, immediately understand what is happening and how they are thinking. Coding standards facilitate this process in two critical ways. One, standards remove the uncertainty of reading a new piece of code. A unified, followed standard guarantees that similar blocks will be formatted the same. Two, standards allow an additional layer of semantics for the human readers of code on top of the language features recognized by the compiler. This technique is part of programming into a language. The criterion for a good standard is fourfold. First, it should visually highlight the “flow” of the code. Second, it should make common typographical errors become fatal code smells. Third, it should be flexible to adapt to new languages and technologies. Fourth, it should encourage programmers to write literate code. Above all, these requirements follow the guiding principle of making software better to use and easier to write. These are my standards for code, with explanations for how they fit in these goals.</p>
+
+<ul>
+<li><p><a href="http://davidsouther.com/2011/08/general-rules-for-program-source-files/">Files</a></p></li>
+<li><p><a href="http://davidsouther.com/2011/08/html-coding-standards/">HTML</a></p></li>
+<li><p><a href="http://davidsouther.com/2011/08/css-written-right/">CSS</a></p></li>
+<li><p><a href="http://davidsouther.com/2011/08/improved-allman-style/">C-Style (Improved Allman)</a></p></li>
+<li><p><a href="http://davidsouther.com/2011/08/gedit-tips-tricks/">gedit</a></p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Gedit Tips & Tricks]]></title>
+    <link href="http://DavidSouther.github.io/blog/2011/08/14/gedit-tips-tricks/"/>
+    <updated>2011-08-14T00:46:10-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2011/08/14/gedit-tips-tricks</id>
+    <content type="html"><![CDATA[<p><a href="http://projects.gnome.org/gedit/">gedit</a> is awesome. Lightweight, with an excellent plugin ecosystem. It is a text editor. Not an IDE. Not a programming environment. All it does it text. That is a Good Thing™. With a few small tweaks, gedit will do LaTeX, C, C#, Haskell, or any other text-based thing you want to do. It embodies the Unix principle of doing one thing only and one thing well, while providing all the modern conventions we expect text editors to follow today (sorry, but both Vi and Emacs are weird for anyone who&rsquo;s learned to type in the last 10 years). gedit provides plenty of configuration options. These are the tips and tricks to make gedit just that much more awesome to help developers (me) meet the style guidelines I have here.</p>
+
+<!-- more -->
+
+
+<p>All of these settings are accessible form the Preferences menu (Edit &ndash;> Preferences)</p>
+
+<ul>
+<li><p>View</p>
+
+<ul>
+<li><p>Disable Text Wrapping</p></li>
+<li><p>Enable Line Numbers</p></li>
+<li><p>Highlight Current Line</p></li>
+<li><p>Display right margin at column 80</p></li>
+<li><p>Highlight Matching Bracket</p></li>
+</ul>
+</li>
+<li><p>Editor</p>
+
+<ul>
+<li><p>Tab Width 4</p></li>
+<li><p>DO NOT insert spaces instead of tabs</p></li>
+<li><p>Enable Automatic Indentation</p></li>
+</ul>
+</li>
+<li><p>Fonts and Colors</p>
+
+<ul>
+<li>Classic and Oblivion are excellent</li>
+</ul>
+</li>
+<li><p>Plugins</p>
+
+<ul>
+<li><p>Some of these come from gedit-plugins-extra and the plugins gallery</p>
+
+<ul>
+<li><p>Change Case</p></li>
+<li><p>Character Map</p></li>
+<li><p>Code Comment</p>
+
+<ul>
+<li>^m to comment, ^M to uncomment</li>
+</ul>
+</li>
+<li><p>Document Statistics</p></li>
+<li><p>Draw Spaces</p>
+
+<ul>
+<li><p>Draw Tabs</p></li>
+<li><p>Draw non-breaking spaces</p></li>
+<li><p>Draw Leading Spaces</p></li>
+<li><p>Draw Trailing Spaces</p></li>
+</ul>
+</li>
+<li><p>Embedded Terminal</p></li>
+<li><p>File Browser Pane</p></li>
+<li><p>Insert Date/Time</p></li>
+<li><p>Join/Split lines</p></li>
+<li><p>Python Console</p></li>
+<li><p>Sort</p></li>
+<li><p>Spell Checker</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Improved Allman Style]]></title>
+    <link href="http://DavidSouther.github.io/blog/2011/08/14/improved-allman-style/"/>
+    <updated>2011-08-14T00:35:38-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2011/08/14/improved-allman-style</id>
+    <content type="html"><![CDATA[<p>C-Based languages are those with “Brace” syntax describing blocks. Since the first C programming texts, there has been something of a holy war between zealots of different standards. Being an exemplar of the programming virtue of hubris, I have my entry. Allman-style bracing is the correct, best form for indenting block level code, provided a single addition: the opening brace MUST BE FOLLOWED BY AN INLINE COMMENT. The control statement might tell what the program is doing, but by always including a one-line verbal explanation of the block, other programmers know why the control statement is important. The following is an example mildly complex algorithm from the <a href="http://davidsouther.com/projects/jmtt/tree.js">jmtt analysis demo</a>.</p>
+
+<p>[javascript]
+this.calculate = function(li)
+/<em>*
+ * Recursive function to calculate all the scores for a row in our analysis.
+ * Gets the weight, grade, and cost from the children, then calcs the weighted
+ * average for each middle node. Finally, hands off the data for a second
+ * pass determining the target values.
+ *
+ * Params:
+ *  li  HTMLLiNode tree row to calculate for.
+ *
+ * Returns:
+ *  [weight, grade, cost]   Details for the current row.
+ </em>/
+{</p>
+
+<pre><code>var grade, weight, cost, children;
+if(undefined === li)
+{   //Calcing the entire analysis.
+    children = tree.treetable("body");
+    weight = 100;
+}
+else
+{   //Just doing one branch
+    children = $(li).children("ul").children("li");
+    weight = parseFloat($(li).children("span.weight:first").html().replace("%", ""));
+}
+
+if(children.length === 0)
+{   //A leaf, floating on the winds...
+    var span, input;
+    span = $(li).children("span.grade");
+    input = span.find("input")[0];
+    grade = parseInt((input &amp;&amp; input.value) || span.html());
+
+    span = $(li).children("span.cost");
+    input = span.find("input")[0];
+    cost = parseInt((input &amp;&amp; input.value) || span.html());
+}
+else
+{   //Weighted average the children.
+    grade = 0; cost = 0;
+    children.each(function(){
+        var calc = self.calculate(this);
+        grade += (calc[0] * calc[1]);
+        cost += calc[2];
+    });
+    grade /= 100;
+
+    grade = Math.rounder(grade);
+
+    //Fill in the node.
+    ((li &amp;&amp; $(li).children("span.grade")) || grade_total).html(grade).addClass("aggregate");
+    ((li &amp;&amp; $(li).children("span.cost")) || cost_total).html(cost).addClass("aggregate");
+}
+
+if(undefined === li)
+{   //At the head, so go back to calculate cost/value
+    return _calculate_value();
+}
+else
+{   // Pass the aggregate values back up the call chain.
+    return [weight, grade, cost];
+}
+</code></pre>
+
+<p>}
+[/javascript]</p>
+
+<!-- more -->
+
+
+<p>[javascript][/javascript]
+_decorate_cells: function(li)
+/<em>*
+ * Private method to get the row in line with the rest of the table by
+ * attaching any remaining cells and setting all the cell styles.
+ *
+ * Params:
+ *  li  HTMLLiNode with s to apply classes to. </em>/ { var cells, columns; columns = this.options.columns; cells = $(li).children(this.options.cell_tag); while(cells.length &lt; columns.count) { //Add enough cells to make up for any missing cells in the body that are in the header. $(this.options.cell_tag_html).insertAfter($(li).children(this.options.cell_tag+&ldquo;:last&rdquo;)); cells = $(li).children(this.options.cell_tag); } for(i=0; i</p>
+
+<h3>More guidelines</h3>
+
+<pre><code>There are a few other guidelines I follow for consistently readable code.
+</code></pre>
+
+<h3>Variable Names</h3>
+
+<pre><code>Variables must be reasonably named to indicate their purpose and contents. Very short, non-word variables should only be used as iterators in for() loops. Projects should choose either lower-case underscore compound variables or camel case compound variables. Once a decision has been made, it must stay consistent throughout the project. In general, if using a framework, try to use whatever format the framework uses. That said, multi-word variable names should be discouraged. It is better to refactor variable visibility so that words don’t clash in a scope than try to juggle buffered_text, buffered_word, and buffered_reader.
+</code></pre>
+
+<h4>INCORRECT</h4>
+
+<p>[c]
+$j = &lsquo;foo&rsquo;; // single letter variables should only be used in for() loops
+Str; // contains uppercase letters
+bufferedText; // Could be shortened without losing semantic meaning
+groupid; // multiple words, needs underscore separator or camel casing
+$name_of_last_city_used; // too long
+[/c]</p>
+
+<h4>CORRECT</h4>
+
+<p>[c]
+for ($j = 0; $j &lt; 10; $j++)
+$str
+buffer
+group_id, groupID
+$last_city
+[/c]</p>
+
+<h3>Commenting</h3>
+
+<pre><code>In general, code should be commented prolifically. It not only helps describe the flow and intent of the code for less experienced programmers, but can prove invaluable when returning to your own code months down the line. Functions and classes must always have a DocBlock style comment. This includes private members. Sure, your users might only need the API, but your maintainers will really appreciate a comment saying the private _expand method implements a hacked LL(1) parser because the COTS LALR parser was too slow. DocBlock style comments preceding class and method declarations so they can be picked up by IDEs in all languages:
+[c]
+/**
+* Super Class
+*
+* @package Package Name
+* @subpackage Subpackage
+* @category Category
+* @author Author Name
+* @link http://example.com
+*/
+class SuperClass
+
+/**
+* Encodes string for use in XML
+*
+* @access public
+* @param string
+* @return string
+*/
+function xml_encode($str)
+[/c]
+Javascript Exception: In Javascript, the DocBlock should be placed BETWEEN the function declaration and the function’s opening brace. This makes the comment a syntactic part of the function, and when a developer passes the function to console.log, the comment will be included in the output.
+[c]
+var xml_encode = function($str)
+/**
+* Encodes string for use in XML
+*
+* @access public
+* @param string
+* @return string
+*/
+{
+[/c]
+Use single line comments within code, leaving a blank line between large comment blocks and code.
+[c]
+// break up the string by newlines
+$parts = explode("\n", $str);
+
+// A longer comment that needs to give greater detail on what is
+// occurring and why can use multiple single-line comments.  Try to
+// keep the width reasonable, around 70 characters is the easiest to
+// read.  Don't hesitate to link to permanent external resources
+// that may provide greater detail:
+//
+// http://example.com/information_about_something/in_particular/
+
+$parts = $this-&gt;foo($parts);
+[/c]
+As stated in the Indent Style section, control structures should always have a one-line comment on why they are necessary.
+</code></pre>
+
+<h3>Constants</h3>
+
+<pre><code>Constants follow the same guidelines as do variables, except constants should always be fully uppercase and use underscores for spaces.
+</code></pre>
+
+<h4>INCORRECT</h4>
+
+<p>[c]
+myConstant // missing underscore separator and not fully uppercase
+N // no single-letter constants
+S_C_VER // not descriptive
+[/c]</p>
+
+<h4>CORRECT</h4>
+
+<p>[c]
+MY_CONSTANT
+NEWLINE
+SUPER_CLASS_VERSION
+[/c]</p>
+
+<h3>TRUE, FALSE, NULL, UNDEFINED</h3>
+
+<pre><code>TRUE, FALSE, NULL, and similar keywords should always be either fully uppercase or undercase as the language allows. This is another “choose at the beginning of the project, then be consistent” rules. INCORRECT
+[c]
+if ($foo == true)
+$bar = false;
+function foo($bar = null)
+[/c]
+CORRECT
+[c]
+if (TRUE === $foo)
+$bar = FALSE;
+function foo($bar = NULL)
+Logical Operators
+[/c]
+Use of || is discouraged as its clarity on some output devices is low (looking like the number 11 for instance). AND is preferred over &amp;&amp; . A space should always precede and follow !. INCORRECT
+[c]
+if ($foo || $bar)
+if ($foo &amp;&amp; $bar)  // okay but not recommended for common syntax highlighting applications
+if (!$foo)
+if (! is_array($foo))
+[/c]
+CORRECT
+[c]
+if ($foo OR $bar)
+if ($foo AND $bar) // recommended
+if ( ! $foo)
+if ( ! is_array($foo))
+[/c]
+
+
+&lt;h3&gt;Comparing Return Values and Typecasting&lt;/h3&gt;
+
+
+Some PHP functions return FALSE on failure, but may also have a valid return value of "" or 0, which would evaluate to FALSE in loose comparisons. Be explicit by comparing the variable type when using these return values in conditionals to ensure the return value is indeed what you expect, and not a value that has an equivalent loose-type evaluation. Use the same stringency in returning and checking your own variables. Always use === and !==. INCORRECT
+[php]
+// If 'foo' is at the beginning of the string, strpos will return a 0,
+// resulting in this conditional evaluating as TRUE
+if (strpos($str, 'foo') == FALSE) ;
+
+function build_string($str = "") {
+if ($str == "") // uh-oh!  What if FALSE or the integer 0 is passed as an argument?
+{
+}
+}
+[/php]
+CORRECT
+[php]
+if (strpos($str, 'foo') === FALSE);
+
+function build_string($str = "") {
+if ("" ===  $str)
+{
+}
+}
+[/php]
+See also information regarding typecasting, which can be quite useful. Typecasting has a slightly different effect which may be desirable. When casting a variable as a string, for instance, NULL and boolean FALSE variables become empty strings, 0 (and other numbers) become strings of digits, and boolean TRUE becomes “1”.
+</code></pre>
+
+<h4>Example</h4>
+
+<p>[php]
+$str = (string) $str; // cast $str as a string
+[/php]</p>
+
+<h3>One File per Class</h3>
+
+<pre><code>Use separate files for each class, unless the classes are very closely related. An example of Design Delegates files that contains multiple classes is the Datagrid class file, which contains both the Datagrid class and the Datagrid Template classes.
+</code></pre>
+
+<h3>Whitespace</h3>
+
+<pre><code>Use tabs for leading whitespace, not spaces. This may seem like a small thing, but using tabs instead of whitespace allows the developer looking at your code to have indentation at levels that they prefer and customize in whatever application they use. And as a side benefit, it results in (slightly) more compact files, storing one tab character versus, say, four space characters. Use regular spaces inside text for ascii art. The exception is the tab preceding a closing } in CSS declarations, and a tab between a single-line { and its comment in a block of C-style code.
+</code></pre>
+
+<h3>Condition Tests</h3>
+
+<pre><code>Condition Tests should be var op test, to avoid assigning the test to the variable.  Short circuit logical operators should use AND, OR, and ! instead of &amp;&amp;, ||, and NOT. Liberal use of parenthesis to guarantee order of operations is needed (no more than one operation in an expression block). INCORRECT
+[php]
+if($var == 0);
+if(term == strpos(haytack, ‘needle’);
+[/php]
+CORRECT
+[php]
+if(0 === $var);
+if(strpos(haytack, ‘needle’) &gt; -1);
+[/php]
+
+
+&lt;h3&gt;Bracket and Parenthetic Spacing&lt;/h3&gt;
+
+
+In general, parenthesis and brackets should not use any additional spaces. The exception is that a space should always follow PHP control structures that accept arguments with parenthesis (declare, do-while, elseif, for, foreach, if, switch, while), to help distinguish them from functions and increase readability. INCORRECT
+[php]
+$arr[ $foo ] = 'foo';
+function foo ( $bar ) {
+}
+foreach( $query-&gt;result() as $row )
+[/php]
+CORRECT
+[php]
+$arr[$foo] = 'foo'; // no spaces around array keys
+
+// no spaces around parenthesis in function declarations
+function foo($bar) {
+}
+foreach ($query-&gt;result() as $row) // single space following PHP control structures, but not in interior parenthesis
+[/php]
+
+
+&lt;h3&gt;Localized Text&lt;/h3&gt;
+
+
+Any text that is output in the control panel should use the translation function __. The __ function will be defined in as many languages as possible. Check the language specific documentation as needed. INCORRECT
+[c]
+return "Invalid Selection";
+[/c]
+CORRECT
+[c]
+return __('Invalid Selection');
+[/c]
+
+
+&lt;h3&gt;Private Methods and Variables&lt;/h3&gt;
+
+
+Methods and variables that are only accessed internally by your class, such as utility and helper functions that your public methods use for code abstraction, should be prefixed with an underscore. Use language constructs as appropriate to enforce visibility constraints.
+</code></pre>
+
+<h4>Example</h4>
+
+<p>[c]
+ class Some_Class {
+ public function convert_text() {
+ }
+ private function _convert_text() {
+ }
+ }
+[/c]</p>
+
+<h3>One Statement Per Line</h3>
+
+<pre><code>Never combine statements on one line. Exception: Variable declaration and initialization, which can be one per type and initial value. In this case, variables should be listed in alphabetical order.
+</code></pre>
+
+<h4>INCORRECT</h4>
+
+<p>[php]
+$foo = &lsquo;this&rsquo;; $bar = &lsquo;that&rsquo;; $bat = str_replace($foo, $bar, $bag);
+[/php]
+[c]
+int a = 0;
+float z = 1.0f;
+int c = count = 0;
+float r = z;
+[/c]</p>
+
+<h4>CORRECT</h4>
+
+<p>[php]
+$foo = &lsquo;this&rsquo;;
+$bar = &lsquo;that&rsquo;;
+$bat = str_replace($foo, $bar, $bag);
+[/php]
+[c]
+int a = b = count = 0;
+int m = n = max = 10;
+float r = ratio = z = 1.0f;
+[/c]</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CSS Written Right]]></title>
+    <link href="http://DavidSouther.github.io/blog/2011/08/14/css-written-right/"/>
+    <updated>2011-08-14T00:10:47-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2011/08/14/css-written-right</id>
+    <content type="html"><![CDATA[<p>I have never seen a large CSS file that I thought was maintainable. In programming languages, we use indentation exhaustively to provide visual cues of related blocks of code. Unfortunately, CSS is often a giant wall of text, with all selectors at col 0 and all properties starting 1 tab deep. Instead, CSS blocks should be indented based on their selector’s expressiveness. In the example, we have body, a, and .content-wrapper all at the same level. Then, we indent .content-wrapper h1 one extra level, visually demarcating it as subordinate to .content-wrapper. In large CSS files, not only does this make it much easier to quickly scroll code, it discourages excessively deep selectors, encouraging designers to be more descriptive and accurate.</p>
+
+<!-- more -->
+
+
+<h3>Example</h3>
+
+<p>[css]
+body {</p>
+
+<pre><code>font:bold 12px Arial, Helvetica, sans-serif;
+color: #333;    }
+</code></pre>
+
+<p>a {</p>
+
+<pre><code>text-decoration:none;   }
+
+
+a:hover {
+    color:#000; }
+</code></pre>
+
+<p>.content-wrapper {</p>
+
+<pre><code>width:850px;    }
+
+.content-wrapper h1 {
+    padding-left: 22px; }
+
+.content-wrapper p {
+    background:none;
+    color:#44b5df;
+    font-weight:normal;
+    padding-top:10px;
+    padding-left:0; }
+
+    .content-wrapper p em {
+        background-color: #ffffde   }
+
+.content-wrapper &gt; div {
+    float:left;
+    margin: 0 0 0 5%;
+    width: 45%;
+    padding:0 0 20px 0;
+    border-bottom:dashed 1px #CCC;  }
+</code></pre>
+
+<p>[/css]
+(There should be another new line between selector rule blocks- I&rsquo;m not sure why the code view isn&rsquo;t working :()</p>
+
+<h3>Rules</h3>
+
+<ul>
+<li><p>Dashes between words, NOT camel cased</p>
+
+<ul>
+<li>See section in HTML about ids for why.</li>
+</ul>
+</li>
+<li><p>Reset style condensed as much as possible.</p>
+
+<ul>
+<li><a href="http://meyerweb.com/eric/tools/css/reset/">http://meyerweb.com/eric/tools/css/reset/</a></li>
+</ul>
+</li>
+<li><p>Eliminate redundancy</p>
+
+<ul>
+<li>Move inherited declarations up in the cascade</li>
+</ul>
+</li>
+<li><p>Blocks indented by specificity</p>
+
+<ul>
+<li>.about-scanning has no indentation, .about-scanning h1 is one level deep</li>
+</ul>
+</li>
+<li><p>Selectors on one line with brace { at end of line</p></li>
+<li><p>Properties one per line</p></li>
+<li><p>Closing brace } one tab past last property</p></li>
+<li><p>Always use short-hand properties (font, margin, padding)</p></li>
+<li><p>Layout sizes in em or %</p>
+
+<ul>
+<li>Creating flexible layouts is a good thing.</li>
+</ul>
+</li>
+<li><p>px for specific images</p></li>
+<li><p>Use any <a href="http://www.w3.org/TR/CSS2/selector.html">selectors</a>necessary, but know them all.</p>
+
+<ul>
+<li><p><a href="http://www.w3.org/TR/CSS2/selector.html#child-selectors">> for children</a></p></li>
+<li><p><a href="http://www.w3.org/TR/CSS2/selector.html#adjacent-selectors">+ for siblings</a></p></li>
+<li><p>etc</p></li>
+</ul>
+</li>
+<li><p>Use comments /<em> &hellip; </em>/ liberally to describe the purpose of rules, or the intended effect</p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HTML Coding Standards]]></title>
+    <link href="http://DavidSouther.github.io/blog/2011/08/14/html-coding-standards/"/>
+    <updated>2011-08-14T00:03:45-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2011/08/14/html-coding-standards</id>
+    <content type="html"><![CDATA[<h3>Doctype</h3>
+
+<ul>
+<li><p>&lt;!DOCTYPE html></p>
+
+<ul>
+<li>In the age of HTML5, this is all you need, and it’s a full 2/3s the length of an html4 transitional DOCTYPE.</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>html</h3>
+
+<ul>
+<li><p>No xmlns</p>
+
+<ul>
+<li>You’re writing html5. Even in xhtml, when’s the last time you needed to embed an alternative xmlns in your docs? (If you’re working on a project that actually does use namespacing, than you aren’t using HTML5)</li>
+</ul>
+</li>
+<li><p>Specify lang=&ldquo;en&rdquo; (or whatever your page’s language is)</p>
+
+<ul>
+<li>It’s just good practice to tell everyone what you’re speaking before you start talking. Plus, Google Chrome will pop up the little “Want to translate this page?” bar for your foreign visitors!</li>
+</ul>
+</li>
+</ul>
+
+
+<h3><!-- more --></h3>
+
+<h3>head</h3>
+
+<ul>
+<li><p><meta charset="utf-8" /> should be the first tag in the head, and must be in the first 512 bytes of the page.</p>
+
+<ul>
+<li>Always specify the encoding. It’s just good practice.</li>
+</ul>
+</li>
+<li><p>No content-type meta tag (should be set in HTTP headers)</p>
+
+<ul>
+<li>If you don’t have control over this, and your host isn’t set up correctly, you should be having a conversation with your server.</li>
+</ul>
+</li>
+<li><p><title> MUST be present and have sensible text content.</p></li>
+<li><p><script> and <link rel="stylesheet"> tags should be grouped together, separated by whitespace</p>
+
+<ul>
+<li>That is, put all your scripts, then a blank line, then all your stylesheets. Or vice versa. If they’re grouped, it’s just that much easier to</li>
+</ul>
+</li>
+<li><p><script> tags should only use the href attibute- they MUST NOT contain actual script code.</p>
+
+<ul>
+<li>MVC is a Good Thing. If your framework doesn’t make it trivially easy to add a new script to the page for a new feature, take a look at your framework.</li>
+</ul>
+</li>
+<li><p><script> and <link> tags should not specify a type.</p>
+
+<ul>
+<li>The type will be sent by the HTTP headers.</li>
+</ul>
+</li>
+<li><p><style> tags ARE NOT allowed.</p>
+
+<ul>
+<li>See MVC is Good above.</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>body</h3>
+
+<ul>
+<li><p>Every block level opening tag must be on its own line.</p></li>
+<li><p>Every block-level closing tag must be on its own line.</p></li>
+<li><p>Exceptions for the first element inside the <body> tag.</p></li>
+<li><p>Every block level element should be indented the same tab level as its siblings, which is one more than its parent.</p></li>
+<li><p>One blank line when separating sibling block-level tags.</p>
+
+<ul>
+<li><p>Exception: when mixing <hx>, <p>, and <div> inside a block, do not separate with whitespace.</p></li>
+<li><p>Example:
+[html]</pre></p></li>
+</ul>
+</li>
+</ul>
+
+
+<div>
+<h2>This Section</h2>
+Paragraph 1
+
+Paragraph 2
+<ul>
+    <li>Some</li>
+    <li>list</li>
+    <li>stuff</li>
+</ul>
+</div>
+
+
+<p><pre>
+[/html]</p>
+
+<pre><code>  * Be sensible with classes and ids.
+
+
+    * ids should be used on nodes that need to be uniquely and quickly identified
+
+
+      * eg. specific content blocks, &lt;a&gt; buttons, forms.
+
+
+
+
+
+    * Classes should be used to reduce or eliminate redundancy in CSS
+
+
+
+
+
+  * classes and ids must use dashes between words, NOT camel case
+
+
+    * eg. about-scanning, content-left instead of aboutScanning, contentLeft
+
+
+      * This guarantees html classes and IDs cannot conflict with javascript or php variables. This means when you forget quotes in selectors, like $(my-id), there’s a much higher chance of the JS interpreter throwing a syntax error, instead of making you wonder how my_id happened to get defined to “#other-thing” in a global block somewhere.
+
+
+
+
+
+
+
+
+  * Text must be inside &lt;p&gt; or &lt;hx&gt; tags.
+
+
+  * Content must be grammatically correct English.
+
+
+    * The web is a written medium. There are reasons grammar has formed the way it has. Please, as a content provider, take pride in what you write and pride in how it is communicated in this medium.
+
+
+
+
+
+  * &lt;p&gt; must contain complete sentences (capitalized, subject-verb-predicate, period)
+
+
+    * Semantically, &lt;p&gt; is a paragraph, which means blocks of text. Thesis sentence, three or four supporting arguments, conclusion sentence. No, not every page is an essay, but the semantic difference between &lt;p&gt; and &lt;hx&gt; makes all the difference to your readers, and should play a part in SEO.
+
+
+
+
+
+  * Largish blocks of text (blocks of content, not buttons or headings) can use a Lorem text if final content is not available.
+
+
+    * Use a good Lorem text generator
+
+
+      * [http://www.lipsum.com/ ](http://www.lipsum.com/%20)
+
+
+      * [http://hipsteripsum.me/](http://hipsteripsum.me/)
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

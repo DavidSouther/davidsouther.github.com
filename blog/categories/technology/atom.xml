@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Technology | My Octopress Blog]]></title>
+  <link href="http://DavidSouther.github.io/blog/categories/technology/atom.xml" rel="self"/>
+  <link href="http://DavidSouther.github.io/"/>
+  <updated>2013-12-29T14:06:10-05:00</updated>
+  <id>http://DavidSouther.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Testing. It's Hard. Just Do It!]]></title>
+    <link href="http://DavidSouther.github.io/blog/2013/10/30/testing-its-hard-just-do-it/"/>
+    <updated>2013-10-30T13:31:11-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2013/10/30/testing-its-hard-just-do-it</id>
+    <content type="html"><![CDATA[<p><a href="http://en.wikipedia.org/wiki/Linus's_Law">&ldquo;With enough eyeballs, all bugs are shallow.&rdquo;</a></p>
+
+<p>The bug might be shallow when it&rsquo;s first found, but how does it never happen again? Automated Testing. When a bug is found, prove it exists with a test. Then, that bug is guaranteed to never happen again &ndash; a little computer gremlin with eagle-eye focus will look at that bug every time your program runs, and the bug will NEVER HAPPEN AGAIN. It will never happen, because if you come close to making that bug, the gremlin will make your console bleed with the red of a failed test.</p>
+
+<!-- more -->
+
+
+<p>&ldquo;The three chief virtues of a programmer are: Laziness, Impatience and Hubris.&rdquo;</p>
+
+<ul>
+<li>Larry Wall (creator of Perl)</li>
+</ul>
+
+
+<p>That little gremlin I wrote to prove the (non)existence of a bug? That&rsquo;s me being lazy. I have absolutely zero desire to fix a bug a second time &ndash; that&rsquo;s time I could be playing ping pong, or writing a new operating system. That little gremlin better be fast, too, or I&rsquo;m not going to wait around for him. The gremlin must be small and focused, with a family of small, focused gremlins that can run all my critical tests (the features I&rsquo;m touching) in under 5 seconds, and my entire codebase quickly enough to not block anyone else on my team (<a href="http://codeascraft.com/2013/09/23/lxc-running-14000-tests-per-day-and-beyond-part-1/">or they will not test, because it takes too long to be useful</a>). My code always works correctly, the first time. At least, it does every time I write a test before I write a feature. I know most developers aren&rsquo;t as egotistical as I am, but I don&rsquo;t know a single good developer who doesn&rsquo;t want to take pride in the code they&rsquo;ve written. It&rsquo;s damned easy to take pride in code that Works Right.</p>
+
+<p>Why don&rsquo;t I test more often?</p>
+
+<h2><img src="https://lh3.googleusercontent.com/OkcCl_KVOvD6J7q4w_mWsgvj01mc_3jqS_fKcKIZbJDqq5HMCoPE0J2fnJld_XA9Zxs21XSH429Rnwk9V-T_MHB19-Wk090pYtvHD0pGOUdf_QKls6HXaX-dUA" alt="" /></h2>
+
+<p>Testing is hard. It&rsquo;s not the way most programmers learned to program. The other side of the laziness sword? If it&rsquo;s easier to take a shortcut, to get code out the door, I probably will. Testing is in many cases as hard as writing production code, but for a completely different reason: testing requires discipline. Discipline is not, in my experience, something prided by the great hackers of our field. It is a completely different way to approach building software, and requires an equal level of commitment and experience to become comfortable for a developer or team. Without that discipline, shortcuts will happen, and developers won&rsquo;t write code.</p>
+
+<p>Three things need to happen when a team gets to that point. The tests need to be easier to write. This is half experience and half toolkit &ndash; the test suite must be fast to run and easy to add tests, and I personally need to be familiar enough with the testing library to write the tests. The test suite must run, and pass, before any code is allowed out the door (coverage testing will guarantee a level of certainty that tests have indeed been written). The third and equally critical piece is support from the project&rsquo;s leadership. If the leadership of the team allows developers to slide and be (bad) lazy, testing will slip.</p>
+
+<p>Metaphorical Interlude</p>
+
+<pre><code>       Drawing from a well,
+
+
+
+
+   Deep and full and crystal clear.
+
+
+
+
+     A ratchet won't slip.
+</code></pre>
+
+<p><img src="https://lh4.googleusercontent.com/4dgJC56kg--PvW2NHWSTtKr6H0RbQHFAi4pKitQOyUhOBT0KgAyX_Yau1efUdBnI4USrPk63-KEBB9Twrd-yRK8nN_yevJLYOpOullHdpi0hmpdHQgblbjwQYw" alt="" />Programming is like drawing water from a well. When the well is shallow, and the bucket small, it&rsquo;s not too difficult a task. When the bucket is big, and the well deep, it becomes harder to draw the bucket, and every mistake can be more disastrous. Automated testing is like installing a ratchet on the rope &ndash; every time you write tested code, that bit of rope will never slip. Embracing test driven development is installing a pulley to hoist the bucket with the program. The force and exertion to write a feature halves, because you only write the actual half of the feature the customer needs.</p>
+
+<p>Excoriation of Excuses</p>
+
+<p>If you&rsquo;re a programmer and you don&rsquo;t write tests, I&rsquo;m going to assume you don&rsquo;t care enough about your code. I&rsquo;m going to assume that the code you&rsquo;re working on, you&rsquo;re fine with it being 80%. I&rsquo;m going to assume you are smarter than me, in a bad way. I am not smart enough to know whether I did or did not break the code you wrote, if I don&rsquo;t have a test suite that tells me if I broke it or not. I am probably not going to want to work on your project or component. I say this not because I think less of you, or want to belittle you, but because this is as much a wake-up call to myself. I say this to myself when I visit old code of my own, that I wrote without tests. It is disgusting and reprehensible to visit those code bases, and I have no desire to return to those projects, no matter how well intentioned they were.</p>
+
+<p>If you&rsquo;re a manager and don&rsquo;t demand your team writes tests, I&rsquo;m going to assume you&rsquo;re penny-wise and pound-foolish. If your project is doing well now, I will put money on it collapsing with a bit of churn in your team. After about a quarter of your team has moved on or been replaced, your codebase will collapse into a mess of hard to find bugs, weird edge cases, and increasingly continued pressure to deliver new features when your team is simply unable to write a line of code that doesn&rsquo;t unexpectedly change behavior elsewhere in the application. I will not volunteer for your team. Similarly, if I ever find myself leading a team in such a position, I would be incredibly reticent to hire a developer willing to work in my environment. (Unless, of course, I am being hired or hiring a <a href="https://www.google.com/about/jobs/search/#!t=jo&amp;jid=35182&amp;">Software Engineer in Test</a> specifically to fix these testing deficiencies.)</p>
+
+<p>Prototypes, Too!</p>
+
+<p><a href="http://davidsouther.com/wp-content/uploads/2013/10/post-10513-Code-Refactoring-Cat-in-Bathtu-yRZT.gif"><img src="http://davidsouther.com/wp-content/uploads/2013/10/post-10513-Code-Refactoring-Cat-in-Bathtu-yRZT.gif" alt="Evils of the Refactoring Cat" /></a>I reject the concept of one-off code. If you&rsquo;re at a hackathon, there is that point, about three hours before demo, where your project is AWESOME, and going to win best of show, but you have three hours so you might as well implement a new feature. Without tests, your demo will fail. You will accidentally, in the heat of the moment, break the old, MVP feature with that whiz-bang animation, and have no idea how to get back. At best, you will have a commit to roll back to. At worst, your hackathon time was ruined. With a prototype, you are trying to convince someone to go out of their way to do you a favor. Don&rsquo;t play the lottery &ndash; write tests.</p>
+
+<h2>Call to Action</h2>
+
+<p>At this point, it should be pretty clear I care, very deeply, about code and code quality. I want to use good software, and I want to write good software. Help me! If you write code, find a way to test! Challenge me! Don&rsquo;t let me off the hook when testing gets hard, and I won&rsquo;t let you! Together we can craft better software!</p>
+
+<h3>Some resources for getting on the testing train:</h3>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><a href="http://www.codinghorror.com/blog/2006/07/i-pity-the-fool-who-doesnt-write-unit-tests.html">I Pity the Fool</a></p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><a href="http://www.amazon.com/exec/obidos/ISBN=0131177052/portlandpatternrA/">Working Effectively with Legacy Code</a> &ndash; <a href="http://www.objectmentor.com/resources/articles/WorkingEffectivelyWithLegacyCode.pdf">Intro PDF</a></p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><a href="http://msdn.microsoft.com/en-us/magazine/gg655487.aspx">Unit Testing 101: Are you testing your javascript?</a></p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><a href="http://www.obeythetestinggoat.com/">Obey the Testing Goat</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Readable D3]]></title>
+    <link href="http://DavidSouther.github.io/blog/2013/02/25/readable-d3/"/>
+    <updated>2013-02-25T22:26:58-05:00</updated>
+    <id>http://DavidSouther.github.io/blog/2013/02/25/readable-d3</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/mbostock/d3/wiki/Gallery">d3 example code</a> is horribly convoluted, depending on dozens of unstructured variables (and often some global magic) to achieve even the simplest effects. To improve the readability of my d3 projects, I&rsquo;ve introduced a Canvas container, with the most commonly used properties conveniently encapsulated in a single object. Combined with mbostocks discussion in <a href="http://bost.ocks.org/mike/chart/">Towards Reusable Charts</a>, the canvas container can be used in nearly any project to greatly improve the structure and quality of d3 code.</p>
+
+<!-- more -->
+
+
+<p>[gist id=5035560 file=canvas.js]</p>
+
+<p>This version binds the Canvas closure function to Window. Most of the code is to ensure the appropriate fields are set on the options object. The returned object has the final details of the drawing surface, including its size, the margins, and d3 scales calibrated to the canvas' coordinates. It also includes a refernce to the root SVG element, as well as the svg:defs element containing any filters or gradients defined for the image.</p>
+
+<p>This object works exceptionally well as the config parameter for reusable charts.</p>
+
+<p>[gist id=5035560 file=starmap.gist]</p>
+
+<p>In this example, StarMap will draw a Herzsprung Russel diagram on the layer. An HR diagram is a log-linear scatterplot of stellar temperature to luminosity. This example takes a canvas to attach Gradient definitions to, and returns a function that will draw the HR diagram on a layer. The stencil function loads data from a CSV file, and uses an inner stencil funtion to draw the individual stars.</p>
+
+<p>Using the two is similarly easy.</p>
+
+<p>[gist id=5035560 file=starmap.html]</p>
+
+<p>In this example, the SVG is preloaded in the HTML with a filter already defined. The script gets a canvas with a few custom properties, attaches a background image, then creates the Starmap and uses it immediately.</p>
+
+<p>This pattern has been very helpful keeping my code clean.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Observers? In *my* Syntax?]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/12/07/observers-in-my-syntax/"/>
+    <updated>2012-12-07T10:13:24-05:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/12/07/observers-in-my-syntax</id>
+    <content type="html"><![CDATA[<p>Modern graphical programming is dependent on the <a href="http://en.wikipedia.org/wiki/Observer_pattern">observer pattern</a>. Its use in Model-View-Controller architectures vaulted the pattern into widespread use. Its continues to find applicability in event and interrupt based systems. The underlying conceptual pattern is astounding. In traditional APIs, the user is allowed to call library code arbitrarily, but there is no mechanism for a library to call user space code. While this is somewhat obviated by extensive callback usage, having formally defined and documented locations where library code calls user code is a great boon in large-scale software architectures. The observer pattern provides such a mechanism. In short, observers are great. How can they be worked even tighter into a coding environment?</p>
+
+<!-- more -->
+
+
+<p>This past year has seen an abundance of metamorphic languages targeting JavaScript. <a href="http://gkz.github.com/LiveScript/">LiveScript</a> especially has added a glut of incredibly useful syntax to CoffeeScript, borrowing heavily from Haskell. These improvements capture, in concise syntax, a myriad of concepts that normally take many lines of code. Users of the LiveScript language have access to functional currying, piping, backcalls, and dozens of other operations resulting in less typing and more straightforward programs. The results of these symbols occur in a myriad of ways- some are converted into appropriate JavaScript, while others are handled by introducing hidden functions to introduce the new features. The two mechanisms both work well and in tandem, allowing nearly any combination of additional language features.</p>
+
+<p>I would like to add a series of operations for handling observers in a language&rsquo;s syntax. The operations I propose have been implemented in a <a href="http://gkz.github.com/LiveScript/">fork</a> of LiveScript, and used to great effect in several programs compiled with the fork.</p>
+
+<p>The three symbols are</p>
+
+<ul>
+<li><p><code>:&gt;</code> Observe</p></li>
+<li><p><code>-:&gt;</code> Unobserve</p></li>
+<li><p><code>&lt;:</code> Trigger</p></li>
+</ul>
+
+
+<p>Each is a binary operation, taking on its left hand side a reference to some event, and on its right hand side either a function reference (for observe and unobserve) or a value (for trigger). Events in this syntax are simply properties on an object. Specifically, the left hand side can be a reference to any object, with the right-most property being the property and its container being the scope of the event. In practice:</p>
+
+<pre><code>&lt;code&gt;source = {}
+pass = false
+source :&gt; !(e) -&gt; pass := e
+source &lt;: true
+ok pass
+&lt;/code&gt;
+</code></pre>
+
+<p>Here, <code>source</code> itself is the event. It has a single observer, which sets the global value of <code>pass</code> to the value that <code>source</code> was triggered with. Another example:</p>
+
+<pre><code>&lt;code&gt;/* "Observers and Advisors trigger in correct deep context" */
+source = {}
+source.child = new -&gt;
+  @pass = 0
+  this
+
+add = !-&gt; @pass++
+source.child.event :&gt; add
+source.child.event &lt;: {}
+equal source.child.pass, 1
+&lt;/code&gt;
+</code></pre>
+
+<p>Here, the object <code>source</code> has a single <code>child</code> with some <code>event</code>. When <code>event</code> is triggered, the observers are called with <code>this</code> bound to <code>source.child</code>, one level up from the event property.</p>
+
+<p>Having these operators is a huge boon in writing event-driven programs. Not only does the codified syntax mean less typing, it provides a clear visual symbol for the concept of observing and triggering a variable. The actual implementation of the eventing is abstracted behind whatever event library the compiler chooses to delegate to. In my original implementation, the event listeners are attached to an array on the event itself, but another library could make the event property a function, a la jQuery, or register it in a private list of event sources, a la string-keyed pub/sub libraries.</p>
+
+<p>My branch is available at <a href="http://github.com/DavidSouther/LiveScript">github.com/DavidSouther/LiveScript</a>. I intend to rewrite the eventing library used in two places. First, it should compile to a known method signature, with options on whether to include the function definition in the compiled scope. This will allow the eventing implementation to decouple from the compiler. Second, I would like to rework the implementation to detect if the event source is a function. This will allow the syntax to handle jQuery events natively.</p>
+
+<p>I would ask <a href="https://github.com/gkz">gkz</a> and other users of LiveScript to consider this approach to an eventing syntax.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HTML5 Form Validation]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/07/09/html5-form-validation/"/>
+    <updated>2012-07-09T09:23:43-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/07/09/html5-form-validation</id>
+    <content type="html"><![CDATA[<p>Client-side form validation is a cross-cutting concern helping users get the most correct data into a form as quickly as possible. Good form validation will tell users what fields are most important in your form and exactly what is expected of their input. Form validation is not concerned with guaranteeing correct data gets sent from the user agent to the service backing the form &mdash; the service should define its own data ingestion and validation concerns. This discussion is only concerned with client-side form validation and helping users input acceptable data.</p>
+
+<!-- more -->
+
+
+<p>In this view, the form itself is an entire application, independent of any other piece of software. The form, rendered in the browser DOM, provides visual elements for a user to provide input. As the user provides input, the form will indicate whether that data is correct, perhaps by highlighting the field in green, or provide warnings that the data is invalid, perhaps by highlighting the field in red and displaying a light-weight pop-up with a polite message describing what, exactly, is wrong with the input. When the user tells the form to submit data, the form can decide if the input is appropriate, and if so pass that data on to some other service. Generally, this will be an HTTP POST, but could occur as a full page redirect or an AJAX request. In a more exotic workflow, the form could aggregate the input and generate an event to some other element, or publish a message to a web-worker.</p>
+
+<p>To achieve this view of form validation, a single library must meet a variety of concerns.</p>
+
+<ul>
+<li><strong>Semantic</strong></li>
+</ul>
+
+
+<p>Validation markup should describe the expected data as fully as possible. Semantic descriptions of data should be as consistent as possible, ensuring a consistent and quality experience across the forms on the domain.</p>
+
+<pre><code>* _HTML5 Native_
+</code></pre>
+
+<p>The HTML5 specification provides a wealth of expressive form and validation features. HTML4 forms not served as strict XHTML are able to access these attributes programmatically. Any implementation should at least look to the design decisions made by the HTML5 working group.</p>
+
+<pre><code>* _Settings in markup_
+</code></pre>
+
+<p>Any validation settings, including rules and error behavior, should be described as close to the input field as possible, preferably as an attribute directly. Localization and internationalization may require settings stored in alternative locations, in which case the l10n and i18n keys should be as close to the element as possible.</p>
+
+<pre><code>* _Error markup_
+</code></pre>
+
+<p>The markup rendering errors and notifications should have semantic descriptions, probably achieved with specific classes. Browser support for pseudo-selectors would also be an excellent hook for designers to use.</p>
+
+<pre><code>* _Form &amp; field_
+</code></pre>
+
+<p>Validation rules will apply both to input fields individually, as well as to groups of input fields and forms as a whole. The library needs a mechanism to support business logic at any level of field aggregation. For instance, a form may need to ask for multiple email addresses. A component could be built around a <code>&lt;ul&gt;</code> and adding <code>&lt;li&gt;&lt;input type="email" name="to[]" class="distinct" /&gt;</code> for every new email address the user wishes to add. Each input must contain a valid email address, and the <code>&lt;ul&gt;</code> as a whole should guarantee that each address in the <code>to[]</code> array is unique.</p>
+
+<ul>
+<li><strong>Aspect</strong></li>
+</ul>
+
+
+<p>Form validation is a cross-cutting concern. Form code should not need to take any actions beyond describing the validation rules (in as little code as possible). The validation tools should apply without further intervention to any form and form element available.</p>
+
+<pre><code>* _Applies with no intervention_
+</code></pre>
+
+<p>Including the code on a page should be the most intervention necessary by client code. If the validation library is part of the browser itself, purely semantic html/css forms will work with no developer intervention (though library extensions may still be necessary to bridge incompatible or incomplete implementations).</p>
+
+<pre><code>* _Hooks to sensible events_
+</code></pre>
+
+<p>There are places where forms' business logic will need additional or non-standard logic given its data descriptions. While the validation library should attach to forms automatically, it should also provide appropriate events and hooks for forms to extend additional behaviors. Further, some forms libraries may attempt to make disparate user agents behave consistently; in this case, the library must provide a common event interface across implementations.</p>
+
+<ul>
+<li><strong>Non-invasive</strong></li>
+</ul>
+
+
+<p>As validation logic gets applied cross-cuttingly, it is imperative the library not cause render, layout, page-reflow, and other errors.</p>
+
+<pre><code>* _Doesn't change page flow_
+</code></pre>
+
+<p>Under no circumstances can the validation library cause a page reflow under normal CSS conditions. Any elements added to the page must be given a default style removing them from page flow. Any classes added should be well-described, and chosen to minimize the chance of conflicting with other common class names.</p>
+
+<pre><code>  * _Float with arrow_
+</code></pre>
+
+<p>HTML5 browsers have independently adopted the convention of a floating div with an arrow pointing at the input element.</p>
+
+<pre><code>* _Doesn't interupt the user_
+</code></pre>
+
+<p>Validation should not occur while the user is actively providing input. In particular, if an element has focus validation should wait until absolutely certain the user is done inputting data to display validation errors. In a similar vein, if a user is rapidly jumping between fields, validation should not display errors in a way allowing users to miss the prompts.</p>
+
+<pre><code>* _Page data must remain visible_
+</code></pre>
+
+<p>Validation error messages should not cover page content, unless the validation message explicitly replaces that information.</p>
+
+<ul>
+<li><strong>Extensible</strong></li>
+</ul>
+
+
+<p>Forms will need to have business logic that does not fit in the default configuration of any particular validation library. The default error messages may not correctly describe the validation concern with the form.</p>
+
+<pre><code>* _Add, override validator functions_
+</code></pre>
+
+<p>Some validation functions may be incorrect. Forms may wish to constrain a URL to only accept <code>ftp:</code> connections. Emails may want to restrict to a certain mail domain. In any of these cases, the form will need to either add additional rules, or override the default rules.</p>
+
+<pre><code>* _Configure errors_
+</code></pre>
+
+<p>The default errors will not describe every error of some class. A form may wish to tell a user that not only is the email invalid, it must be in a certain domain.</p>
+
+<pre><code>* _Markup, messages, settings_
+</code></pre>
+
+<p>Form designers demand as much control as possible. Business analysts will want to tweak and localize error messages. Developers will need to edit some default settings at some point. These should all be trivially easy to override piecemeal, as needed.</p>
+
+<h3>Current solutions</h3>
+
+<p>There are several libraries and tools today meeting some of these concerns.</p>
+
+<p><strong>HTML5 Form Validation</strong></p>
+
+<p>HTML5 has a variety of validation features in place and implemented by the newer browsers. The specification covers what is likely to be 90% of the validation criteria in a fully standards compliant way (no more need to implement a grammar recognizing RFCs 5321 and 5322). Any additional rules can be added by a javascript library, focused on adding only the small subset of features a particular forms application needs.</p>
+
+<p><em><a href="http://www.alistapart.com/articles/forward-thinking-form-validation/">Usage</a></em></p>
+
+<p>This article from A List Apart is a fantastic discussion of ways to control validation using almost purely CSS.</p>
+
+<p><em><a href="https://github.com/ryanseddon/H5F">Shim</a></em></p>
+
+<p>A shim for HTML4 browsers adding most of the utilities now provided by HTML5 browsers. Has some flaws:</p>
+
+<ul>
+<li><p>Doesn&rsquo;t fall back on native implementation</p></li>
+<li><p>Pseudo-selectors don&rsquo;t work for CSS2.</p></li>
+</ul>
+
+
+<p><em><a href="http://stephenwalther.com/archive/2012/03/13/html5-form-validation.aspx">More discussion</a></em></p>
+
+<p>Another article, with some intriguing uses of <code>title</code> and <code>x-moz-errormessage</code> attributes.</p>
+
+<p><strong>jQuery plugin</strong></p>
+
+<p>The bassistance jQuery plugin has become the de-facto standard jQuery validation library. It provides nearly every feature and meets all the concerns mentioned here, though is not as strictly focused as a pure HTML5 solution might be.</p>
+
+<p><em><a href="http://bassistance.de/jquery-plugins/jquery-plugin-validation/">Article</a></em></p>
+
+<p>The original discussion, highlighting its usefulness at meeting the criteria for a robust validation library. Claims &ldquo;Most used validation library.&rdquo;</p>
+
+<p><em><a href="https://github.com/jzaefferer/jquery-validation">GitHub</a></em></p>
+
+<p>Github repo for the project.</p>
+
+<p><em><a href="http://docs.jquery.com/Plugins/Validation">jQuery Plugin</a></em></p>
+
+<p>jQuery.com plugin page.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mass Effect 3: The Actual Ending]]></title>
+    <link href="http://DavidSouther.github.io/blog/2012/06/27/mass-effect-3-the-actual-ending/"/>
+    <updated>2012-06-27T00:38:01-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2012/06/27/mass-effect-3-the-actual-ending</id>
+    <content type="html"><![CDATA[<p>Oh look ME3 has a real ending! You know, the kind of ending that has resolution to a storyline! Still not as good an ending as I could have written, but oh well. More tomorrow, when I&rsquo;ve played more than one of the endings and am not buzzed. PS Scotch Parties FTW!</p>
+]]></content>
+  </entry>
+  
+</feed>

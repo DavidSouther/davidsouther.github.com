@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Software Craftsmanship | My Octopress Blog]]></title>
+  <link href="http://DavidSouther.github.io/blog/categories/software-craftsmanship/atom.xml" rel="self"/>
+  <link href="http://DavidSouther.github.io/"/>
+  <updated>2013-12-29T14:06:10-05:00</updated>
+  <id>http://DavidSouther.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Software Craftsmanship Workbooks]]></title>
+    <link href="http://DavidSouther.github.io/blog/2011/08/01/software-craftsmanship-workbooks/"/>
+    <updated>2011-08-01T19:05:10-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2011/08/01/software-craftsmanship-workbooks</id>
+    <content type="html"><![CDATA[<p>Like any skill, software craftsmanship takes practice. Because there are so many programming languages available, and each has something unique to offer, I&rsquo;ve broken the programming exercises in the book out into separate workbooks. Each workbook follows the main text, providing programming tutorials that cover the main concepts in a specific language. I am writing these workbooks in three languages, C, Javascript, and Python.
+*   Software Craftsmanship C Workbook (Coming soon!)
+*   <a href="http://davidsouther.com/wp-content/uploads/2012/07/software_craftsmanship_javascript.pdf">Software Craftsmanship Javascript Workbook (Draft)</a>
+*   Software Craftsmanship Python Workbook (Coming soon!)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Software Craftsmanship]]></title>
+    <link href="http://DavidSouther.github.io/blog/2011/07/31/software-craftsmanship/"/>
+    <updated>2011-07-31T21:53:35-04:00</updated>
+    <id>http://DavidSouther.github.io/blog/2011/07/31/software-craftsmanship</id>
+    <content type="html"><![CDATA[<p>I&rsquo;m writing a book! I have a degree in computer science, but that&rsquo;s really not what I do. I am a software developer, which focuses on a rather different aspect of computers and programming than what most computer science degrees offer. In my undergraduate work, there were maybe a half-dozen group assignments in the entire 4 year program. In the &ldquo;real world&rdquo;, software is almost never developed in isolation. So, I want to write a textbook that introduces software craftsmanship to someone who has never programmed in their life. After working through this book, the reader will be able to go forth into the great realm of software development with an overview of the basic tools of both how to program, and how to collaborate with other programmers. I&rsquo;ll be posting PDFs of the book online as I work on drafts.
+*   <a href="http://davidsouther.com/wp-content/uploads/2012/07/software_craftsmanship.pdf">Software Craftsmanship</a>
+*   <a href="http://davidsouther.com/2011/08/software-craftsmanship-workbooks/">Software Craftsmanship Workbooks</a></p>
+]]></content>
+  </entry>
+  
+</feed>

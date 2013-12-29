@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Jmtt - jQuery Minimal Tree Table - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="My dad mentioned an interesting project to me the other day, posing the challenge of coming up with an interface for examining deep rubrics for &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://DavidSouther.github.io/blog/2011/06/10/jmtt-jquery-minimal-tree-table">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:DavidSouther.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Jmtt - jQuery Minimal Tree Table</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-10T18:01:54-04:00" pubdate data-updated="true">Jun 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>My dad mentioned an interesting project to me the other day, posing the challenge of coming up with an interface for examining deep rubrics for grading classes, or businesses, or anything that needs a grade. The idea is that you have a tree of different aspects that go into an overall grade. The interface needs to show this tree breakdown, while showing several controls with each item in the list. In short, the interface needs a <a href="http://designinginterfaces.com/firstedition/index.php?page=Tree-Table">Tree Table</a>.</p>
+
+<p><strong><a href="http://davidsouther.com/projects/jmtt/tree.html">See jmtt in action!</a></strong></p>
+
+<!-- more -->
+
+
+<p>There are a few treetable components out there (<a href="http://java.sun.com/products/jfc/tsc/articles/treetable1/">Swing</a>, <a href="http://doc.qt.nokia.com/4.7-snapshot/qtreewidget.html">Qt</a>, <a href="http://www.codeproject.com/KB/aspnet/ASPNET_TreeView_using_C_.aspx">ASP.NET</a>), but I wanted to do this in jQuery. Because jQuery is the bees knees, and distributing apps purely in the browser is something I&rsquo;ve been working towards. With that in mind, the design goal is that the application would be a single folder, completely self contained, and run by opening a .html file. Not being one to reinvent the wheel, I took a look at what plugins there were and found <a href="http://ludo.cubicphuse.nl/jquery-plugins/treeTable/doc/">treeTable</a> and <a href="http://www.hanpau.com/index.php?page=jqtreetable">JQTreeTable</a>. Unfortunately, both are terrible. The HTML needed is horribly, disgustingly unsemantic. treeTable uses class and id attributes of the tr tags, and JQTreeTable has you pass in a map of child to parent ids. BLECH! Having to add an id to every row, and then ask a designer to follow that? NO!</p>
+
+<p>So, I wrote my own. The guiding, number one goal was a semantic markup- the list hierarchy <em>MUST</em> be conveyed using a ul/li structure. Beyond that, the plugin should be as configurable as possible, while using as clean a plugin architecture as possible. Since this was my first trip around the jQuery ui block, I found bililite.com&rsquo;s <a href="http://bililite.com/blog/understanding-jquery-ui-widgets-a-tutorial/">jQuery UI Widget tutorial</a> an invaluable resource.</p>
+
+<p>[html]</p>
+
+<ul id="tree">
+    <li class="head">
+        <span class="aspect">Aspect</span><span class="weight">Weight</span><span class="grade">Grade</span><span class="cost"/>Cost</span><span class="value"/>G/$</span>
+    </li>
+    <li>
+        <span>Software Develoment</span><span>70%</span><span></span>
+        <ul>
+            <li>
+                <span>Design</span><span>30%</span><span></span>
+                <ul>
+                    <li>
+                        <span>Requirements</span><span>33%</span><span>85</span><span>30</span>
+                    </li>
+                    <li>
+                        <span>Mockups</span><span>33%</span><span>90</span><span>5</span>
+                    </li>
+                    <li>
+                        <span>Planning</span><span>33%</span><span>60</span><span>50</span>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span>Development</span><span>50%</span><span>80</span><span>70</span>
+            </li>
+            <li>
+                <span>QA</span><span>20%</span><span>50</span><span>100</span>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <span>Marketing</span><span>30%</span><span></span>
+        <ul>
+            <li>
+                <span>Online</span><span>45%</span><span>85</span><span>10</span>
+            </li>
+            <li>
+                <span>Print</span><span>35%</span><span>60</span><span>25</span>
+            </li>
+            <li>
+                <span>Radio</span><span>25%</span><span>75</span><span>15</span>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+
+<p>[/html]</p>
+
+<p>Pretty minimal, isn&rsquo;t it? The API is exposed through triggers, in a very functional way. Extending is easy, as show in the full demo. The code is available at <a href="http://code.google.com/p/jmtt/">http://code.google.com/p/jmtt/</a> under an lgpl license. For bonus points, the columns are resizable.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-10T18:01:54-04:00" pubdate data-updated="true">Jun 10<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/technology/'>Technology</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://DavidSouther.github.io/blog/2011/06/10/jmtt-jquery-minimal-tree-table/" data-via="" data-counturl="http://DavidSouther.github.io/blog/2011/06/10/jmtt-jquery-minimal-tree-table/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/02/14/american-empire/" title="Previous Post: American Empire">&laquo; American Empire</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/07/31/software-craftsmanship/" title="Next Post: Software Craftsmanship">Software Craftsmanship &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/10/30/testing-its-hard-just-do-it/">Testing. It's Hard. Just Do It!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/25/sitting-at-home/">Sitting at Home, Listening to Beethoven, Thinking of Maenee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/18/national-gallery-west-building/">National Gallery, West Building</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/14/7th-ave-between-the-square-and-the-park/">7th Ave Between the Square and the Park</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/25/readable-d3/">Readable D3</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

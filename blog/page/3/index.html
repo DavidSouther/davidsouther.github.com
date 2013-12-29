@@ -1,0 +1,561 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Working with git and svn is as easy as git svn init ; git svn rebase ; git svn dcommit. What is slightly less trivial is adding hooks to enforce &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://DavidSouther.github.io/blog/page/3">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:DavidSouther.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/13/git-svn-dcommit-hooks/">Git Svn Dcommit Hooks</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-13T16:47:34-04:00" pubdate data-updated="true">Apr 13<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Working with git and svn is as easy as <code>git svn init ; git svn rebase ; git svn dcommit</code>. What is slightly less trivial is adding hooks to enforce certain project behavior when working with git-svn. Specifically, I want to ensure and enforce that the build (locally, at least) is successful before I push to Subversion. In this case, I don&rsquo;t have access to the Subversion server, so adding the hooks server-side is impossible. The <a href="http://stackoverflow.com/questions/2014422/hooks-for-git-svn">recommended approach</a> is to use an intermediate bare repository, but that presents problems with running build scripts on the repository, since there is no working directory to build in. There is <a href="http://git.661346.n2.nabble.com/PATCH-v2-git-svn-hook-before-git-svn-dcommit-td6688978.html">some discussion</a> on adding svn-dcommit hooks, but that does not look like it will be landing in git any time soon. The  solution I have is to have a repository with split heads. Most of the time, the intermediate repository will have an empty working directory. When a push happens, it will check out master, verify the build, and push to svn, before returning to the empty branch. Let&rsquo;s look at this in practice.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/04/13/git-svn-dcommit-hooks/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/13/agile-development-consulting/">Agile Development Consulting</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-13T09:03:39-04:00" pubdate data-updated="true">Apr 13<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><em>This is an open letter from me to nearly any potential client. The client and I have talked for a few emails, and I have just read an email asking me to spend 4 to 8 hours in a meeting working to detail every single piece of their software project for the next 6 months, with the expectation that in 6 months we would get back together and they will have a complete, perfect piece of software. In my reply, I try to convince them of an agile approach to development.</em></p>
+
+<p>Let&rsquo;s take a moment to talk about software development projects. In your email, you describe the Big Design Up Front (BDUF) approach to building projects. Everyone gets together for a meeting or two at the beginning of the project, sits down, and writes a document that describes in excruciating detail what every person in the implementation team will be doing for the rest of the project. This is necessary for buildings, for two reasons. First, it is very expensive to get half way through a project and realize that instead of a skyscraper, the owner actually needs a factory. This is even more exacerbated in software, because the medium is so abstract. Second, it is really hard to predict the future, which is what BDUF does. How can I say, &ldquo;On the 3rd of January, 2012, David will spend exactly 2 hours building form 34-A&rdquo;? We can&rsquo;t.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/04/13/agile-development-consulting/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/09/335/">That Is All</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-09T22:12:24-04:00" pubdate data-updated="true">Apr 9<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://davidsouther.com/wp-content/uploads/2012/04/1241100353_anchorman-kicking-the-dog.gif"><img src="http://davidsouther.com/wp-content/uploads/2012/04/1241100353_anchorman-kicking-the-dog.gif" alt="" /></a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/03/28/double-mapper/">Double Mapper!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-28T16:30:07-04:00" pubdate data-updated="true">Mar 28<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;ve always loved places, and in loving places, have always loved maps. I&rsquo;ve always been curious as to the relative size of places, as well. I&rsquo;m decent at estimating some things, but lengths, not so much. To get a better understanding of the comparative sizes of places around the world, I put together these pair of Google Maps, superimposed over one-another to see exactly how these sizes work. Note that because of using two maps in a Mercator projection, the sizes technically only line up when the map centers are on the same latitude.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/03/28/double-mapper/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/03/20/mass-effect-3-how-it-could-have-ended/">Mass Effect 3: How It Could Have Ended</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-20T14:03:01-04:00" pubdate data-updated="true">Mar 20<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;ve played through Mass Effect 3 three times now, and I will play through a couple more. The ending, by which I mean the last 10 minutes, is atrocious, as documented many places. Now, most of these inconsistencies are not huge issues in and of themselves, but taken together have a very negative impact on the experience as a whole. Even then, for all those weaknesses leading up to the (anti)climactic final decision of the series, the ending material is mostly forgivable. What cannot be forgiven are the broken promises Casey Hudson and the Bioware team have been making since <a href="http://au.xbox360.ign.com/articles/105/1055366p2.html">before ME2 was released.</a> &ldquo;[T]ake all of the things you&rsquo;ve done in Mass Effect 1 and Mass Effect 2 and then just let it go. Let it diverge into wildly different conclusions.&rdquo; And yet, I have had the exact same ending in three different playthroughs, across the reputation spectrum, a range of Military Strength, with wildly different decisions in ME1 and 2. The only difference? Red, Blue, or Green explosions. Why are fans let down? Bioware and Casey Hudson lied to us. Even worse than lying to us, it would not have been difficult to make the game wildly divergent, using the same assets already in the game, and minor tweaks in mechanics. Here&rsquo;s how.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/03/20/mass-effect-3-how-it-could-have-ended/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/03/19/so-close/">So Close!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-19T14:08:03-04:00" pubdate data-updated="true">Mar 19<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="http://i.minus.com/ibwsWyQ4cuk0rf.gif" alt="So close!" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/02/24/jquery-the-best-parts/">jQuery: The Best Parts</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-24T16:46:04-05:00" pubdate data-updated="true">Feb 24<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>jQuery is the javascript library I&rsquo;ve come to know and love. It just makes web development easy. I had an opportunity to give a presentation outlining the best features of jQuery to the company I work for, and it went over quite well. The audience was a technical audience of java-turned-web developers who have predominantly seen Dojo and Ext, but are still on the whole more comfortable with the pure Java technologies. The full presentation is <a href="http://davidsouther.github.com/jQuery-Best-Parts-presentation/">available online</a>, and the <a href="https://github.com/DavidSouther/jQuery-Best-Parts-presentation">code is on github</a>. There will be a pop-up the first time you visit the page to show the speaker notes. This is the transcript I presented from, and has the full descriptions of the code examples. You will want to use chrome to view the presentation, but fallback mode works for other browsers.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/02/22/jquery-ui-accordionnext/">jQuery UI: Accordion::next()</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-22T15:24:19-05:00" pubdate data-updated="true">Feb 22<span>nd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I needed a &ldquo;next&rdquo; function to cycle between accordion panels in jQuery. The relevant <a href="http://stackoverflow.com/questions/1418202/jquery-accordion-next-and-previous-wizard-how-to-get-previous-and-next-section/">Stack Overflow question</a> is a couple years old&hellip; :(</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/02/22/jquery-ui-accordionnext/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/01/11/dont-blink/">Don&#8217;t Blink!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-11T14:35:52-05:00" pubdate data-updated="true">Jan 11<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Since <code>&lt;blink&gt;</code> and <code>text-decoration: blink;</code> don&rsquo;t work in Webkit or IE9&hellip;</p>
+
+<p>[css]
+.invisible {</p>
+
+<pre><code>visibility: hidden;    }
+</code></pre>
+
+<p>[/css]
+[javascript]
+$.fn.blink = function(){</p>
+
+<pre><code>setInterval($.proxy(function() {
+    this.each(function() {
+        $(this).toggleClass('invisible');
+    });
+}, this), 500);
+</code></pre>
+
+<p>};
+[/javascript]
+[javascript]
+$(&lsquo;a&rsquo;).blink();
+[/javascript]</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/01/11/dont-blink/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/12/24/javascript-convert-string-to-number/">Javascript Convert String to Number</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-24T14:21:14-05:00" pubdate data-updated="true">Dec 24<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Most javascript guides recommend the generally standard <code>parseInt</code> and <code>parseFloat</code> methods to convert from a string to a number. Multiplying by 1 works as well, eg <code>1 * "54"</code></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/4/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/2/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/10/30/testing-its-hard-just-do-it/">Testing. It&#8217;s Hard. Just Do It!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/25/sitting-at-home/">Sitting at Home, Listening to Beethoven, Thinking of Maenee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/18/national-gallery-west-building/">National Gallery, West Building</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/14/7th-ave-between-the-square-and-the-park/">7th Ave Between the Square and the Park</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/25/readable-d3/">Readable D3</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

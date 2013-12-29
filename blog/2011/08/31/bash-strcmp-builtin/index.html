@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Bash Strcmp Builtin - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="I needed a way to lexicographically compare strings in a bash script. Unfortunately, test only test string equality. C&rsquo;s strcmp returns 0 if &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://DavidSouther.github.io/blog/2011/08/31/bash-strcmp-builtin">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:DavidSouther.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Bash Strcmp Builtin</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-31T10:46:24-04:00" pubdate data-updated="true">Aug 31<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I needed a way to lexicographically compare strings in a bash script. Unfortunately, test only test string equality. C&rsquo;s strcmp returns 0 if two strings are equal, or the index of where the strings differ (positive if the character is greater in the first string, negative if the character at that position is greater in the second string). For my purposes, I only needed to know which one was greater, not where it was greater at. I whipped up a quick version of the program in straight C, but immediately had problems with loading times being drastically heavier than computation times. This seemed like the perfect case for a bash loadable builtin. I hadn&rsquo;t worked with bash builtins before, but <a href="http://oreilly.com/catalog/9780596526788">bash cookbook</a>&rsquo;s recipe 16.15 is a guide on loadable builtins. This is one place where preparation is the larger part of luck. With that, here&rsquo;s a quick walkthrough of the code and compile process.</p>
+
+<!-- more -->
+
+
+<p>Start by donwloading and extracting the bash <a href="http://ftp.gnu.org/gnu/bash/">source</a> (<a href="http://ftp.gnu.org/gnu/bash/bash-4.2.tar.gz">latest is 4.2</a>). Extract the tarball. We are going to be working in a small part of the bash source tree, in the examples/loadables/ folder. cd there, then run the following commands:</p>
+
+<p>[bash]
+cp template.c strcmp.c
+sed -i &rsquo;s/template/strcmp/g&#8217; strcmp.c
+[/bash]</p>
+
+<p>Before we run configure, we need to add strcmp to Makefile.in</p>
+
+<p>[patch]
+&mdash;&ndash; a/examples/loadables/Makefile.in    2009-01-04 12:32:27.000000000 -0700
++++ b/examples/loadables/Makefile.in    2011-08-31 08:39:01.707126956 -0600
+@@ -85,7 +85,7 @@</p>
+
+<p> ALLPROG = print truefalse sleep pushd finfo logname basename dirname \</p>
+
+<pre><code>  tty pathchk tee head mkdir rmdir printenv id whoami \
+</code></pre>
+
+<ul>
+<li>  uname sync push ln unlink cut realpath getconf strftime mypid</li>
+<li>  uname sync push ln unlink cut realpath getconf strftime mypid strcmp
+OTHERPROG = necho hello cat</li>
+</ul>
+
+
+<p> all:   $(SHOBJ_STATUS)
+@@ -191,6 +191,9 @@
+ mypid: mypid.o</p>
+
+<pre><code>$(SHOBJ_LD) $(SHOBJ_LDFLAGS) $(SHOBJ_XLDFLAGS) -o $@ mypid.o $(SHOBJ_LIBS)
+</code></pre>
+
+<p>+strcmp:    strcmp.o
++   $(SHOBJ_LD) $(SHOBJ_LDFLAGS) $(SHOBJ_XLDFLAGS) -o $@ strcmp.o $(SHOBJ_LIBS)
++
+ # pushd is a special case.  We use the same source that the builtin version
+ # uses, with special compilation options.
+ #
+@@ -242,3 +245,4 @@
+ realpath.o: realpath.c
+ strftime.o: strftime.c
+ mypid.o: mypid.c
++strcmp.o: strcmp.c
+[/patch]</p>
+
+<p>First, take a moment to look at the bare strcmp.c &ndash; it has a lot of good stuff in it. That said, we&rsquo;re going to get rid of most of it.</p>
+
+<p>[c]</p>
+
+<h1>include &lt;config.h></h1>
+
+<h1>include &lt;stdio.h></h1>
+
+<h1>include &lt;string.h></h1>
+
+<h1>include &ldquo;builtins.h&rdquo;</h1>
+
+<h1>include &ldquo;shell.h&rdquo;</h1>
+
+<h1>define EXIT_GREATER 1</h1>
+
+<h1>define EXIT_EQUAL 0</h1>
+
+<h1>define EXIT_LESS 2</h1>
+
+<p>strcmp_builtin (list)
+WORD_LIST *list;
+{</p>
+
+<pre><code>char **v;
+int c, rval;
+
+v = (char**)make_builtin_argv(list, &amp;c);
+
+if(c &lt; 3)
+    return (EX_USAGE);
+
+int q = strcmp(v[1], v[2]);
+</code></pre>
+
+<h1>ifdef DEBUG</h1>
+
+<pre><code>printf("q is %d\n", q);
+</code></pre>
+
+<h1>endif</h1>
+
+<pre><code>if(q &gt; 0)
+    rval = EXIT_GREATER;
+else if (q &lt; 0)
+    rval = EXIT_LESS;
+else
+    rval = EXIT_EQUAL;
+
+return (rval);
+</code></pre>
+
+<p>}</p>
+
+<p>char *strcmp_doc[] = {</p>
+
+<pre><code>"strcmp compares two strings lexicographically. It returns",
+"0 if the strings are equal, 1 if the first string is greater",
+"2 if the second string is greater.",
+(char *)NULL
+</code></pre>
+
+<p>};</p>
+
+<p>struct builtin strcmp_struct = {</p>
+
+<pre><code>"strcmp", /* builtin name */
+strcmp_builtin, /* function implementing the builtin */
+BUILTIN_ENABLED, /* initial flags for builtin */
+strcmp_doc, /* array of long documentation strings. */
+"strcmp 'string 1' 'string 2'", /* usage synopsis; becomes short_doc */
+0 /* reserved for internal use */
+</code></pre>
+
+<p>};
+[/c]</p>
+
+<p>There is one flag we might use, -DDEBUG to print debug info. Otherwise, we define our three exit statuses. Every builtin takes a WORD_LIST* as its arguments. I want a regular old argv array. Bash handily includes the make_builtin_argv for just that purpose. Now, argv[0] has the builtin name, and the rest of argv has the args. Make sure we have 3 args, run the strcmp, and set the appropriate return code. The rest is the support that bash needs to load everything.</p>
+
+<p>Assuming the Makefile.in was edited correctly, cd to the root of the bash source tree and run ./configure. Then, cd back to examples/loadables, and run the following session:</p>
+
+<p>[bash]
+$ rm strcmp{,.o} ; make strcmp
+gcc -fPIC -DHAVE_CONFIG_H -DSHELL  -g -O2 -I. -I.. -I../.. -I../../lib -I../../builtins -I../../include -I/home/southerd/devel/random/bash-4.2 -I/home/southerd/devel/random/bash-4.2/lib -I/home/southerd/devel/random/bash-4.2/builtins  -c -o strcmp.o strcmp.c
+gcc -shared -Wl,-soname,strcmp  -L./lib/termcap  -o strcmp strcmp.o
+$ enable -f ./strcmp strcmp
+$ strcmp hi ho ; echo $?
+2
+$ strcmp hi ha ; echo $?
+1
+$ strcmp hi hi ; echo $?
+0
+[/bash]</p>
+
+<p>If you didn&rsquo;t get any errors, you&rsquo;re a-ok! That&rsquo;s all there is to writing a bash builtin. Now, the shell is even more powerful!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-31T10:46:24-04:00" pubdate data-updated="true">Aug 31<span>st</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://DavidSouther.github.io/blog/2011/08/31/bash-strcmp-builtin/" data-via="" data-counturl="http://DavidSouther.github.io/blog/2011/08/31/bash-strcmp-builtin/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/08/26/php-stack-trace/" title="Previous Post: PHP Stack Trace">&laquo; PHP Stack Trace</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/08/31/troubleshooting-gcc/" title="Next Post: Troubleshooting GCC">Troubleshooting GCC &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/10/30/testing-its-hard-just-do-it/">Testing. It's Hard. Just Do It!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/25/sitting-at-home/">Sitting at Home, Listening to Beethoven, Thinking of Maenee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/18/national-gallery-west-building/">National Gallery, West Building</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/14/7th-ave-between-the-square-and-the-park/">7th Ave Between the Square and the Park</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/25/readable-d3/">Readable D3</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
