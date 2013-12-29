@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Technology | My Octopress Blog]]></title>
+  <title><![CDATA[Category: Technology | David Souther]]></title>
   <link href="http://DavidSouther.github.io/blog/categories/technology/atom.xml" rel="self"/>
   <link href="http://DavidSouther.github.io/"/>
-  <updated>2013-12-29T14:06:10-05:00</updated>
+  <updated>2013-12-29T14:20:11-05:00</updated>
   <id>http://DavidSouther.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
-    
+    <name><![CDATA[David Souther ]]></name>
+    <email><![CDATA[davidsouther@gmail.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
     <title type="html"><![CDATA[Testing. It's Hard. Just Do It!]]></title>
-    <link href="http://DavidSouther.github.io/blog/2013/10/30/testing-its-hard-just-do-it/"/>
+    <link href="http://DavidSouther.github.io/2013/10/30/testing-its-hard-just-do-it/"/>
     <updated>2013-10-30T13:31:11-04:00</updated>
-    <id>http://DavidSouther.github.io/blog/2013/10/30/testing-its-hard-just-do-it</id>
+    <id>http://DavidSouther.github.io/2013/10/30/testing-its-hard-just-do-it</id>
     <content type="html"><![CDATA[<p><a href="http://en.wikipedia.org/wiki/Linus's_Law">&ldquo;With enough eyeballs, all bugs are shallow.&rdquo;</a></p>
 
 <p>The bug might be shallow when it&rsquo;s first found, but how does it never happen again? Automated Testing. When a bug is found, prove it exists with a test. Then, that bug is guaranteed to never happen again &ndash; a little computer gremlin with eagle-eye focus will look at that bug every time your program runs, and the bug will NEVER HAPPEN AGAIN. It will never happen, because if you come close to making that bug, the gremlin will make your console bleed with the red of a failed test.</p>
@@ -107,9 +107,9 @@
   
   <entry>
     <title type="html"><![CDATA[Readable D3]]></title>
-    <link href="http://DavidSouther.github.io/blog/2013/02/25/readable-d3/"/>
+    <link href="http://DavidSouther.github.io/2013/02/25/readable-d3/"/>
     <updated>2013-02-25T22:26:58-05:00</updated>
-    <id>http://DavidSouther.github.io/blog/2013/02/25/readable-d3</id>
+    <id>http://DavidSouther.github.io/2013/02/25/readable-d3</id>
     <content type="html"><![CDATA[<p><a href="https://github.com/mbostock/d3/wiki/Gallery">d3 example code</a> is horribly convoluted, depending on dozens of unstructured variables (and often some global magic) to achieve even the simplest effects. To improve the readability of my d3 projects, I&rsquo;ve introduced a Canvas container, with the most commonly used properties conveniently encapsulated in a single object. Combined with mbostocks discussion in <a href="http://bost.ocks.org/mike/chart/">Towards Reusable Charts</a>, the canvas container can be used in nearly any project to greatly improve the structure and quality of d3 code.</p>
 
 <!-- more -->
@@ -137,9 +137,9 @@
   
   <entry>
     <title type="html"><![CDATA[Observers? In *my* Syntax?]]></title>
-    <link href="http://DavidSouther.github.io/blog/2012/12/07/observers-in-my-syntax/"/>
+    <link href="http://DavidSouther.github.io/2012/12/07/observers-in-my-syntax/"/>
     <updated>2012-12-07T10:13:24-05:00</updated>
-    <id>http://DavidSouther.github.io/blog/2012/12/07/observers-in-my-syntax</id>
+    <id>http://DavidSouther.github.io/2012/12/07/observers-in-my-syntax</id>
     <content type="html"><![CDATA[<p>Modern graphical programming is dependent on the <a href="http://en.wikipedia.org/wiki/Observer_pattern">observer pattern</a>. Its use in Model-View-Controller architectures vaulted the pattern into widespread use. Its continues to find applicability in event and interrupt based systems. The underlying conceptual pattern is astounding. In traditional APIs, the user is allowed to call library code arbitrarily, but there is no mechanism for a library to call user space code. While this is somewhat obviated by extensive callback usage, having formally defined and documented locations where library code calls user code is a great boon in large-scale software architectures. The observer pattern provides such a mechanism. In short, observers are great. How can they be worked even tighter into a coding environment?</p>
 
 <!-- more -->
@@ -195,9 +195,9 @@ equal source.child.pass, 1
   
   <entry>
     <title type="html"><![CDATA[HTML5 Form Validation]]></title>
-    <link href="http://DavidSouther.github.io/blog/2012/07/09/html5-form-validation/"/>
+    <link href="http://DavidSouther.github.io/2012/07/09/html5-form-validation/"/>
     <updated>2012-07-09T09:23:43-04:00</updated>
-    <id>http://DavidSouther.github.io/blog/2012/07/09/html5-form-validation</id>
+    <id>http://DavidSouther.github.io/2012/07/09/html5-form-validation</id>
     <content type="html"><![CDATA[<p>Client-side form validation is a cross-cutting concern helping users get the most correct data into a form as quickly as possible. Good form validation will tell users what fields are most important in your form and exactly what is expected of their input. Form validation is not concerned with guaranteeing correct data gets sent from the user agent to the service backing the form &mdash; the service should define its own data ingestion and validation concerns. This discussion is only concerned with client-side form validation and helping users input acceptable data.</p>
 
 <!-- more -->
@@ -346,9 +346,9 @@ equal source.child.pass, 1
   
   <entry>
     <title type="html"><![CDATA[Mass Effect 3: The Actual Ending]]></title>
-    <link href="http://DavidSouther.github.io/blog/2012/06/27/mass-effect-3-the-actual-ending/"/>
+    <link href="http://DavidSouther.github.io/2012/06/27/mass-effect-3-the-actual-ending/"/>
     <updated>2012-06-27T00:38:01-04:00</updated>
-    <id>http://DavidSouther.github.io/blog/2012/06/27/mass-effect-3-the-actual-ending</id>
+    <id>http://DavidSouther.github.io/2012/06/27/mass-effect-3-the-actual-ending</id>
     <content type="html"><![CDATA[<p>Oh look ME3 has a real ending! You know, the kind of ending that has resolution to a storyline! Still not as good an ending as I could have written, but oh well. More tomorrow, when I&rsquo;ve played more than one of the endings and am not buzzed. PS Scotch Parties FTW!</p>
 ]]></content>
   </entry>

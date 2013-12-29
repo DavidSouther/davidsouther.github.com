@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>HTML5 Form Validation - David Souther</title>
+  <meta name="author" content="David Souther <davidsouther@gmail.com>">
+
+  
+  <meta name="description" content="Client-side form validation is a cross-cutting concern helping users get the most correct data into a form as quickly as possible. Good form &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://DavidSouther.github.io/2012/07/09/html5-form-validation">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/feed.xml" rel="alternate" title="David Souther" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Souther</a></h1>
+  
+    <h2>Crafstmanship - Software, Hardware, Art, Language</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:DavidSouther.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">HTML5 Form Validation</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-09T09:23:43-04:00" pubdate data-updated="true">Jul 9<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Client-side form validation is a cross-cutting concern helping users get the most correct data into a form as quickly as possible. Good form validation will tell users what fields are most important in your form and exactly what is expected of their input. Form validation is not concerned with guaranteeing correct data gets sent from the user agent to the service backing the form &mdash; the service should define its own data ingestion and validation concerns. This discussion is only concerned with client-side form validation and helping users input acceptable data.</p>
+
+<!-- more -->
+
+
+<p>In this view, the form itself is an entire application, independent of any other piece of software. The form, rendered in the browser DOM, provides visual elements for a user to provide input. As the user provides input, the form will indicate whether that data is correct, perhaps by highlighting the field in green, or provide warnings that the data is invalid, perhaps by highlighting the field in red and displaying a light-weight pop-up with a polite message describing what, exactly, is wrong with the input. When the user tells the form to submit data, the form can decide if the input is appropriate, and if so pass that data on to some other service. Generally, this will be an HTTP POST, but could occur as a full page redirect or an AJAX request. In a more exotic workflow, the form could aggregate the input and generate an event to some other element, or publish a message to a web-worker.</p>
+
+<p>To achieve this view of form validation, a single library must meet a variety of concerns.</p>
+
+<ul>
+<li><strong>Semantic</strong></li>
+</ul>
+
+
+<p>Validation markup should describe the expected data as fully as possible. Semantic descriptions of data should be as consistent as possible, ensuring a consistent and quality experience across the forms on the domain.</p>
+
+<pre><code>* _HTML5 Native_
+</code></pre>
+
+<p>The HTML5 specification provides a wealth of expressive form and validation features. HTML4 forms not served as strict XHTML are able to access these attributes programmatically. Any implementation should at least look to the design decisions made by the HTML5 working group.</p>
+
+<pre><code>* _Settings in markup_
+</code></pre>
+
+<p>Any validation settings, including rules and error behavior, should be described as close to the input field as possible, preferably as an attribute directly. Localization and internationalization may require settings stored in alternative locations, in which case the l10n and i18n keys should be as close to the element as possible.</p>
+
+<pre><code>* _Error markup_
+</code></pre>
+
+<p>The markup rendering errors and notifications should have semantic descriptions, probably achieved with specific classes. Browser support for pseudo-selectors would also be an excellent hook for designers to use.</p>
+
+<pre><code>* _Form &amp; field_
+</code></pre>
+
+<p>Validation rules will apply both to input fields individually, as well as to groups of input fields and forms as a whole. The library needs a mechanism to support business logic at any level of field aggregation. For instance, a form may need to ask for multiple email addresses. A component could be built around a <code>&lt;ul&gt;</code> and adding <code>&lt;li&gt;&lt;input type="email" name="to[]" class="distinct" /&gt;</code> for every new email address the user wishes to add. Each input must contain a valid email address, and the <code>&lt;ul&gt;</code> as a whole should guarantee that each address in the <code>to[]</code> array is unique.</p>
+
+<ul>
+<li><strong>Aspect</strong></li>
+</ul>
+
+
+<p>Form validation is a cross-cutting concern. Form code should not need to take any actions beyond describing the validation rules (in as little code as possible). The validation tools should apply without further intervention to any form and form element available.</p>
+
+<pre><code>* _Applies with no intervention_
+</code></pre>
+
+<p>Including the code on a page should be the most intervention necessary by client code. If the validation library is part of the browser itself, purely semantic html/css forms will work with no developer intervention (though library extensions may still be necessary to bridge incompatible or incomplete implementations).</p>
+
+<pre><code>* _Hooks to sensible events_
+</code></pre>
+
+<p>There are places where forms&#8217; business logic will need additional or non-standard logic given its data descriptions. While the validation library should attach to forms automatically, it should also provide appropriate events and hooks for forms to extend additional behaviors. Further, some forms libraries may attempt to make disparate user agents behave consistently; in this case, the library must provide a common event interface across implementations.</p>
+
+<ul>
+<li><strong>Non-invasive</strong></li>
+</ul>
+
+
+<p>As validation logic gets applied cross-cuttingly, it is imperative the library not cause render, layout, page-reflow, and other errors.</p>
+
+<pre><code>* _Doesn't change page flow_
+</code></pre>
+
+<p>Under no circumstances can the validation library cause a page reflow under normal CSS conditions. Any elements added to the page must be given a default style removing them from page flow. Any classes added should be well-described, and chosen to minimize the chance of conflicting with other common class names.</p>
+
+<pre><code>  * _Float with arrow_
+</code></pre>
+
+<p>HTML5 browsers have independently adopted the convention of a floating div with an arrow pointing at the input element.</p>
+
+<pre><code>* _Doesn't interupt the user_
+</code></pre>
+
+<p>Validation should not occur while the user is actively providing input. In particular, if an element has focus validation should wait until absolutely certain the user is done inputting data to display validation errors. In a similar vein, if a user is rapidly jumping between fields, validation should not display errors in a way allowing users to miss the prompts.</p>
+
+<pre><code>* _Page data must remain visible_
+</code></pre>
+
+<p>Validation error messages should not cover page content, unless the validation message explicitly replaces that information.</p>
+
+<ul>
+<li><strong>Extensible</strong></li>
+</ul>
+
+
+<p>Forms will need to have business logic that does not fit in the default configuration of any particular validation library. The default error messages may not correctly describe the validation concern with the form.</p>
+
+<pre><code>* _Add, override validator functions_
+</code></pre>
+
+<p>Some validation functions may be incorrect. Forms may wish to constrain a URL to only accept <code>ftp:</code> connections. Emails may want to restrict to a certain mail domain. In any of these cases, the form will need to either add additional rules, or override the default rules.</p>
+
+<pre><code>* _Configure errors_
+</code></pre>
+
+<p>The default errors will not describe every error of some class. A form may wish to tell a user that not only is the email invalid, it must be in a certain domain.</p>
+
+<pre><code>* _Markup, messages, settings_
+</code></pre>
+
+<p>Form designers demand as much control as possible. Business analysts will want to tweak and localize error messages. Developers will need to edit some default settings at some point. These should all be trivially easy to override piecemeal, as needed.</p>
+
+<h3>Current solutions</h3>
+
+<p>There are several libraries and tools today meeting some of these concerns.</p>
+
+<p><strong>HTML5 Form Validation</strong></p>
+
+<p>HTML5 has a variety of validation features in place and implemented by the newer browsers. The specification covers what is likely to be 90% of the validation criteria in a fully standards compliant way (no more need to implement a grammar recognizing RFCs 5321 and 5322). Any additional rules can be added by a javascript library, focused on adding only the small subset of features a particular forms application needs.</p>
+
+<p><em><a href="http://www.alistapart.com/articles/forward-thinking-form-validation/">Usage</a></em></p>
+
+<p>This article from A List Apart is a fantastic discussion of ways to control validation using almost purely CSS.</p>
+
+<p><em><a href="https://github.com/ryanseddon/H5F">Shim</a></em></p>
+
+<p>A shim for HTML4 browsers adding most of the utilities now provided by HTML5 browsers. Has some flaws:</p>
+
+<ul>
+<li><p>Doesn&rsquo;t fall back on native implementation</p></li>
+<li><p>Pseudo-selectors don&rsquo;t work for CSS2.</p></li>
+</ul>
+
+
+<p><em><a href="http://stephenwalther.com/archive/2012/03/13/html5-form-validation.aspx">More discussion</a></em></p>
+
+<p>Another article, with some intriguing uses of <code>title</code> and <code>x-moz-errormessage</code> attributes.</p>
+
+<p><strong>jQuery plugin</strong></p>
+
+<p>The bassistance jQuery plugin has become the de-facto standard jQuery validation library. It provides nearly every feature and meets all the concerns mentioned here, though is not as strictly focused as a pure HTML5 solution might be.</p>
+
+<p><em><a href="http://bassistance.de/jquery-plugins/jquery-plugin-validation/">Article</a></em></p>
+
+<p>The original discussion, highlighting its usefulness at meeting the criteria for a robust validation library. Claims &ldquo;Most used validation library.&rdquo;</p>
+
+<p><em><a href="https://github.com/jzaefferer/jquery-validation">GitHub</a></em></p>
+
+<p>Github repo for the project.</p>
+
+<p><em><a href="http://docs.jquery.com/Plugins/Validation">jQuery Plugin</a></em></p>
+
+<p>jQuery.com plugin page.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-09T09:23:43-04:00" pubdate data-updated="true">Jul 9<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/technology/'>Technology</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://DavidSouther.github.io/2012/07/09/html5-form-validation/" data-via="" data-counturl="http://DavidSouther.github.io/2012/07/09/html5-form-validation/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/06/27/mass-effect-3-the-actual-ending/" title="Previous Post: Mass Effect 3: The Actual Ending">&laquo; Mass Effect 3: The Actual Ending</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/07/21/steak-potatoes/" title="Next Post: Steak & Potatoes">Steak & Potatoes &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/10/30/testing-its-hard-just-do-it/">Testing. It's Hard. Just Do It!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/04/25/sitting-at-home/">Sitting at Home, Listening to Beethoven, Thinking of Maenee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/national-gallery-west-building/">National Gallery, West Building</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/14/7th-ave-between-the-square-and-the-park/">7th Ave Between the Square and the Park</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/25/readable-d3/">Readable D3</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - David Souther <davidsouther@gmail.com> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

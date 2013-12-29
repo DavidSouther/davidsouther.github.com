@@ -1,0 +1,575 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Improved Allman Style - David Souther</title>
+  <meta name="author" content="David Souther <davidsouther@gmail.com>">
+
+  
+  <meta name="description" content="C-Based languages are those with “Brace” syntax describing blocks. Since the first C programming texts, there has been something of a holy war &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://DavidSouther.github.io/2011/08/14/improved-allman-style">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/feed.xml" rel="alternate" title="David Souther" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Souther</a></h1>
+  
+    <h2>Crafstmanship - Software, Hardware, Art, Language</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:DavidSouther.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Improved Allman Style</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-14T00:35:38-04:00" pubdate data-updated="true">Aug 14<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>C-Based languages are those with “Brace” syntax describing blocks. Since the first C programming texts, there has been something of a holy war between zealots of different standards. Being an exemplar of the programming virtue of hubris, I have my entry. Allman-style bracing is the correct, best form for indenting block level code, provided a single addition: the opening brace MUST BE FOLLOWED BY AN INLINE COMMENT. The control statement might tell what the program is doing, but by always including a one-line verbal explanation of the block, other programmers know why the control statement is important. The following is an example mildly complex algorithm from the <a href="http://davidsouther.com/projects/jmtt/tree.js">jmtt analysis demo</a>.</p>
+
+<p>[javascript]
+this.calculate = function(li)
+/<em>*
+ * Recursive function to calculate all the scores for a row in our analysis.
+ * Gets the weight, grade, and cost from the children, then calcs the weighted
+ * average for each middle node. Finally, hands off the data for a second
+ * pass determining the target values.
+ *
+ * Params:
+ *  li  HTMLLiNode tree row to calculate for.
+ *
+ * Returns:
+ *  [weight, grade, cost]   Details for the current row.
+ </em>/
+{</p>
+
+<pre><code>var grade, weight, cost, children;
+if(undefined === li)
+{   //Calcing the entire analysis.
+    children = tree.treetable("body");
+    weight = 100;
+}
+else
+{   //Just doing one branch
+    children = $(li).children("ul").children("li");
+    weight = parseFloat($(li).children("span.weight:first").html().replace("%", ""));
+}
+
+if(children.length === 0)
+{   //A leaf, floating on the winds...
+    var span, input;
+    span = $(li).children("span.grade");
+    input = span.find("input")[0];
+    grade = parseInt((input &amp;&amp; input.value) || span.html());
+
+    span = $(li).children("span.cost");
+    input = span.find("input")[0];
+    cost = parseInt((input &amp;&amp; input.value) || span.html());
+}
+else
+{   //Weighted average the children.
+    grade = 0; cost = 0;
+    children.each(function(){
+        var calc = self.calculate(this);
+        grade += (calc[0] * calc[1]);
+        cost += calc[2];
+    });
+    grade /= 100;
+
+    grade = Math.rounder(grade);
+
+    //Fill in the node.
+    ((li &amp;&amp; $(li).children("span.grade")) || grade_total).html(grade).addClass("aggregate");
+    ((li &amp;&amp; $(li).children("span.cost")) || cost_total).html(cost).addClass("aggregate");
+}
+
+if(undefined === li)
+{   //At the head, so go back to calculate cost/value
+    return _calculate_value();
+}
+else
+{   // Pass the aggregate values back up the call chain.
+    return [weight, grade, cost];
+}
+</code></pre>
+
+<p>}
+[/javascript]</p>
+
+<!-- more -->
+
+
+<p>[javascript][/javascript]
+_decorate_cells: function(li)
+/<em>*
+ * Private method to get the row in line with the rest of the table by
+ * attaching any remaining cells and setting all the cell styles.
+ *
+ * Params:
+ *  li  HTMLLiNode with s to apply classes to. </em>/ { var cells, columns; columns = this.options.columns; cells = $(li).children(this.options.cell_tag); while(cells.length &lt; columns.count) { //Add enough cells to make up for any missing cells in the body that are in the header. $(this.options.cell_tag_html).insertAfter($(li).children(this.options.cell_tag+&ldquo;:last&rdquo;)); cells = $(li).children(this.options.cell_tag); } for(i=0; i</p>
+
+<h3>More guidelines</h3>
+
+<pre><code>There are a few other guidelines I follow for consistently readable code.
+</code></pre>
+
+<h3>Variable Names</h3>
+
+<pre><code>Variables must be reasonably named to indicate their purpose and contents. Very short, non-word variables should only be used as iterators in for() loops. Projects should choose either lower-case underscore compound variables or camel case compound variables. Once a decision has been made, it must stay consistent throughout the project. In general, if using a framework, try to use whatever format the framework uses. That said, multi-word variable names should be discouraged. It is better to refactor variable visibility so that words don’t clash in a scope than try to juggle buffered_text, buffered_word, and buffered_reader.
+</code></pre>
+
+<h4>INCORRECT</h4>
+
+<p>[c]
+$j = &lsquo;foo&rsquo;; // single letter variables should only be used in for() loops
+Str; // contains uppercase letters
+bufferedText; // Could be shortened without losing semantic meaning
+groupid; // multiple words, needs underscore separator or camel casing
+$name_of_last_city_used; // too long
+[/c]</p>
+
+<h4>CORRECT</h4>
+
+<p>[c]
+for ($j = 0; $j &lt; 10; $j++)
+$str
+buffer
+group_id, groupID
+$last_city
+[/c]</p>
+
+<h3>Commenting</h3>
+
+<pre><code>In general, code should be commented prolifically. It not only helps describe the flow and intent of the code for less experienced programmers, but can prove invaluable when returning to your own code months down the line. Functions and classes must always have a DocBlock style comment. This includes private members. Sure, your users might only need the API, but your maintainers will really appreciate a comment saying the private _expand method implements a hacked LL(1) parser because the COTS LALR parser was too slow. DocBlock style comments preceding class and method declarations so they can be picked up by IDEs in all languages:
+[c]
+/**
+* Super Class
+*
+* @package Package Name
+* @subpackage Subpackage
+* @category Category
+* @author Author Name
+* @link http://example.com
+*/
+class SuperClass
+
+/**
+* Encodes string for use in XML
+*
+* @access public
+* @param string
+* @return string
+*/
+function xml_encode($str)
+[/c]
+Javascript Exception: In Javascript, the DocBlock should be placed BETWEEN the function declaration and the function’s opening brace. This makes the comment a syntactic part of the function, and when a developer passes the function to console.log, the comment will be included in the output.
+[c]
+var xml_encode = function($str)
+/**
+* Encodes string for use in XML
+*
+* @access public
+* @param string
+* @return string
+*/
+{
+[/c]
+Use single line comments within code, leaving a blank line between large comment blocks and code.
+[c]
+// break up the string by newlines
+$parts = explode("\n", $str);
+
+// A longer comment that needs to give greater detail on what is
+// occurring and why can use multiple single-line comments.  Try to
+// keep the width reasonable, around 70 characters is the easiest to
+// read.  Don't hesitate to link to permanent external resources
+// that may provide greater detail:
+//
+// http://example.com/information_about_something/in_particular/
+
+$parts = $this-&gt;foo($parts);
+[/c]
+As stated in the Indent Style section, control structures should always have a one-line comment on why they are necessary.
+</code></pre>
+
+<h3>Constants</h3>
+
+<pre><code>Constants follow the same guidelines as do variables, except constants should always be fully uppercase and use underscores for spaces.
+</code></pre>
+
+<h4>INCORRECT</h4>
+
+<p>[c]
+myConstant // missing underscore separator and not fully uppercase
+N // no single-letter constants
+S_C_VER // not descriptive
+[/c]</p>
+
+<h4>CORRECT</h4>
+
+<p>[c]
+MY_CONSTANT
+NEWLINE
+SUPER_CLASS_VERSION
+[/c]</p>
+
+<h3>TRUE, FALSE, NULL, UNDEFINED</h3>
+
+<pre><code>TRUE, FALSE, NULL, and similar keywords should always be either fully uppercase or undercase as the language allows. This is another “choose at the beginning of the project, then be consistent” rules. INCORRECT
+[c]
+if ($foo == true)
+$bar = false;
+function foo($bar = null)
+[/c]
+CORRECT
+[c]
+if (TRUE === $foo)
+$bar = FALSE;
+function foo($bar = NULL)
+Logical Operators
+[/c]
+Use of || is discouraged as its clarity on some output devices is low (looking like the number 11 for instance). AND is preferred over &amp;&amp; . A space should always precede and follow !. INCORRECT
+[c]
+if ($foo || $bar)
+if ($foo &amp;&amp; $bar)  // okay but not recommended for common syntax highlighting applications
+if (!$foo)
+if (! is_array($foo))
+[/c]
+CORRECT
+[c]
+if ($foo OR $bar)
+if ($foo AND $bar) // recommended
+if ( ! $foo)
+if ( ! is_array($foo))
+[/c]
+
+
+&lt;h3&gt;Comparing Return Values and Typecasting&lt;/h3&gt;
+
+
+Some PHP functions return FALSE on failure, but may also have a valid return value of "" or 0, which would evaluate to FALSE in loose comparisons. Be explicit by comparing the variable type when using these return values in conditionals to ensure the return value is indeed what you expect, and not a value that has an equivalent loose-type evaluation. Use the same stringency in returning and checking your own variables. Always use === and !==. INCORRECT
+[php]
+// If 'foo' is at the beginning of the string, strpos will return a 0,
+// resulting in this conditional evaluating as TRUE
+if (strpos($str, 'foo') == FALSE) ;
+
+function build_string($str = "") {
+if ($str == "") // uh-oh!  What if FALSE or the integer 0 is passed as an argument?
+{
+}
+}
+[/php]
+CORRECT
+[php]
+if (strpos($str, 'foo') === FALSE);
+
+function build_string($str = "") {
+if ("" ===  $str)
+{
+}
+}
+[/php]
+See also information regarding typecasting, which can be quite useful. Typecasting has a slightly different effect which may be desirable. When casting a variable as a string, for instance, NULL and boolean FALSE variables become empty strings, 0 (and other numbers) become strings of digits, and boolean TRUE becomes “1”.
+</code></pre>
+
+<h4>Example</h4>
+
+<p>[php]
+$str = (string) $str; // cast $str as a string
+[/php]</p>
+
+<h3>One File per Class</h3>
+
+<pre><code>Use separate files for each class, unless the classes are very closely related. An example of Design Delegates files that contains multiple classes is the Datagrid class file, which contains both the Datagrid class and the Datagrid Template classes.
+</code></pre>
+
+<h3>Whitespace</h3>
+
+<pre><code>Use tabs for leading whitespace, not spaces. This may seem like a small thing, but using tabs instead of whitespace allows the developer looking at your code to have indentation at levels that they prefer and customize in whatever application they use. And as a side benefit, it results in (slightly) more compact files, storing one tab character versus, say, four space characters. Use regular spaces inside text for ascii art. The exception is the tab preceding a closing } in CSS declarations, and a tab between a single-line { and its comment in a block of C-style code.
+</code></pre>
+
+<h3>Condition Tests</h3>
+
+<pre><code>Condition Tests should be var op test, to avoid assigning the test to the variable.  Short circuit logical operators should use AND, OR, and ! instead of &amp;&amp;, ||, and NOT. Liberal use of parenthesis to guarantee order of operations is needed (no more than one operation in an expression block). INCORRECT
+[php]
+if($var == 0);
+if(term == strpos(haytack, ‘needle’);
+[/php]
+CORRECT
+[php]
+if(0 === $var);
+if(strpos(haytack, ‘needle’) &gt; -1);
+[/php]
+
+
+&lt;h3&gt;Bracket and Parenthetic Spacing&lt;/h3&gt;
+
+
+In general, parenthesis and brackets should not use any additional spaces. The exception is that a space should always follow PHP control structures that accept arguments with parenthesis (declare, do-while, elseif, for, foreach, if, switch, while), to help distinguish them from functions and increase readability. INCORRECT
+[php]
+$arr[ $foo ] = 'foo';
+function foo ( $bar ) {
+}
+foreach( $query-&gt;result() as $row )
+[/php]
+CORRECT
+[php]
+$arr[$foo] = 'foo'; // no spaces around array keys
+
+// no spaces around parenthesis in function declarations
+function foo($bar) {
+}
+foreach ($query-&gt;result() as $row) // single space following PHP control structures, but not in interior parenthesis
+[/php]
+
+
+&lt;h3&gt;Localized Text&lt;/h3&gt;
+
+
+Any text that is output in the control panel should use the translation function __. The __ function will be defined in as many languages as possible. Check the language specific documentation as needed. INCORRECT
+[c]
+return "Invalid Selection";
+[/c]
+CORRECT
+[c]
+return __('Invalid Selection');
+[/c]
+
+
+&lt;h3&gt;Private Methods and Variables&lt;/h3&gt;
+
+
+Methods and variables that are only accessed internally by your class, such as utility and helper functions that your public methods use for code abstraction, should be prefixed with an underscore. Use language constructs as appropriate to enforce visibility constraints.
+</code></pre>
+
+<h4>Example</h4>
+
+<p>[c]
+ class Some_Class {
+ public function convert_text() {
+ }
+ private function _convert_text() {
+ }
+ }
+[/c]</p>
+
+<h3>One Statement Per Line</h3>
+
+<pre><code>Never combine statements on one line. Exception: Variable declaration and initialization, which can be one per type and initial value. In this case, variables should be listed in alphabetical order.
+</code></pre>
+
+<h4>INCORRECT</h4>
+
+<p>[php]
+$foo = &lsquo;this&rsquo;; $bar = &lsquo;that&rsquo;; $bat = str_replace($foo, $bar, $bag);
+[/php]
+[c]
+int a = 0;
+float z = 1.0f;
+int c = count = 0;
+float r = z;
+[/c]</p>
+
+<h4>CORRECT</h4>
+
+<p>[php]
+$foo = &lsquo;this&rsquo;;
+$bar = &lsquo;that&rsquo;;
+$bat = str_replace($foo, $bar, $bag);
+[/php]
+[c]
+int a = b = count = 0;
+int m = n = max = 10;
+float r = ratio = z = 1.0f;
+[/c]</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-14T00:35:38-04:00" pubdate data-updated="true">Aug 14<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/coding-standards/'>Coding Standards</a>, <a class='category' href='/blog/categories/technology/'>Technology</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://DavidSouther.github.io/2011/08/14/improved-allman-style/" data-via="" data-counturl="http://DavidSouther.github.io/2011/08/14/improved-allman-style/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/08/14/css-written-right/" title="Previous Post: CSS Written Right">&laquo; CSS Written Right</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/08/14/gedit-tips-tricks/" title="Next Post: gedit Tips & Tricks">gedit Tips & Tricks &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/10/30/testing-its-hard-just-do-it/">Testing. It's Hard. Just Do It!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/04/25/sitting-at-home/">Sitting at Home, Listening to Beethoven, Thinking of Maenee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/national-gallery-west-building/">National Gallery, West Building</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/14/7th-ave-between-the-square-and-the-park/">7th Ave Between the Square and the Park</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/25/readable-d3/">Readable D3</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - David Souther <davidsouther@gmail.com> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

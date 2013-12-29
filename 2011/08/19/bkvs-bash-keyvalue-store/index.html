@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Bkvs - Bash Key/Value Store - David Souther</title>
+  <meta name="author" content="David Souther <davidsouther@gmail.com>">
+
+  
+  <meta name="description" content="I like me my associative arrays and key/value stores. They&rsquo;re really really useful. I wanted one in bash, and tada, [bash]
+declare -A aa
+aa[ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://DavidSouther.github.io/2011/08/19/bkvs-bash-keyvalue-store">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/feed.xml" rel="alternate" title="David Souther" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Souther</a></h1>
+  
+    <h2>Crafstmanship - Software, Hardware, Art, Language</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:DavidSouther.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Bkvs - Bash Key/Value Store</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-19T04:30:49-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I like me my associative arrays and key/value stores. They&rsquo;re really really useful. I wanted one in bash, and tada,</p>
+
+<p>[bash]
+declare -A aa
+aa[hello]=world
+aa[ab]=cd
+[/bash]</p>
+
+<p>Well, I wanted something that could be used between sessions. Tada, the filesystem is a great key/value store.</p>
+
+<!-- more -->
+
+
+<p>I wrote a wrapper for the set ADT get(key), set(key, value) and delete(key) to the file system. It&rsquo;s available at <a href="http://code.google.com/p/bkvs/">http://code.google.com/p/bkvs/</a> and makes for some pretty nice loops.</p>
+
+<p>[bash]</p>
+
+<h1>get bkvs ready (<a href="http://code.google.com/p/bkvs/">http://code.google.com/p/bkvs/</a>)</h1>
+
+<p>export PATH=&ldquo;$PATH:/home/southerd/devel/southerd/bkvs&rdquo;
+export BKVS_ROOTDIR=./bkvs</p>
+
+<h1>Get and verify list of drives.</h1>
+
+<p>ls /media/project_drives/*raw | sed &rsquo;s#/media/project_drives/##&lsquo; | sed &rsquo;s/.raw//&rsquo; | bkvs set drives</p>
+
+<h1>bkvs get drives | while read drive ; do echo $drive ; done</h1>
+
+<h1>Save the raw partition table for each drive</h1>
+
+<p>bkvs get drives | while read drive ; do fdisk -l /media/project_drives/${drive}.raw | bkvs set ${drive}/table ; done
+sed -i &rsquo;s/bkvs history notes //&lsquo; bkvs/6HD*/table # Somehow the * for boot got expanded to &ldquo;bkvs history notes&rdquo;</p>
+
+<h1>Get lists of the partition offsets</h1>
+
+<p>root=/media/project_drives/
+for drive in $(bkvs get drives) ; do bkvs get $drive/table | egrep &ldquo;^$root$drive&rdquo; | sed &ldquo;s#$root##&rdquo; | awk &lsquo;{print &ldquo; &rdquo; $1 &ldquo; &rdquo; $2 &ldquo; &rdquo; $3 &ldquo; &rdquo; $6}&rsquo; | bkvs set $drive/offsets ; done</p>
+
+<h1>Build the timelog of the headers</h1>
+
+<p>{ for drive in $(bkvs get drives) ; do bkvs get $drive/offsets | awk &ldquo;{print &#34;icat -i raw -o \&rdquo; \$2 \&ldquo; $root$drive.raw 0 | bkvs set $drive/\&rdquo; \$1 \&ldquo;.head\&rdquo;}&ldquo; ; done } >| icat_heads.sh
+{ for drive in $(bkvs get drives) ; do bkvs get $drive/offsets | fgrep NTFS | awk &rdquo;{print \&ldquo;log2timeline -f mft -m \&rdquo; \$1 \&ldquo; bkvs/$drive/\&rdquo; \$1 \&ldquo;.head | bkvs set $drive/\&rdquo; \$1 \&ldquo;.log\&rdquo;}&ldquo; ; done } >| head_timelines.sh
+sh icat_heads.sh >icat_heads.log 2>icat_heads.log.error
+sh head_timelines.sh >head_timelines.log 2>head_timelines.log.error
+[/bash]</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-19T04:30:49-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/technology/'>Technology</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://DavidSouther.github.io/2011/08/19/bkvs-bash-keyvalue-store/" data-via="" data-counturl="http://DavidSouther.github.io/2011/08/19/bkvs-bash-keyvalue-store/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/08/15/unified-augmented-reality/" title="Previous Post: Unified Augmented Reality">&laquo; Unified Augmented Reality</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/08/20/fun-with-bash/" title="Next Post: Fun with Bash">Fun with Bash &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/10/30/testing-its-hard-just-do-it/">Testing. It's Hard. Just Do It!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/04/25/sitting-at-home/">Sitting at Home, Listening to Beethoven, Thinking of Maenee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/national-gallery-west-building/">National Gallery, West Building</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/14/7th-ave-between-the-square-and-the-park/">7th Ave Between the Square and the Park</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/25/readable-d3/">Readable D3</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - David Souther <davidsouther@gmail.com> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

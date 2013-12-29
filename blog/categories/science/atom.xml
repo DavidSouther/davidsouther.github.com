@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Science | My Octopress Blog]]></title>
+  <title><![CDATA[Category: Science | David Souther]]></title>
   <link href="http://DavidSouther.github.io/blog/categories/science/atom.xml" rel="self"/>
   <link href="http://DavidSouther.github.io/"/>
-  <updated>2013-12-29T14:06:10-05:00</updated>
+  <updated>2013-12-29T14:20:11-05:00</updated>
   <id>http://DavidSouther.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
-    
+    <name><![CDATA[David Souther ]]></name>
+    <email><![CDATA[davidsouther@gmail.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
     <title type="html"><![CDATA[This Rationalist's World-View]]></title>
-    <link href="http://DavidSouther.github.io/blog/2013/01/11/this-rationalists-world-view/"/>
+    <link href="http://DavidSouther.github.io/2013/01/11/this-rationalists-world-view/"/>
     <updated>2013-01-11T00:32:51-05:00</updated>
-    <id>http://DavidSouther.github.io/blog/2013/01/11/this-rationalists-world-view</id>
+    <id>http://DavidSouther.github.io/2013/01/11/this-rationalists-world-view</id>
     <content type="html"><![CDATA[<p>The myriad parameters to support human life are nearly all emergent.</p>
 
 <p>Look out in the night sky. How many stars do you see? (In the suburbs, maybe 2000). How many of those are actually galaxies? About a dozen. How many planets can you see? 5. How many stars do our telescopes see, <a href="https://www.google.com/search?q=stars%20in%20the%20milky%20way&amp;aq=f&amp;oq=stars%20in%20the%20&amp;aqs=chrome.0.59j0j57j5j61j60.2058&amp;sugexp=chrome,mod=0&amp;sourceid=chrome&amp;ie=UTF-8">in the Milky Way</a>? 300 billion. <a href="https://www.google.com/search?q=galaxies%20in%20the%20universe&amp;aq=0&amp;oq=Galaxies%20in%20the%20uni&amp;aqs=chrome.2.57j5j0l2j62l2.2777&amp;sugexp=chrome,mod=0&amp;sourceid=chrome&amp;ie=UTF-8">Galaxies</a>? 170 billion. Planets? Nearly 1000 confirmed (ok, only a dozen or so extra solar have been directly imaged) and another 2,000 awaiting data analysis, and we are literally just getting started. The latest analysis estimates 100 billion planets in the milky way (one every three stars, but more like 3 &ndash; 5 every 10 stars, given the way planetary systems form). 17 billion or so of those are <a href="http://www.slate.com/blogs/bad_astronomy/2013/01/07/alien_earths_new_study_indicates_there_are_billions_of_earth_sized_planets.html">probably Earth-like</a> (rocky, with masses between Mars and ~1.5x Earth).</p>
@@ -64,9 +64,9 @@
   
   <entry>
     <title type="html"><![CDATA[Unified Augmented Reality]]></title>
-    <link href="http://DavidSouther.github.io/blog/2011/08/15/unified-augmented-reality/"/>
+    <link href="http://DavidSouther.github.io/2011/08/15/unified-augmented-reality/"/>
     <updated>2011-08-15T01:49:18-04:00</updated>
-    <id>http://DavidSouther.github.io/blog/2011/08/15/unified-augmented-reality</id>
+    <id>http://DavidSouther.github.io/2011/08/15/unified-augmented-reality</id>
     <content type="html"><![CDATA[<p>A group I&rsquo;m active on in Facebook posted a link to a comment on the <a href="http://www.elementalled.com/leducation/blog/innovative-technology/led-lights-make-augmented-vision-a-reality/">possibilities of LED contact lenses</a>. Unfortunately, the post&rsquo;s author barely scratches the surface of what&rsquo;s possible with the potential applications. Also, the author calls this &ldquo;Freaky.&rdquo; Not cool. For a unified approach to augmented reality, I want all the research resources of my desktop integrated into a complete hands-free environment. While this could just be fancy glasses and a bluetooth headset, I&rsquo;m going to take freaky to the extreme, and only consider approaches that require surgery. Also, I&rsquo;m going to try to stay in the realm of things I can sketch on how to make a technical possibility, and try to highlight everything I know is still science fiction. So, how can I make myself better with technology?</p>
 
 <h3><!-- more --></h3>
@@ -105,9 +105,9 @@
   
   <entry>
     <title type="html"><![CDATA[Why Is Time Special?]]></title>
-    <link href="http://DavidSouther.github.io/blog/2011/08/12/why-is-time-special/"/>
+    <link href="http://DavidSouther.github.io/2011/08/12/why-is-time-special/"/>
     <updated>2011-08-12T11:17:50-04:00</updated>
-    <id>http://DavidSouther.github.io/blog/2011/08/12/why-is-time-special</id>
+    <id>http://DavidSouther.github.io/2011/08/12/why-is-time-special</id>
     <content type="html"><![CDATA[<p>In Special Relativity, the spacetime interval between two events is [latex]s<sup>2</sup> = &ndash;(c{\Delta}t)<sup>2</sup>+({\Delta}x)<sup>2</sup>+({\Delta}y)<sup>2</sup>+({\Delta}z)<sup>2</sup>[/latex] giving the Minkowski metric [latex]\eta_{\mu\nu}=\text{diag}(-1, 1, 1, 1)[/latex]. What is the justification for making time have a negative coefficient, and how closely is that related to the 2nd law of thermodynamics? Sure, by letting [latex]\eta = \text{diag}(1, 1, 1, 1)[/latex], we get a pretty boring spacetime, and the boosts in the Poincaré group become trig instead of hyperbolic functions, but what&rsquo;s the physical reasoning behind this?</p>
 
 <p>(Cross-posted at <a href="http://physics.stackexchange.com/questions/13451/why-is-time-special">http://physics.stackexchange.com/questions/13451/why-is-time-special</a>)</p>
@@ -116,9 +116,9 @@
   
   <entry>
     <title type="html"><![CDATA[Particle Indistinguishability Scale Limit]]></title>
-    <link href="http://DavidSouther.github.io/blog/2011/08/11/particle-indistinguishability-scale-limit/"/>
+    <link href="http://DavidSouther.github.io/2011/08/11/particle-indistinguishability-scale-limit/"/>
     <updated>2011-08-11T01:14:24-04:00</updated>
-    <id>http://DavidSouther.github.io/blog/2011/08/11/particle-indistinguishability-scale-limit</id>
+    <id>http://DavidSouther.github.io/2011/08/11/particle-indistinguishability-scale-limit</id>
     <content type="html"><![CDATA[<p><a href="http://en.wikipedia.org/wiki/Quantum_field_theory">QFT</a> says that all particles are indistinguishable from one-another [1]. That is, take a proton from cosmic ray from a supernova a billion light-yeas away, and compare it to a proton that just got smashed out in the LHC, and they are indistinguishable from one-another. Replace either with the other, and nothing will change. (As I understand) this applies to all particles that arise from the standard model fields- fermions and bosons. So if I have an atom, all the electrons in the atom are indistinguishable from all the other electrons in the atom. Theoretically I then take that atom and interchange it with any other &ldquo;indistinguishable&rdquo; atom. Or can I?<!-- more --></p>
 
 <p>Obviously I can&rsquo;t replace hydrogen-1 with deuterium (their masses are different), so atoms are at least distinguishable to their isotopes. What about within isotopes? The volume of an orbital in an electron cloud is larger than the Compton length of the electron by a factor of about [latex]10<sup>7</sup>[/latex], giving a tremendous volume that is vacuum, and the probability of getting the election clouds just right to have negligible effects on the quantum field seems unlikely. So, are two [latex]{}^2\text{H}[/latex] atoms indistinguishable from one another? Let&rsquo;s say that does work, and we can say isotopes are indistinguishable. Now, I pose the same question for molecules. What do I need to know about two water molecules? In QFT and GR, there are the 4 spacetime dimensions. I clearly can&rsquo;t just take a water and replace it with another water by swapping their <a href="\vec{x},%20t">latex</a>[/latex] properties, because they might be &ldquo;upside -down&rdquo; and then all the hydrogen bonds will get messed up and their dipole moments will be wacky (and let&rsquo;s not even think about ionic or superionic water). So, it seems I have at least answered my question at that scale &ndash; molecules are not indistinguishable from one another on their physical properties alone. For polar molecules in a &ldquo;normal&rdquo; form, we have at least 6 dimensions that must be swapped (assuming we can get away with calling the atoms themselves indistinguishable).</p>
