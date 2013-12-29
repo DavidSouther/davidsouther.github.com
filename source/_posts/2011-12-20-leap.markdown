@@ -1,0 +1,15 @@
+---
+author: admin
+comments: true
+date: 2011-12-20 19:57:11+00:00
+layout: post
+slug: leap
+title: Leap!
+wordpress_id: 261
+categories:
+- Humor
+---
+
+![](http://icanhascheezburger.files.wordpress.com/2011/12/gif.gif)
+
+This is what I think of [Kierkegaard's](http://en.wikipedia.org/wiki/S%C3%B8ren_Kierkegaard) [Leap of Faith](http://en.wikipedia.org/wiki/Leap_of_faith)

@@ -1,0 +1,13 @@
+---
+author: admin
+comments: true
+date: 2012-04-10 02:12:24+00:00
+layout: post
+slug: '335'
+title: That is all
+wordpress_id: 335
+categories:
+- Humor
+---
+
+[![](http://davidsouther.com/wp-content/uploads/2012/04/1241100353_anchorman-kicking-the-dog.gif)](http://davidsouther.com/wp-content/uploads/2012/04/1241100353_anchorman-kicking-the-dog.gif)

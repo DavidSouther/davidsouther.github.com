@@ -1,0 +1,196 @@
+---
+author: admin
+comments: true
+date: 2008-04-09 18:00:28+00:00
+layout: post
+slug: '435'
+title: Augmented Intelligence
+wordpress_id: 435
+categories:
+- Technology
+---
+
+### Roadmap to Home Sapiens Coniunctus
+
+
+
+
+
+_Editor's note: I used to be a terrible writer. This is a paper I wrote for a course in Artificial Intelligence at Rocky._
+
+
+
+
+
+**David Souther** _4/9/2008_
+
+
+
+
+
+In today's world, computers are tools to help humanity process information. Engineers design hardware and programs with the express purpose of helping humans communicate and think more efficiently, but not necessarily more creatively. Computers make it easier to deal with large amounts of information, but we still need people to decide rules on which analysis is possible. The field of artificial intelligence aims to destroy that by removing humans from the equation, so the machines alone can think, decide, and improve. In all science fiction, and most science fact, AI computers are either controlling overlords or degraded slaves. It seems, however, that modern pursuits and trends point towards a more harmonious, if not utopian, symbiosis between man and machine.
+
+
+
+
+
+Machines and computers have always been a means to circumvent human deficiencies. While a team of men can pass buckets to move water uphill, Archimedes felt it was much easier to have one man operate a pump, which coincidentally had several times the water moving capacity as the team of men. The cost in time and effort to develop that one machine compared to the savings in the number of men working on it times the increased amount moved &emdash; doubling the capacity of a three-man team would be a six-fold increase in productivity, and two of the three men can spend their time doing other things (like pumping more water, for an even greater increase in overall productivity). This continues today in computer hardware, especially with Moore's law and Kurzweil's Law of Accelerating returns.
+
+
+
+
+
+Another area of continual machine improvement, as mentioned earlier, is access to and distillation of information. With open formats and the Internet, humans have access to tremendous amounts of knowledge; for the past 40 years it is only feasible to absorb that knowledge with the help of computers. Social networking sites display this phenomenon especially well- with a site like Facebook, it is possible to explore incredibly detailed correlations and interactions among a someone's social group- tremendous connections about a person and the flow of information through society. In a business setting, computers provide data mining capabilities and business intelligence mechanisms which allow organizations the ability to forecast and predict trends that allow management and even low employees tremendous decision-making support and possibilities. All this information, however, must be analyzed by a human at the end of the day, when decisions are made. Computers can present information in an easy-to-use format, but people still direct and directly use that data.
+
+
+
+
+
+The trends in technology and technological evolution, therefore, should not focus on some abstract, undefined goal of "consciousness" but rather incremental improvement over today's decision support capabilities. The field should ignore (for the moment) human creativity, abstraction, and "consciousness" and focus on augmenting human capabilities as they stand. This should come about through continued focus on interconnection in all things. This emphasis on connecting humanity brings many advantages. First, it alleviates the pressure of "Why don't we have artificial intelligence yet" (because we don't actually need or want it), and second it doesn't face the problem of humans designing something that obsoletes ourselves. Instead, we augment our weakest points with computers strongest, and we augment computer's weakest points with our strongest. in this symbiotic relationship, it becomes possible to take a much more active role in human evolution and progression.
+
+
+
+
+
+In this framework, the responsibility of the Engineer is to develop the practices of using theoretical models developed by more traditional scientists. After physicists prove how quantum mechanics can be harnessed to build a computer, engineers are responsible for taking that science, and maturing it as a technology. The benefits of practical application of theory are immense, and could lead to any of dozens of "science-fiction realities"- but the actual fact will probably be weirder than anything expected or foreseen. The projections mentioned previously, in fact, face many difficulties when used inappropriately. Moore's Law only makes predictions on the physical size of transistors. It should be obvious that it is impossible to make predictions on how, exactly, those transistors will be used, only that they will be small and packed.
+
+
+
+
+
+Many fans of Moore's Law and Ray Kurzweil especially try to use these sizes as predictions of what is to come- and often fail. The Kurzweilian technology camp continues to say "we'll build a brain because we can" are operating under the belief that a brain is a Turing machine. If that hypothesis is correct, then they will probably succeed in their endeavor. If, however, the human brain is not a Turing machine, they are doomed to failure. The question, however, hasn't been answered. Theoretically, there is only so much information in a brain. That information is contained at some granularity between the molecules and the sub>>atomic particles, but eventually there is only so many possible ways to put those chemicals, or cells, or quarks together. While the Turing Brain hypothesis is probably correct in that light, the interactions of those parts and data is clearly more than capable to process at this time. Further, it is such an unknown quantity that without considerable research help from neurobiologists, and others studying the brain the engineers will never have enough information to approach this goal.
+
+
+
+
+
+In the meantime, engineers can and should focus their efforts where the best effect will emerge- intercommunication and data analysis. Computers and the human brain both process information, but in very different ways. While today there is not enough information to accurately emulate how the brain does this task, there is more than enough research into how computers can assist the brain. From planning meetings to correlating atmospheric data, computers can crunch numeric computations accurately much faster than humans. Humans, as I said before, still need to tell the computers how to do so, but the field of artificial intelligence has come to help there- rather than describing the method, there has been much productive work in describing the problem. Instead of doing exactly what humans would do, AI research has developed many techniques to optimize solutions to problems, rather than optimize algorithms.
+
+
+
+
+
+Genetic engineering and neural networks are the two most prominent techniques in machine intelligence, but their development has brought about shifts in how programmers are able to describe problems, and the much more expressive techniques, while inspired by nature, provide mechanisms to tweak, improve, fiddle, and engineer to the heart"s content. Allowing researches better ways to examine experimental data, as well as more accurate experimental techniques, lets humans focus their unique powers of abstraction and insight where it can be used best- the specific data computers have tagged as being probably the most important. With brilliant researches and programmers, the computers are usually right, but still have no concept of what that means.
+
+
+
+
+
+Stepping from academia and research to business and personal enterprise, the modern World Wide Web provides access to a wealth of knowledge on every topic. Wikipedia as an acts as a gateway to nearly all humanity' knowledge. Real-time stock, news, and business information enhances decision support to an unprecedented level of accuracy and quality. information services available to augment the human brain are available to any one, for free, at any time. The increased availability of knowledge forces a paradigm shift from learning just in case to learning just in time. It is no longer important to memorize tangent and sine of every 5 degree angle, but it is very important to know the relationship between tangent and sine in order to use the computing resources effectively.
+
+
+
+
+
+Social networking sites are changing the face of communities and how people interact. Web services like Facebook and MySpace are growing a collective of people interested in each other, and always in contact with one another. Two friends from high school 20 years ago would have a very difficult time remaining in contact through college and their professional careers; Facebook makes that trivial. These communication abilities are not limited geographically or temporally; these messages are especially low-latency and have the same benefits as traditional letters, but have faster delivery times, and generally make the world more interconnected.
+
+
+
+
+
+This trend towards increasing use and integration of technology is where humanity should focus its efforts, and many of the "science-fiction" possibilities are only fiction because of a lack of economic interest and development. Following are several possibilities for combining technology and everyday life. While all are fictitious, their possibility should be clear.
+
+
+
+
+
+### **Example: The Personal**
+
+
+
+
+
+All of these examples will revolve around a Personal. Every person has a Personal- the PDA of tomorrow. This device serves as a combination of today's cell-phone, credit card, and identification. This personal has access to a many paid services- the local gym's weight-loss program, Facebook Mobile, and many more. There are several design issues with a Personal. A basic cell phone design would work, and provide options and choices for a consumer. Each Personal works with a cell network, either publicly or privately run, that provide constant, real- time data streaming. Each Personal has a unique PIN, and works otherwise with a cell phone. Services would include GPS access, 911/Emergency support, calls, e-mail, internet, mp3 support, etc.
+
+
+
+
+
+Security concerns should jump to mind immediately. Unfortunately, as with any device, concept, or idea, it can be subverted for malicious purposes. Basic security features of a Personal would be a password to access sensitive data and functions, two-way for all communications, and lock-out features if they are reported stolen. Alternatively, the Personal could be keyed to a specific RFID chip- that is, they only function if held in the owner's hand (who of course has an RFID chip implanted into his thumb).
+
+
+
+
+
+The paid services possible with this device are limited only by the number of applications developers (which, looking at the explosion of "interactive websites" and Facebook applications are in high numbers. In fact, Facebook would be an excellent proponent of this integration of technology (as well as Paypal, Amazon, and most other online providers). Better, there is actually an applications platform that seems to be very close to what is presented here- Google Android, the first complete, open, and free mobile platform.
+
+
+
+
+
+### **Example: Weight Watchers**
+
+
+
+
+
+The first possible application on the Personal is for a hypothetical health- conscious person. This person goes to Subway for lunch, and orders a nice garden salad with oily, fatty dressing. The Personal swipes past the checkout and the transaction is logged in the person's account. The Personal mentions this to the gym's weight-program, who sends back "Good choice of salad, but a little concerned about the dressing. You should come in after work and spend 15 minutes on the treadmill."
+
+
+
+
+
+While this may sound Sci-Fi, it isn't. Weightwatchers already supports this entire activity~ minus the automatic talking to the gym. Instead, it is left to the person to text or go to WeightWatcher's website, but the connectivity is in place and used today. improvements on this system are many- some obvious, some subtle. Most obvious between here and there is simply combining these services and devices into one system and have them talk to each other.
+
+
+
+
+
+### **Example: Facebook Collective**
+
+
+
+
+
+The Facebook Collective is a group of approximately 60 million Facebook users. While today Facebook lets all these people sit and talk and learn about each other on the website, with the addition of the personal all these people would be instantly connected with one- another. Combined with basic but powerful data-mining techniques, anyone on the Facebook Collective will nearly instantly know of any changes in their social group- Tom and Suzy broke up, Jen has finally decided to spend another on her Education Major, John and Jill had a great time at the recital Adam had to miss. All this real~time and exact knowledge about people around the user results in several things- first, information and opinions travel much faster through the group.
+
+
+
+
+
+Out on the town, the Personal is a handy GPS device to coordinate with friends- Sandy and Sarah have been txting about drinks at Juervos, a large Carribean club downtown. Not only does the Personal take them to the correct subway line at the right time, it guides them straight to the booth the Personal already reserved for them. The ease of trivial things just happening with this device allow humans to be more productive at work, at play, and at any other activity.
+
+
+
+
+
+**Bibliography**
+
+
+
+
+
+[Aleksander, I. Machine Conciousness](http://cs.rocky.edu/~smithk/CSC480/pdf/Aleksander.pdf) Retrieved 4 24, 2008.
+
+
+
+
+
+[About Facebook](http://www.facebook.com/about.php) Retrieved 4 24, 2008
+
+
+
+
+
+[Kurzweil, R. The Law of Accelerating Returns](http://www.kurzweilai.net/articles/art0134.html?printable=1) Retrieved 4 24, 2008
+
+
+
+
+
+[SAMSUNG. (n.d.). Research and Development](http://www.samsung.com/us/aboutsamsung/companyprofile/researchanddevelopment/CompanyProfile_Overview.html) Retrieved 24 4, 2008
+
+
+
+
+
+[Tononi, G. An information integration theory of consciousness.](http://www.biomedcentral.com/1471-2202/5/42)
+
+
+
+
+
+[Weight Watchers. About Us. (Weight Watchers International, inc.)](http://www.weightwatchers.com/about/index.aspx) Retrieved 4 24, 2008
+
+
+

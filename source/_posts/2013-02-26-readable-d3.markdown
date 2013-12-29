@@ -1,0 +1,72 @@
+---
+author: admin
+comments: true
+date: 2013-02-26 03:26:58+00:00
+layout: post
+slug: readable-d3
+title: Readable d3
+wordpress_id: 504
+categories:
+- Technology
+---
+
+[d3 example code](https://github.com/mbostock/d3/wiki/Gallery) is horribly convoluted, depending on dozens of unstructured variables (and often some global magic) to achieve even the simplest effects. To improve the readability of my d3 projects, I've introduced a Canvas container, with the most commonly used properties conveniently encapsulated in a single object. Combined with mbostocks discussion in [Towards Reusable Charts](http://bost.ocks.org/mike/chart/), the canvas container can be used in nearly any project to greatly improve the structure and quality of d3 code.
+
+
+
+<!-- more -->
+
+
+
+[gist id=5035560 file=canvas.js]
+
+
+
+
+
+This version binds the Canvas closure function to Window. Most of the code is to ensure the appropriate fields are set on the options object. The returned object has the final details of the drawing surface, including its size, the margins, and d3 scales calibrated to the canvas' coordinates. It also includes a refernce to the root SVG element, as well as the svg:defs element containing any filters or gradients defined for the image.
+
+
+
+
+
+This object works exceptionally well as the config parameter for reusable charts.
+
+
+
+
+
+[gist id=5035560 file=starmap.gist]
+
+
+
+
+
+In this example, StarMap will draw a Herzsprung Russel diagram on the layer. An HR diagram is a log-linear scatterplot of stellar temperature to luminosity. This example takes a canvas to attach Gradient definitions to, and returns a function that will draw the HR diagram on a layer. The stencil function loads data from a CSV file, and uses an inner stencil funtion to draw the individual stars.
+
+
+
+
+
+Using the two is similarly easy.
+
+
+
+
+
+[gist id=5035560 file=starmap.html]
+
+
+
+
+
+In this example, the SVG is preloaded in the HTML with a filter already defined. The script gets a canvas with a few custom properties, attaches a background image, then creates the Starmap and uses it immediately.
+
+
+
+
+
+This pattern has been very helpful keeping my code clean.
+
+
+
