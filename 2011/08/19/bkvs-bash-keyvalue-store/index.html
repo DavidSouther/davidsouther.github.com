@@ -9,7 +9,9 @@
   <meta name="author" content="David Souther <davidsouther@gmail.com>">
 
   
-  <meta name="description" content="I like me my associative arrays and key/value stores. They&rsquo;re really really useful. I wanted one in bash, and tada, [bash]
+  <meta name="description" content="I like me my associative arrays and key/value stores. They&rsquo;re really really useful. I wanted one in bash, and tada, 1
+2
+3
 declare -A aa
 aa[ &hellip;">
   
@@ -107,49 +109,63 @@ aa[ &hellip;">
 
 <div class="entry-content"><p>I like me my associative arrays and key/value stores. They&rsquo;re really really useful. I wanted one in bash, and tada,</p>
 
-<p>[bash]
-declare -A aa
-aa[hello]=world
-aa[ab]=cd
-[/bash]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">declare</span> -A aa
+</span><span class='line'>aa<span class="o">[</span>hello<span class="o">]=</span>world
+</span><span class='line'>aa<span class="o">[</span>ab<span class="o">]=</span><span class="nb">cd</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Well, I wanted something that could be used between sessions. Tada, the filesystem is a great key/value store.</p>
 
-<!-- more -->
-
-
 <p>I wrote a wrapper for the set ADT get(key), set(key, value) and delete(key) to the file system. It&rsquo;s available at <a href="http://code.google.com/p/bkvs/">http://code.google.com/p/bkvs/</a> and makes for some pretty nice loops.</p>
 
-<p>[bash]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># get bkvs ready (http://code.google.com/p/bkvs/)</span>
+</span><span class='line'><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;$PATH:/home/southerd/devel/southerd/bkvs&quot;</span>
+</span><span class='line'><span class="nb">export </span><span class="nv">BKVS_ROOTDIR</span><span class="o">=</span>./bkvs
+</span><span class='line'>
+</span><span class='line'><span class="c"># Get and verify list of drives.</span>
+</span><span class='line'>ls /media/project_drives/*raw | sed <span class="s1">&#39;s#/media/project_drives/##&#39;</span> | sed <span class="s1">&#39;s/.raw//&#39;</span> | bkvs <span class="nb">set </span>drives
+</span><span class='line'><span class="c">#bkvs get drives | while read drive ; do echo $drive ; done</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Save the raw partition table for each drive</span>
+</span><span class='line'>bkvs get drives | <span class="k">while </span><span class="nb">read </span>drive ; <span class="k">do </span>fdisk -l /media/project_drives/<span class="k">${</span><span class="nv">drive</span><span class="k">}</span>.raw | bkvs <span class="nb">set</span> <span class="k">${</span><span class="nv">drive</span><span class="k">}</span>/table ; <span class="k">done</span>
+</span><span class='line'>sed -i <span class="s1">&#39;s/bkvs history notes //&#39;</span> bkvs/6HD*/table <span class="c"># Somehow the * for boot got expanded to &quot;bkvs history notes&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Get lists of the partition offsets</span>
+</span><span class='line'><span class="nv">root</span><span class="o">=</span>/media/project_drives/
+</span><span class='line'><span class="k">for </span>drive in <span class="k">$(</span>bkvs get drives<span class="k">)</span> ; <span class="k">do </span>bkvs get <span class="nv">$drive</span>/table | egrep <span class="s2">&quot;^$root$drive&quot;</span> | sed <span class="s2">&quot;s#$root##&quot;</span> | awk <span class="s1">&#39;{print &quot; &quot; $1 &quot; &quot; $2 &quot; &quot; $3 &quot; &quot; $6}&#39;</span> | bkvs <span class="nb">set</span> <span class="nv">$drive</span>/offsets ; <span class="k">done</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Build the timelog of the headers</span>
+</span><span class='line'><span class="o">{</span> <span class="k">for </span>drive in <span class="k">$(</span>bkvs get drives<span class="k">)</span> ; <span class="k">do </span>bkvs get <span class="nv">$drive</span>/offsets | awk <span class="s2">&quot;{print \&quot;icat -i raw -o \&quot; \$2 \&quot; $root$drive.raw 0 | bkvs set $drive/\&quot; \$1 \&quot;.head\&quot;}&quot;</span> ; <span class="k">done</span> <span class="o">}</span> &gt;| icat_heads.sh
+</span><span class='line'><span class="o">{</span> <span class="k">for </span>drive in <span class="k">$(</span>bkvs get drives<span class="k">)</span> ; <span class="k">do </span>bkvs get <span class="nv">$drive</span>/offsets | fgrep NTFS | awk <span class="s2">&quot;{print \&quot;log2timeline -f mft -m \&quot; \$1 \&quot; bkvs/$drive/\&quot; \$1 \&quot;.head | bkvs set $drive/\&quot; \$1 \&quot;.log\&quot;}&quot;</span> ; <span class="k">done</span> <span class="o">}</span> &gt;| head_timelines.sh
+</span><span class='line'>sh icat_heads.sh &gt;icat_heads.log 2&gt;icat_heads.log.error
+</span><span class='line'>sh head_timelines.sh &gt;head_timelines.log 2&gt;head_timelines.log.error
+</span></code></pre></td></tr></table></div></figure>
 
-<h1>get bkvs ready (<a href="http://code.google.com/p/bkvs/">http://code.google.com/p/bkvs/</a>)</h1>
-
-<p>export PATH=&ldquo;$PATH:/home/southerd/devel/southerd/bkvs&rdquo;
-export BKVS_ROOTDIR=./bkvs</p>
-
-<h1>Get and verify list of drives.</h1>
-
-<p>ls /media/project_drives/*raw | sed &rsquo;s#/media/project_drives/##&lsquo; | sed &rsquo;s/.raw//&rsquo; | bkvs set drives</p>
-
-<h1>bkvs get drives | while read drive ; do echo $drive ; done</h1>
-
-<h1>Save the raw partition table for each drive</h1>
-
-<p>bkvs get drives | while read drive ; do fdisk -l /media/project_drives/${drive}.raw | bkvs set ${drive}/table ; done
-sed -i &rsquo;s/bkvs history notes //&lsquo; bkvs/6HD*/table # Somehow the * for boot got expanded to &ldquo;bkvs history notes&rdquo;</p>
-
-<h1>Get lists of the partition offsets</h1>
-
-<p>root=/media/project_drives/
-for drive in $(bkvs get drives) ; do bkvs get $drive/table | egrep &ldquo;^$root$drive&rdquo; | sed &ldquo;s#$root##&rdquo; | awk &lsquo;{print &ldquo; &rdquo; $1 &ldquo; &rdquo; $2 &ldquo; &rdquo; $3 &ldquo; &rdquo; $6}&rsquo; | bkvs set $drive/offsets ; done</p>
-
-<h1>Build the timelog of the headers</h1>
-
-<p>{ for drive in $(bkvs get drives) ; do bkvs get $drive/offsets | awk &ldquo;{print &#34;icat -i raw -o \&rdquo; \$2 \&ldquo; $root$drive.raw 0 | bkvs set $drive/\&rdquo; \$1 \&ldquo;.head\&rdquo;}&ldquo; ; done } >| icat_heads.sh
-{ for drive in $(bkvs get drives) ; do bkvs get $drive/offsets | fgrep NTFS | awk &rdquo;{print \&ldquo;log2timeline -f mft -m \&rdquo; \$1 \&ldquo; bkvs/$drive/\&rdquo; \$1 \&ldquo;.head | bkvs set $drive/\&rdquo; \$1 \&ldquo;.log\&rdquo;}&ldquo; ; done } >| head_timelines.sh
-sh icat_heads.sh >icat_heads.log 2>icat_heads.log.error
-sh head_timelines.sh >head_timelines.log 2>head_timelines.log.error
-[/bash]</p>
 </div>
 
 

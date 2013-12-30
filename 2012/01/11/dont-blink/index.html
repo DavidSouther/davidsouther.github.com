@@ -9,9 +9,16 @@
   <meta name="author" content="David Souther <davidsouther@gmail.com>">
 
   
-  <meta name="description" content="Since &lt;blink&gt; and text-decoration: blink; don&rsquo;t work in Webkit or IE9&hellip; [css]
-.invisible { visibility: hidden; } [/css]
-[javascript &hellip;">
+  <meta name="description" content="Since &lt;blink&gt; and text-decoration: blink; don&rsquo;t work in Webkit or IE9&hellip; 1
+2
+.invisible { visibility: hidden; } 1
+2
+3
+4
+5
+6
+7
+$.fn. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -107,33 +114,36 @@
 
 <div class="entry-content"><p>Since <code>&lt;blink&gt;</code> and <code>text-decoration: blink;</code> don&rsquo;t work in Webkit or IE9&hellip;</p>
 
-<p>[css]
-.invisible {</p>
-
-<pre><code>visibility: hidden;    }
-</code></pre>
-
-<p>[/css]
-[javascript]
-$.fn.blink = function(){</p>
-
-<pre><code>setInterval($.proxy(function() {
-    this.each(function() {
-        $(this).toggleClass('invisible');
-    });
-}, this), 500);
-</code></pre>
-
-<p>};
-[/javascript]
-[javascript]
-$(&lsquo;a&rsquo;).blink();
-[/javascript]</p>
-
-<!-- more -->
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nc">.invisible</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">visibility</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Try it!</p>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">blink</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="nx">setInterval</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">proxy</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">toggleClass</span><span class="p">(</span><span class="s1">&#39;invisible&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">});</span>
+</span><span class='line'>    <span class="p">},</span> <span class="k">this</span><span class="p">),</span> <span class="mi">500</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">blink</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 

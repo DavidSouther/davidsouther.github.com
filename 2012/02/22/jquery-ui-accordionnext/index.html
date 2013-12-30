@@ -108,23 +108,32 @@
 <!-- more -->
 
 
-<p>[javascript]
-$.extend($.ui.accordion.prototype, {</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">accordion</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">next</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="mi">0</span><span class="p">,</span>
+</span><span class='line'>            <span class="nx">next</span> <span class="o">=</span> <span class="nx">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">nodes</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">).</span><span class="nx">children</span><span class="p">(</span><span class="s1">&#39;h3&#39;</span><span class="p">).</span><span class="nx">length</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="nx">next</span> <span class="o">&lt;=</span> <span class="nx">nodes</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s1">&#39;loopOnNext&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">next</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">activate</span><span class="p">(</span><span class="nx">next</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<pre><code>next: function(){
-    var index = this.option('active') || 0,
-        next = index + 1,
-    nodes = $(this.element).children('h3').length;
-    if(next &lt;= nodes &amp;&amp; this.option('loopOnNext') === true) {
-        next = 0;
-    }
-
-    return this.activate(next);
-}
-</code></pre>
-
-<p>});
-[/javascript]</p>
 </div>
 
 

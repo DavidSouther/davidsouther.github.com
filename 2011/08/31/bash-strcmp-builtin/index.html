@@ -105,148 +105,205 @@
 
 <div class="entry-content"><p>I needed a way to lexicographically compare strings in a bash script. Unfortunately, test only test string equality. C&rsquo;s strcmp returns 0 if two strings are equal, or the index of where the strings differ (positive if the character is greater in the first string, negative if the character at that position is greater in the second string). For my purposes, I only needed to know which one was greater, not where it was greater at. I whipped up a quick version of the program in straight C, but immediately had problems with loading times being drastically heavier than computation times. This seemed like the perfect case for a bash loadable builtin. I hadn&rsquo;t worked with bash builtins before, but <a href="http://oreilly.com/catalog/9780596526788">bash cookbook</a>&rsquo;s recipe 16.15 is a guide on loadable builtins. This is one place where preparation is the larger part of luck. With that, here&rsquo;s a quick walkthrough of the code and compile process.</p>
 
-<!-- more -->
-
-
 <p>Start by donwloading and extracting the bash <a href="http://ftp.gnu.org/gnu/bash/">source</a> (<a href="http://ftp.gnu.org/gnu/bash/bash-4.2.tar.gz">latest is 4.2</a>). Extract the tarball. We are going to be working in a small part of the bash source tree, in the examples/loadables/ folder. cd there, then run the following commands:</p>
 
-<p>[bash]
-cp template.c strcmp.c
-sed -i &rsquo;s/template/strcmp/g&#8217; strcmp.c
-[/bash]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>cp template.c strcmp.c
+</span><span class='line'>sed -i <span class="s1">&#39;s/template/strcmp/g&#39;</span> strcmp.c
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Before we run configure, we need to add strcmp to Makefile.in</p>
 
-<p>[patch]
-&mdash;&ndash; a/examples/loadables/Makefile.in    2009-01-04 12:32:27.000000000 -0700
-+++ b/examples/loadables/Makefile.in    2011-08-31 08:39:01.707126956 -0600
-@@ -85,7 +85,7 @@</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>--- a/examples/loadables/Makefile.in 2009-01-04 12:32:27.000000000 -0700
+</span><span class='line'>+++ b/examples/loadables/Makefile.in  2011-08-31 08:39:01.707126956 -0600
+</span><span class='line'>@@ -85,7 +85,7 @@
+</span><span class='line'>
+</span><span class='line'> <span class="nv">ALLPROG</span> <span class="o">=</span> print truefalse sleep <span class="nb">pushd </span>finfo logname basename dirname <span class="se">\</span>
+</span><span class='line'>    tty pathchk tee head mkdir rmdir printenv id whoami <span class="se">\</span>
+</span><span class='line'>-   uname sync push ln unlink cut realpath getconf strftime mypid
+</span><span class='line'>+   uname sync push ln unlink cut realpath getconf strftime mypid strcmp
+</span><span class='line'> <span class="nv">OTHERPROG</span> <span class="o">=</span> necho hello cat
+</span><span class='line'>
+</span><span class='line'> all: <span class="k">$(</span>SHOBJ_STATUS<span class="k">)</span>
+</span><span class='line'>@@ -191,6 +191,9 @@
+</span><span class='line'> mypid:   mypid.o
+</span><span class='line'>  <span class="k">$(</span>SHOBJ_LD<span class="k">)</span> <span class="k">$(</span>SHOBJ_LDFLAGS<span class="k">)</span> <span class="k">$(</span>SHOBJ_XLDFLAGS<span class="k">)</span> -o <span class="nv">$@</span> mypid.o <span class="k">$(</span>SHOBJ_LIBS<span class="k">)</span>
+</span><span class='line'>
+</span><span class='line'>+strcmp:  strcmp.o
+</span><span class='line'>+ <span class="k">$(</span>SHOBJ_LD<span class="k">)</span> <span class="k">$(</span>SHOBJ_LDFLAGS<span class="k">)</span> <span class="k">$(</span>SHOBJ_XLDFLAGS<span class="k">)</span> -o <span class="nv">$@</span> strcmp.o <span class="k">$(</span>SHOBJ_LIBS<span class="k">)</span>
+</span><span class='line'>+
+</span><span class='line'> <span class="c"># pushd is a special case.  We use the same source that the builtin version</span>
+</span><span class='line'> <span class="c"># uses, with special compilation options.</span>
+</span><span class='line'> <span class="c">#</span>
+</span><span class='line'>@@ -242,3 +245,4 @@
+</span><span class='line'> realpath.o: realpath.c
+</span><span class='line'> strftime.o: strftime.c
+</span><span class='line'> mypid.o: mypid.c
+</span><span class='line'>+strcmp.o: strcmp.c
+</span></code></pre></td></tr></table></div></figure>
 
-<p> ALLPROG = print truefalse sleep pushd finfo logname basename dirname \</p>
-
-<pre><code>  tty pathchk tee head mkdir rmdir printenv id whoami \
-</code></pre>
-
-<ul>
-<li>  uname sync push ln unlink cut realpath getconf strftime mypid</li>
-<li>  uname sync push ln unlink cut realpath getconf strftime mypid strcmp
-OTHERPROG = necho hello cat</li>
-</ul>
-
-
-<p> all:   $(SHOBJ_STATUS)
-@@ -191,6 +191,9 @@
- mypid: mypid.o</p>
-
-<pre><code>$(SHOBJ_LD) $(SHOBJ_LDFLAGS) $(SHOBJ_XLDFLAGS) -o $@ mypid.o $(SHOBJ_LIBS)
-</code></pre>
-
-<p>+strcmp:    strcmp.o
-+   $(SHOBJ_LD) $(SHOBJ_LDFLAGS) $(SHOBJ_XLDFLAGS) -o $@ strcmp.o $(SHOBJ_LIBS)
-+
- # pushd is a special case.  We use the same source that the builtin version
- # uses, with special compilation options.
- #
-@@ -242,3 +245,4 @@
- realpath.o: realpath.c
- strftime.o: strftime.c
- mypid.o: mypid.c
-+strcmp.o: strcmp.c
-[/patch]</p>
 
 <p>First, take a moment to look at the bare strcmp.c &ndash; it has a lot of good stuff in it. That said, we&rsquo;re going to get rid of most of it.</p>
 
-<p>[c]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;config.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;stdio.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;string.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#include &quot;builtins.h&quot;</span>
+</span><span class='line'><span class="cp">#include &quot;shell.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#define EXIT_GREATER 1</span>
+</span><span class='line'><span class="cp">#define EXIT_EQUAL 0</span>
+</span><span class='line'><span class="cp">#define EXIT_LESS 2</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">strcmp_builtin</span> <span class="p">(</span><span class="n">list</span><span class="p">)</span>
+</span><span class='line'><span class="n">WORD_LIST</span> <span class="o">*</span><span class="n">list</span><span class="p">;</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">char</span> <span class="o">**</span><span class="n">v</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">c</span><span class="p">,</span> <span class="n">rval</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">**</span><span class="p">)</span><span class="n">make_builtin_argv</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="n">c</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">return</span> <span class="p">(</span><span class="n">EX_USAGE</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">q</span> <span class="o">=</span> <span class="n">strcmp</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+</span><span class='line'><span class="cp">#ifdef DEBUG</span>
+</span><span class='line'>  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;q is %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
+</span><span class='line'><span class="cp">#endif</span>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="n">q</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">rval</span> <span class="o">=</span> <span class="n">EXIT_GREATER</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">q</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">rval</span> <span class="o">=</span> <span class="n">EXIT_LESS</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>      <span class="n">rval</span> <span class="o">=</span> <span class="n">EXIT_EQUAL</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">return</span> <span class="p">(</span><span class="n">rval</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">char</span> <span class="o">*</span><span class="n">strcmp_doc</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="s">&quot;strcmp compares two strings lexicographically. It returns&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s">&quot;0 if the strings are equal, 1 if the first string is greater&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s">&quot;2 if the second string is greater.&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="nb">NULL</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">struct</span> <span class="n">builtin</span> <span class="n">strcmp_struct</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="s">&quot;strcmp&quot;</span><span class="p">,</span> <span class="cm">/* builtin name */</span>
+</span><span class='line'>  <span class="n">strcmp_builtin</span><span class="p">,</span> <span class="cm">/* function implementing the builtin */</span>
+</span><span class='line'>  <span class="n">BUILTIN_ENABLED</span><span class="p">,</span> <span class="cm">/* initial flags for builtin */</span>
+</span><span class='line'>  <span class="n">strcmp_doc</span><span class="p">,</span> <span class="cm">/* array of long documentation strings. */</span>
+</span><span class='line'>  <span class="s">&quot;strcmp &#39;string 1&#39; &#39;string 2&#39;&quot;</span><span class="p">,</span> <span class="cm">/* usage synopsis; becomes short_doc */</span>
+</span><span class='line'>  <span class="mi">0</span> <span class="cm">/* reserved for internal use */</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h1>include &lt;config.h></h1>
-
-<h1>include &lt;stdio.h></h1>
-
-<h1>include &lt;string.h></h1>
-
-<h1>include &ldquo;builtins.h&rdquo;</h1>
-
-<h1>include &ldquo;shell.h&rdquo;</h1>
-
-<h1>define EXIT_GREATER 1</h1>
-
-<h1>define EXIT_EQUAL 0</h1>
-
-<h1>define EXIT_LESS 2</h1>
-
-<p>strcmp_builtin (list)
-WORD_LIST *list;
-{</p>
-
-<pre><code>char **v;
-int c, rval;
-
-v = (char**)make_builtin_argv(list, &amp;c);
-
-if(c &lt; 3)
-    return (EX_USAGE);
-
-int q = strcmp(v[1], v[2]);
-</code></pre>
-
-<h1>ifdef DEBUG</h1>
-
-<pre><code>printf("q is %d\n", q);
-</code></pre>
-
-<h1>endif</h1>
-
-<pre><code>if(q &gt; 0)
-    rval = EXIT_GREATER;
-else if (q &lt; 0)
-    rval = EXIT_LESS;
-else
-    rval = EXIT_EQUAL;
-
-return (rval);
-</code></pre>
-
-<p>}</p>
-
-<p>char *strcmp_doc[] = {</p>
-
-<pre><code>"strcmp compares two strings lexicographically. It returns",
-"0 if the strings are equal, 1 if the first string is greater",
-"2 if the second string is greater.",
-(char *)NULL
-</code></pre>
-
-<p>};</p>
-
-<p>struct builtin strcmp_struct = {</p>
-
-<pre><code>"strcmp", /* builtin name */
-strcmp_builtin, /* function implementing the builtin */
-BUILTIN_ENABLED, /* initial flags for builtin */
-strcmp_doc, /* array of long documentation strings. */
-"strcmp 'string 1' 'string 2'", /* usage synopsis; becomes short_doc */
-0 /* reserved for internal use */
-</code></pre>
-
-<p>};
-[/c]</p>
 
 <p>There is one flag we might use, -DDEBUG to print debug info. Otherwise, we define our three exit statuses. Every builtin takes a WORD_LIST* as its arguments. I want a regular old argv array. Bash handily includes the make_builtin_argv for just that purpose. Now, argv[0] has the builtin name, and the rest of argv has the args. Make sure we have 3 args, run the strcmp, and set the appropriate return code. The rest is the support that bash needs to load everything.</p>
 
 <p>Assuming the Makefile.in was edited correctly, cd to the root of the bash source tree and run ./configure. Then, cd back to examples/loadables, and run the following session:</p>
 
-<p>[bash]
-$ rm strcmp{,.o} ; make strcmp
-gcc -fPIC -DHAVE_CONFIG_H -DSHELL  -g -O2 -I. -I.. -I../.. -I../../lib -I../../builtins -I../../include -I/home/southerd/devel/random/bash-4.2 -I/home/southerd/devel/random/bash-4.2/lib -I/home/southerd/devel/random/bash-4.2/builtins  -c -o strcmp.o strcmp.c
-gcc -shared -Wl,-soname,strcmp  -L./lib/termcap  -o strcmp strcmp.o
-$ enable -f ./strcmp strcmp
-$ strcmp hi ho ; echo $?
-2
-$ strcmp hi ha ; echo $?
-1
-$ strcmp hi hi ; echo $?
-0
-[/bash]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rm strcmp<span class="o">{</span>,.o<span class="o">}</span> ; make strcmp
+</span><span class='line'>gcc -fPIC -DHAVE_CONFIG_H -DSHELL  -g -O2 -I. -I.. -I../.. -I../../lib -I../../builtins -I../../include -I/home/southerd/devel/random/bash-4.2 -I/home/southerd/devel/random/bash-4.2/lib -I/home/southerd/devel/random/bash-4.2/builtins  -c -o strcmp.o strcmp.c
+</span><span class='line'>gcc -shared -Wl,-soname,strcmp  -L./lib/termcap  -o strcmp strcmp.o
+</span><span class='line'><span class="nv">$ </span><span class="nb">enable</span> -f ./strcmp strcmp
+</span><span class='line'><span class="nv">$ </span>strcmp hi ho ; <span class="nb">echo</span> <span class="nv">$?</span>
+</span><span class='line'>2
+</span><span class='line'><span class="nv">$ </span>strcmp hi ha ; <span class="nb">echo</span> <span class="nv">$?</span>
+</span><span class='line'>1
+</span><span class='line'><span class="nv">$ </span>strcmp hi hi ; <span class="nb">echo</span> <span class="nv">$?</span>
+</span><span class='line'>0
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>If you didn&rsquo;t get any errors, you&rsquo;re a-ok! That&rsquo;s all there is to writing a bash builtin. Now, the shell is even more powerful!</p>
 </div>

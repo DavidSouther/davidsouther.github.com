@@ -105,12 +105,9 @@
 
 <div class="entry-content"><p>I have never seen a large CSS file that I thought was maintainable. In programming languages, we use indentation exhaustively to provide visual cues of related blocks of code. Unfortunately, CSS is often a giant wall of text, with all selectors at col 0 and all properties starting 1 tab deep. Instead, CSS blocks should be indented based on their selector’s expressiveness. In the example, we have body, a, and .content-wrapper all at the same level. Then, we indent .content-wrapper h1 one extra level, visually demarcating it as subordinate to .content-wrapper. In large CSS files, not only does this make it much easier to quickly scroll code, it discourages excessively deep selectors, encouraging designers to be more descriptive and accurate.</p>
 
-<!-- more -->
-
-
 <h3>Example</h3>
 
-<p>[css]
+<p>&#8220;css
 body {</p>
 
 <pre><code>font:bold 12px Arial, Helvetica, sans-serif;
@@ -120,7 +117,6 @@ color: #333;    }
 <p>a {</p>
 
 <pre><code>text-decoration:none;   }
-
 
 a:hover {
     color:#000; }
@@ -151,56 +147,57 @@ a:hover {
     border-bottom:dashed 1px #CCC;  }
 </code></pre>
 
-<p>[/css]
-(There should be another new line between selector rule blocks- I&rsquo;m not sure why the code view isn&rsquo;t working :()</p>
+<p>&#8220;`</p>
+
+<p>(There should be another new line between selector rule blocks- I&rsquo;m not sure why the code view isn&rsquo;t working :()</p>
 
 <h3>Rules</h3>
 
 <ul>
-<li><p>Dashes between words, NOT camel cased</p>
+<li>Dashes between words, NOT camel cased
 
 <ul>
 <li>See section in HTML about ids for why.</li>
 </ul>
 </li>
-<li><p>Reset style condensed as much as possible.</p>
+<li>Reset style condensed as much as possible.
 
 <ul>
 <li><a href="http://meyerweb.com/eric/tools/css/reset/">http://meyerweb.com/eric/tools/css/reset/</a></li>
 </ul>
 </li>
-<li><p>Eliminate redundancy</p>
+<li>Eliminate redundancy
 
 <ul>
 <li>Move inherited declarations up in the cascade</li>
 </ul>
 </li>
-<li><p>Blocks indented by specificity</p>
+<li>Blocks indented by specificity
 
 <ul>
 <li>.about-scanning has no indentation, .about-scanning h1 is one level deep</li>
 </ul>
 </li>
-<li><p>Selectors on one line with brace { at end of line</p></li>
-<li><p>Properties one per line</p></li>
-<li><p>Closing brace } one tab past last property</p></li>
-<li><p>Always use short-hand properties (font, margin, padding)</p></li>
-<li><p>Layout sizes in em or %</p>
+<li>Selectors on one line with brace { at end of line</li>
+<li>Properties one per line</li>
+<li>Closing brace } one tab past last property</li>
+<li>Always use short-hand properties (font, margin, padding)</li>
+<li>Layout sizes in em or %
 
 <ul>
 <li>Creating flexible layouts is a good thing.</li>
 </ul>
 </li>
-<li><p>px for specific images</p></li>
-<li><p>Use any <a href="http://www.w3.org/TR/CSS2/selector.html">selectors</a>necessary, but know them all.</p>
+<li>px for specific images</li>
+<li>Use any <a href="http://www.w3.org/TR/CSS2/selector.html">selectors</a>necessary, but know them all.
 
 <ul>
-<li><p><a href="http://www.w3.org/TR/CSS2/selector.html#child-selectors">> for children</a></p></li>
-<li><p><a href="http://www.w3.org/TR/CSS2/selector.html#adjacent-selectors">+ for siblings</a></p></li>
-<li><p>etc</p></li>
+<li><a href="http://www.w3.org/TR/CSS2/selector.html#child-selectors">> for children</a></li>
+<li><a href="http://www.w3.org/TR/CSS2/selector.html#adjacent-selectors">+ for siblings</a></li>
+<li>etc</li>
 </ul>
 </li>
-<li><p>Use comments /<em> &hellip; </em>/ liberally to describe the purpose of rules, or the intended effect</p></li>
+<li>Use comments /<em> &hellip; </em>/ liberally to describe the purpose of rules, or the intended effect</li>
 </ul>
 
 </div>

@@ -107,10 +107,7 @@
 
 <p>I&rsquo;ve been using it over the past week on a digital forensics case. This is a project that involves examining a dozen production hard disks for any artifacts of inappropriate or malicious use (hacking, malware, unauthorized websites, breach of data policy, etc etc). The disks I&rsquo;m analyzing are about 120GB a piece, dual-boot between Windows XP and various linux distros. After some initial analysis, we have 3 data partitions per disk, and somewhere between 300 and 400 thousand artifacts per partition. That&rsquo;s over 10 million artifacts to collect and analyse, from 12 different physical devices. This is for a court case, so rules of evidence and expert witness rules apply- notes. Lots and lots of meticulous notes. Guess what? Bash makes it easy.</p>
 
-<!-- more -->
-
-
-<p> To start off, I only actually had two physical devices to work from. Following consequences of <a href="http://en.wikipedia.org/wiki/Locard's_exchange_principle">Locard&rsquo;s principle</a>, the original devices were raw copied (<code>dd</code>ed) to a pair of aggregate drives. These aggregates then had a single file system with a handful of .raw files each. That&rsquo;s where we start from. Here are the tools I&rsquo;ve added to my belt (and <code>.bashrc</code>).</p>
+<p>To start off, I only actually had two physical devices to work from. Following consequences of <a href="http://en.wikipedia.org/wiki/Locard's_exchange_principle">Locard&rsquo;s principle</a>, the original devices were raw copied (<code>dd</code>ed) to a pair of aggregate drives. These aggregates then had a single file system with a handful of .raw files each. That&rsquo;s where we start from. Here are the tools I&rsquo;ve added to my belt (and <code>.bashrc</code>).</p>
 
 <h3>bkvs</h3>
 
@@ -124,48 +121,70 @@
 
 <p>Because of the similarity in naming conventions and the tasks I&rsquo;m doing on each individual drive, I&rsquo;ll need to run the same command on several different partitions. xargs is built exactly for this. Or so it thinks. Actually, xargs is for running a single command inside a pipeline. I need to run several different pipelines, and building those pipes in xargs would be tricky, I think. Further, xargs could have a subtly different invocation each time it gets put in a pipe, and I don&rsquo;t know exactly what the command line expanded to. xargs also can&rsquo;t easily build a pipeline of Instead, I&rsquo;ve started using intermediate shell scripts. In general, I&rsquo;ll have a loop or pipeline that has variables bound and delimited fields in the pipe, and use awk to construct the command line I&rsquo;d want to run. Then, instead of executing it immediately, I wrap the entire looped pip in braces, and redirect that output to an intermediate script.</p>
 
-<p>[bash]
-{
-for drive in $(bkvs get drives)
-do
-bkvs get $drive/offsets | fgrep NTFS | awk &ldquo;{print &#34;log2timeline -p -r -f winxp bkvs/$drive/\&rdquo; \$1 \&ldquo; | bkvs add $drive/\&rdquo; \$1 \&ldquo;.timeline\&rdquo;}&ldquo;
-done
-} >| mount_timelines.sh
-[/bash]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">{</span>
+</span><span class='line'><span class="k">for </span>drive in <span class="k">$(</span>bkvs get drives<span class="k">)</span>
+</span><span class='line'><span class="k">do</span>
+</span><span class='line'>bkvs get <span class="nv">$drive</span>/offsets | fgrep NTFS | awk <span class="s2">&quot;{print \&quot;log2timeline -p -r -f winxp bkvs/$drive/\&quot; \$1 \&quot; | bkvs add $drive/\&quot; \$1 \&quot;.timeline\&quot;}&quot;</span>
+</span><span class='line'><span class="k">done</span>
+</span><span class='line'><span class="o">}</span> &gt;| mount_timelines.sh
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>This builds a nice script that looks very regular:</p>
 
-<p>[bash]
-log2timeline -p -r -f winxp bkvs/6HD1/6HD1.raw2 | bkvs add 6HD1/6HD1.raw2.timeline
-log2timeline -p -r -f winxp bkvs/6HD2/6HD2.raw2 | bkvs add 6HD2/6HD2.raw2.timeline
-log2timeline -p -r -f winxp bkvs/6HD2/6HD2.raw5 | bkvs add 6HD2/6HD2.raw5.timeline
-log2timeline -p -r -f winxp bkvs/6HD3/6HD3.raw2 | bkvs add 6HD3/6HD3.raw2.timeline
-log2timeline -p -r -f winxp bkvs/6HD4/6HD4.raw1 | bkvs add 6HD4/6HD4.raw1.timeline
-log2timeline -p -r -f winxp bkvs/6HD5/6HD5.raw1 | bkvs add 6HD5/6HD5.raw1.timeline
-log2timeline -p -r -f winxp bkvs/6HD5/6HD5.raw2 | bkvs add 6HD5/6HD5.raw2.timeline
-log2timeline -p -r -f winxp bkvs/6HD6/6HD6.raw2 | bkvs add 6HD6/6HD6.raw2.timeline
-log2timeline -p -r -f winxp bkvs/6HD7/6HD7.raw2 | bkvs add 6HD7/6HD7.raw2.timeline
-log2timeline -p -r -f winxp bkvs/6HD8/6HD8.raw2 | bkvs add 6HD8/6HD8.raw2.timeline
-[/bash]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>log2timeline -p -r -f winxp bkvs/6HD1/6HD1.raw2 | bkvs add 6HD1/6HD1.raw2.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD2/6HD2.raw2 | bkvs add 6HD2/6HD2.raw2.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD2/6HD2.raw5 | bkvs add 6HD2/6HD2.raw5.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD3/6HD3.raw2 | bkvs add 6HD3/6HD3.raw2.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD4/6HD4.raw1 | bkvs add 6HD4/6HD4.raw1.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD5/6HD5.raw1 | bkvs add 6HD5/6HD5.raw1.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD5/6HD5.raw2 | bkvs add 6HD5/6HD5.raw2.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD6/6HD6.raw2 | bkvs add 6HD6/6HD6.raw2.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD7/6HD7.raw2 | bkvs add 6HD7/6HD7.raw2.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD8/6HD8.raw2 | bkvs add 6HD8/6HD8.raw2.timeline
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h3>Paralyze</h3>
 
 <p>What I actually mean is parallelize, but I always miss a syllable. I want to run this script now, but log2timeline takes a significant chunk of time. I&rsquo;m a guy who&rsquo;s proud of his quad-core processor, and who&rsquo;s done his share of OpenMP and parallelization, so it&rsquo;d be nice to have a way to get my load up around 3.5, instead of the measly 0.1 it usually sits at. I&rsquo;ve added this handy little function to my bashrc.</p>
 
-<p>[bash]
-alias ding=&lsquo;echo &ldquo;Done&rdquo; | mail <a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#58;&#x64;&#97;&#118;&#x69;&#x64;&#x73;&#x6f;&#x75;&#x74;&#x68;&#x65;&#x72;&#64;&#103;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#100;&#97;&#118;&#x69;&#x64;&#115;&#x6f;&#x75;&#x74;&#x68;&#x65;&#x72;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a>&rsquo;
-function paralyze() {</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">alias </span><span class="nv">ding</span><span class="o">=</span><span class="s1">&#39;echo &quot;Done&quot; | mail davidsouther@gmail.com&#39;</span>
+</span><span class='line'><span class="k">function </span>paralyze<span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>  <span class="nv">file</span><span class="o">=</span><span class="nv">$1</span>
+</span><span class='line'>  <span class="nv">tmp</span><span class="o">=</span><span class="s2">&quot;$file._tmp&quot;</span>
+</span><span class='line'>  cat <span class="s2">&quot;$file&quot;</span> | awk <span class="s1">&#39;{print &quot;{ &quot; $0 &quot;} &amp;&quot;}&#39;</span> | sed <span class="s1">&#39;n;n;s/&amp;$//&#39;</span> | sed <span class="s1">&#39;$s/&amp;$//&#39;</span> &gt;| <span class="nv">$tmp</span>
+</span><span class='line'>  nice -n 10 sh <span class="nv">$tmp</span> &gt;<span class="nv">$file</span>.log 2&gt;<span class="nv">$file</span>.log.error
+</span><span class='line'>  rm <span class="nv">$tmp</span>
+</span><span class='line'>  ding
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<pre><code>file=$1
-tmp="$file._tmp"
-cat "$file" | awk '{print "{ " $0 "} &amp;"}' | sed 'n;n;s/&amp;$//' | sed '$s/&amp;$//' &gt;| $tmp
-nice -n 10 sh $tmp &gt;$file.log 2&gt;$file.log.error
-rm $tmp
-ding
-</code></pre>
-
-<p>}
-[/bash]</p>
 
 <p>It takes a single parameter, a bash script in a similar format (one command per line). It adds an ampersand (&amp;) to the end of every line (to background it), and then removes the &amp; from every 3rd line. (Experimentation might show a better number, but I chose p-1 as an ideal of every core having 1 perfect, non-blocking process just running on its own, leaving a core for my desktop). Last it removes the last line&rsquo;s &amp;, so the last line will always block until the end. This gets put in a tmp file, since each line is supposed to be completely independent from every other line. Finally, we run the tmp file as a shell script, niced down low so it doesn&rsquo;t start thrashing, and redirect stdout and stderr to some log files. When it&rsquo;s done, it cleans up, and emails me.</p>
 
@@ -179,7 +198,7 @@ ding
 
 <p>From Andrew Niemantsverdreit: (as root)</p>
 
-<p>[bash]strings /dev/mem | more[/bash]</p>
+<p><code>strings /dev/mem | more</code></p>
 </div>
 
 
@@ -232,7 +251,7 @@ ding
         <a class="basic-alignment left" href="/2011/08/19/bkvs-bash-keyvalue-store/" title="Previous Post: bkvs - Bash Key/Value Store">&laquo; bkvs - Bash Key/Value Store</a>
       
       
-        <a class="basic-alignment right" href="/2011/08/22/facepalm/" title="Next Post: Facepalm">Facepalm &raquo;</a>
+        <a class="basic-alignment right" href="/2011/08/26/goal-oriented-behavior-2009-0/" title="Next Post: Goal Oriented Behavior - July 2009">Goal Oriented Behavior - July 2009 &raquo;</a>
       
     </p>
   </footer>

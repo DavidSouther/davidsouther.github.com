@@ -105,10 +105,12 @@
 
 <div class="entry-content"><p>I&rsquo;m playing around with jQuery UI themes. I need to get icon packs, and it&rsquo;s a long process to set the colors in themeroller, download the entire theme, extract the icons from the zip file, and put them in the site. wget to the rescue.</p>
 
-<p>[bash]
-COLOR=&ldquo;000000&rdquo;
-wget -O &ldquo;ui-icons<em>${COLOR}</em>256x240.png&rdquo; &ldquo;<a href="http://jqueryui.com/themeroller/images/?new=$">http://jqueryui.com/themeroller/images/?new=$</a>{COLOR}&amp;w=256&amp;h=240&amp;f=png&amp;fltr[]=rcd|256&amp;fltr[]=mask|icons/icons.png&rdquo;
-[/bash]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">COLOR</span><span class="o">=</span><span class="s2">&quot;000000&quot;</span>
+</span><span class='line'>wget -O <span class="s2">&quot;ui-icons_${COLOR}_256x240.png&quot;</span> <span class="s2">&quot;http://jqueryui.com/themeroller/images/?new=${COLOR}&amp;w=256&amp;h=240&amp;f=png&amp;fltr[]=rcd|256&amp;fltr[]=mask|icons/icons.png&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 

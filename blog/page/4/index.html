@@ -146,13 +146,8 @@
 
 
   <div class="entry-content"><p>Skyrim is the shit. The game is friggin amazing. Crafting alone is a worthwhile pursuit- go mine ore, smelt ore, hunt animals, tan hides, build weapons and armor, study enchantments, and enchant weapons and armor, improve enchanted weapons. Full cycle, and when you&rsquo;re done, you have exactly the gear <em>you</em> want. Alchemy? Please, I&rsquo;ll make my own potions. How do I know what ingredients do? Eat them, of course. Or, use this handy tool.</p>
-
 </div>
   
-  
-    <footer>
-      <a rel="full-article" href="/2011/11/14/skyrim-alchemy/">Read on &rarr;</a>
-    </footer>
   
 
 
@@ -187,13 +182,8 @@
 
 
   <div class="entry-content"><p>I&rsquo;ve wanted a different theme than most of what jQuery UI provides for some time. I don&rsquo;t like the overly rounded corners, the glass effects, and egregious whitespace. I have really liked the recent Light themes Google has been working on, as well as the Wordpress Admin theme. I had some time over the weekend, and migrated most of the big pieces of the Google Light theme to jQuery UI. The code is available at <a href="http://davidsouther.com/2011/11/jquery-ui-glight/">http://code.google.com/p/jquery-ui-glight/</a> with a standalone demo <a href="http://davidsouther.com/projects/glight/jquery-ui.html">http://davidsouther.com/projects/glight/jquery-ui.html</a> (though this isn&rsquo;t on a continuous integration setup, so it might lag a bit behind the code). The demo is iframed below.</p>
-
 </div>
   
-  
-    <footer>
-      <a rel="full-article" href="/2011/11/08/jquery-ui-glight/">Read on &rarr;</a>
-    </footer>
   
 
 
@@ -229,10 +219,12 @@
 
   <div class="entry-content"><p>I&rsquo;m playing around with jQuery UI themes. I need to get icon packs, and it&rsquo;s a long process to set the colors in themeroller, download the entire theme, extract the icons from the zip file, and put them in the site. wget to the rescue.</p>
 
-<p>[bash]
-COLOR=&ldquo;000000&rdquo;
-wget -O &ldquo;ui-icons<em>${COLOR}</em>256x240.png&rdquo; &ldquo;<a href="http://jqueryui.com/themeroller/images/?new=$">http://jqueryui.com/themeroller/images/?new=$</a>{COLOR}&amp;w=256&amp;h=240&amp;f=png&amp;fltr[]=rcd|256&amp;fltr[]=mask|icons/icons.png&rdquo;
-[/bash]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">COLOR</span><span class="o">=</span><span class="s2">&quot;000000&quot;</span>
+</span><span class='line'>wget -O <span class="s2">&quot;ui-icons_${COLOR}_256x240.png&quot;</span> <span class="s2">&quot;http://jqueryui.com/themeroller/images/?new=${COLOR}&amp;w=256&amp;h=240&amp;f=png&amp;fltr[]=rcd|256&amp;fltr[]=mask|icons/icons.png&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
   
   
@@ -323,13 +315,8 @@ It&rsquo;s outrageous to take advantage of the urgent needs of hurricane survivo
 
 
   <div class="entry-content"><p>As I was working on my <a href="http://davidsouther.com/2011/08/bash-strcmp-builtin/">strcmp bash builtin</a>, I ran into a few issues with GCC. They should have been obvious fixes, but it seems I needed a lesson in troubleshooting GCC. I posted a question and follow up on <a href="http://stackoverflow.com/questions/7252550/loadable-bash-builtin">Stack Overflow</a>.</p>
-
 </div>
   
-  
-    <footer>
-      <a rel="full-article" href="/2011/08/31/troubleshooting-gcc/">Read on &rarr;</a>
-    </footer>
   
 
 
@@ -365,12 +352,209 @@ It&rsquo;s outrageous to take advantage of the urgent needs of hurricane survivo
 
   <div class="entry-content"><p>I needed a way to lexicographically compare strings in a bash script. Unfortunately, test only test string equality. C&rsquo;s strcmp returns 0 if two strings are equal, or the index of where the strings differ (positive if the character is greater in the first string, negative if the character at that position is greater in the second string). For my purposes, I only needed to know which one was greater, not where it was greater at. I whipped up a quick version of the program in straight C, but immediately had problems with loading times being drastically heavier than computation times. This seemed like the perfect case for a bash loadable builtin. I hadn&rsquo;t worked with bash builtins before, but <a href="http://oreilly.com/catalog/9780596526788">bash cookbook</a>&rsquo;s recipe 16.15 is a guide on loadable builtins. This is one place where preparation is the larger part of luck. With that, here&rsquo;s a quick walkthrough of the code and compile process.</p>
 
+<p>Start by donwloading and extracting the bash <a href="http://ftp.gnu.org/gnu/bash/">source</a> (<a href="http://ftp.gnu.org/gnu/bash/bash-4.2.tar.gz">latest is 4.2</a>). Extract the tarball. We are going to be working in a small part of the bash source tree, in the examples/loadables/ folder. cd there, then run the following commands:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>cp template.c strcmp.c
+</span><span class='line'>sed -i <span class="s1">&#39;s/template/strcmp/g&#39;</span> strcmp.c
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Before we run configure, we need to add strcmp to Makefile.in</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>--- a/examples/loadables/Makefile.in 2009-01-04 12:32:27.000000000 -0700
+</span><span class='line'>+++ b/examples/loadables/Makefile.in  2011-08-31 08:39:01.707126956 -0600
+</span><span class='line'>@@ -85,7 +85,7 @@
+</span><span class='line'>
+</span><span class='line'> <span class="nv">ALLPROG</span> <span class="o">=</span> print truefalse sleep <span class="nb">pushd </span>finfo logname basename dirname <span class="se">\</span>
+</span><span class='line'>    tty pathchk tee head mkdir rmdir printenv id whoami <span class="se">\</span>
+</span><span class='line'>-   uname sync push ln unlink cut realpath getconf strftime mypid
+</span><span class='line'>+   uname sync push ln unlink cut realpath getconf strftime mypid strcmp
+</span><span class='line'> <span class="nv">OTHERPROG</span> <span class="o">=</span> necho hello cat
+</span><span class='line'>
+</span><span class='line'> all: <span class="k">$(</span>SHOBJ_STATUS<span class="k">)</span>
+</span><span class='line'>@@ -191,6 +191,9 @@
+</span><span class='line'> mypid:   mypid.o
+</span><span class='line'>  <span class="k">$(</span>SHOBJ_LD<span class="k">)</span> <span class="k">$(</span>SHOBJ_LDFLAGS<span class="k">)</span> <span class="k">$(</span>SHOBJ_XLDFLAGS<span class="k">)</span> -o <span class="nv">$@</span> mypid.o <span class="k">$(</span>SHOBJ_LIBS<span class="k">)</span>
+</span><span class='line'>
+</span><span class='line'>+strcmp:  strcmp.o
+</span><span class='line'>+ <span class="k">$(</span>SHOBJ_LD<span class="k">)</span> <span class="k">$(</span>SHOBJ_LDFLAGS<span class="k">)</span> <span class="k">$(</span>SHOBJ_XLDFLAGS<span class="k">)</span> -o <span class="nv">$@</span> strcmp.o <span class="k">$(</span>SHOBJ_LIBS<span class="k">)</span>
+</span><span class='line'>+
+</span><span class='line'> <span class="c"># pushd is a special case.  We use the same source that the builtin version</span>
+</span><span class='line'> <span class="c"># uses, with special compilation options.</span>
+</span><span class='line'> <span class="c">#</span>
+</span><span class='line'>@@ -242,3 +245,4 @@
+</span><span class='line'> realpath.o: realpath.c
+</span><span class='line'> strftime.o: strftime.c
+</span><span class='line'> mypid.o: mypid.c
+</span><span class='line'>+strcmp.o: strcmp.c
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>First, take a moment to look at the bare strcmp.c &ndash; it has a lot of good stuff in it. That said, we&rsquo;re going to get rid of most of it.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;config.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;stdio.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;string.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#include &quot;builtins.h&quot;</span>
+</span><span class='line'><span class="cp">#include &quot;shell.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#define EXIT_GREATER 1</span>
+</span><span class='line'><span class="cp">#define EXIT_EQUAL 0</span>
+</span><span class='line'><span class="cp">#define EXIT_LESS 2</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">strcmp_builtin</span> <span class="p">(</span><span class="n">list</span><span class="p">)</span>
+</span><span class='line'><span class="n">WORD_LIST</span> <span class="o">*</span><span class="n">list</span><span class="p">;</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">char</span> <span class="o">**</span><span class="n">v</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">c</span><span class="p">,</span> <span class="n">rval</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">**</span><span class="p">)</span><span class="n">make_builtin_argv</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="n">c</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">return</span> <span class="p">(</span><span class="n">EX_USAGE</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">q</span> <span class="o">=</span> <span class="n">strcmp</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+</span><span class='line'><span class="cp">#ifdef DEBUG</span>
+</span><span class='line'>  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;q is %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
+</span><span class='line'><span class="cp">#endif</span>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="n">q</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">rval</span> <span class="o">=</span> <span class="n">EXIT_GREATER</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">q</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">rval</span> <span class="o">=</span> <span class="n">EXIT_LESS</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>      <span class="n">rval</span> <span class="o">=</span> <span class="n">EXIT_EQUAL</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">return</span> <span class="p">(</span><span class="n">rval</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">char</span> <span class="o">*</span><span class="n">strcmp_doc</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="s">&quot;strcmp compares two strings lexicographically. It returns&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s">&quot;0 if the strings are equal, 1 if the first string is greater&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s">&quot;2 if the second string is greater.&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="nb">NULL</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">struct</span> <span class="n">builtin</span> <span class="n">strcmp_struct</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="s">&quot;strcmp&quot;</span><span class="p">,</span> <span class="cm">/* builtin name */</span>
+</span><span class='line'>  <span class="n">strcmp_builtin</span><span class="p">,</span> <span class="cm">/* function implementing the builtin */</span>
+</span><span class='line'>  <span class="n">BUILTIN_ENABLED</span><span class="p">,</span> <span class="cm">/* initial flags for builtin */</span>
+</span><span class='line'>  <span class="n">strcmp_doc</span><span class="p">,</span> <span class="cm">/* array of long documentation strings. */</span>
+</span><span class='line'>  <span class="s">&quot;strcmp &#39;string 1&#39; &#39;string 2&#39;&quot;</span><span class="p">,</span> <span class="cm">/* usage synopsis; becomes short_doc */</span>
+</span><span class='line'>  <span class="mi">0</span> <span class="cm">/* reserved for internal use */</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There is one flag we might use, -DDEBUG to print debug info. Otherwise, we define our three exit statuses. Every builtin takes a WORD_LIST* as its arguments. I want a regular old argv array. Bash handily includes the make_builtin_argv for just that purpose. Now, argv[0] has the builtin name, and the rest of argv has the args. Make sure we have 3 args, run the strcmp, and set the appropriate return code. The rest is the support that bash needs to load everything.</p>
+
+<p>Assuming the Makefile.in was edited correctly, cd to the root of the bash source tree and run ./configure. Then, cd back to examples/loadables, and run the following session:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rm strcmp<span class="o">{</span>,.o<span class="o">}</span> ; make strcmp
+</span><span class='line'>gcc -fPIC -DHAVE_CONFIG_H -DSHELL  -g -O2 -I. -I.. -I../.. -I../../lib -I../../builtins -I../../include -I/home/southerd/devel/random/bash-4.2 -I/home/southerd/devel/random/bash-4.2/lib -I/home/southerd/devel/random/bash-4.2/builtins  -c -o strcmp.o strcmp.c
+</span><span class='line'>gcc -shared -Wl,-soname,strcmp  -L./lib/termcap  -o strcmp strcmp.o
+</span><span class='line'><span class="nv">$ </span><span class="nb">enable</span> -f ./strcmp strcmp
+</span><span class='line'><span class="nv">$ </span>strcmp hi ho ; <span class="nb">echo</span> <span class="nv">$?</span>
+</span><span class='line'>2
+</span><span class='line'><span class="nv">$ </span>strcmp hi ha ; <span class="nb">echo</span> <span class="nv">$?</span>
+</span><span class='line'>1
+</span><span class='line'><span class="nv">$ </span>strcmp hi hi ; <span class="nb">echo</span> <span class="nv">$?</span>
+</span><span class='line'>0
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you didn&rsquo;t get any errors, you&rsquo;re a-ok! That&rsquo;s all there is to writing a bash builtin. Now, the shell is even more powerful!</p>
 </div>
   
-  
-    <footer>
-      <a rel="full-article" href="/2011/08/31/bash-strcmp-builtin/">Read on &rarr;</a>
-    </footer>
   
 
 
@@ -406,12 +590,92 @@ It&rsquo;s outrageous to take advantage of the urgent needs of hurricane survivo
 
   <div class="entry-content"><p>With the lack of an easy PHP debugger, it seems a lot of web developers think the best way to debug PHP is excessive print and log statements. I am one of those. I plod along with var_dumps and echos. I wanted a stack trace, and so I put this little guy together.</p>
 
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Print a quick stack trace.</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">trace</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nb">ob_start</span><span class="p">();</span><span class="c1">//Buffer output. Output buffers work on a stack, so this OB will be specific to our debug routine.</span>
+</span><span class='line'><span class="k">echo</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;&lt;div class=debug&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&lt;div class=trace&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">$trace</span> <span class="o">=</span> <span class="nb">debug_backtrace</span><span class="p">();</span><span class="c1">//Get a stack trace to this point. Includes the current frame so we know where Debug() was called.</span>
+</span><span class='line'>  <span class="k">foreach</span><span class="p">(</span><span class="nv">$trace</span> <span class="k">as</span> <span class="nv">$id</span> <span class="o">=&gt;</span> <span class="nv">$frame</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>    <span class="c1">//Let&#39;s pull the data for each frame.</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span> <span class="k">AND</span> <span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$scope</span><span class="p">)</span> <span class="k">AND</span> <span class="o">!</span><span class="nb">stristr</span><span class="p">(</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">],</span> <span class="nv">$scope</span><span class="p">))</span>
+</span><span class='line'>      <span class="p">{</span>    <span class="c1">// Not enough data?</span>
+</span><span class='line'>          <span class="k">continue</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nv">$function</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;function&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">()&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]))</span>
+</span><span class='line'>      <span class="p">{</span>    <span class="c1">//Grab the class</span>
+</span><span class='line'>          <span class="nv">$function</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span><span class="si">}{</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="si">}{</span><span class="nv">$function</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="nv">$at</span> <span class="o">=</span> <span class="s2">&quot; at unknown&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]))</span>
+</span><span class='line'>      <span class="p">{</span>    <span class="c1">//The filename</span>
+</span><span class='line'>          <span class="nv">$at</span> <span class="o">=</span> <span class="s2">&quot; at </span><span class="si">{</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;line&#39;</span><span class="p">]))</span>
+</span><span class='line'>      <span class="p">{</span>    <span class="c1">//And the line number</span>
+</span><span class='line'>          <span class="nv">$at</span> <span class="o">.=</span> <span class="s2">&quot;::</span><span class="si">{</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;line&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">echo</span> <span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2">&lt;div class=frame&gt;#</span><span class="si">{</span><span class="nv">$id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nv">$function</span><span class="si">}{</span><span class="nv">$at</span><span class="si">}</span><span class="s2">&lt;/div&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&lt;/div&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span><span class="c1">//class=trace</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;&lt;/div&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span><span class="c1">//class=debug</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nb">ob_get_clean</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>  <span class="c1">//trace</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I have seen DBG and xdebug, but have been dissuaded by their seeming complexity. If anyone has a good reference, please share it!</p>
 </div>
   
-  
-    <footer>
-      <a rel="full-article" href="/2011/08/26/php-stack-trace/">Read on &rarr;</a>
-    </footer>
   
 
 
@@ -467,7 +731,7 @@ It&rsquo;s outrageous to take advantage of the urgent needs of hurricane survivo
       
   <header>
     
-      <h1 class="entry-title"><a href="/2011/08/22/facepalm/">Facepalm</a></h1>
+      <h1 class="entry-title"><a href="/2011/08/20/fun-with-bash/">Fun With Bash</a></h1>
     
     
       <p class="meta">
@@ -483,18 +747,109 @@ It&rsquo;s outrageous to take advantage of the urgent needs of hurricane survivo
   
 
 
-<time datetime="2011-08-22T13:58:30-04:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2011</time>
+<time datetime="2011-08-20T17:31:56-04:00" pubdate data-updated="true">Aug 20<span>th</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I could watch this all day.</p>
+  <div class="entry-content"><p>I freakin love bash. The thing&rsquo;s amazing, with some ridiculous language constructs that even perl can&rsquo;t dream of. If the unix philosophy is &ldquo;one task, one tool,&rdquo; Bash&rsquo;s task is glue.</p>
 
-<p><a href="http://icanhascheezburger.com/2011/08/22/funny-pictures-gifs-hedgehog-headesk/"><img src="http://icanhascheezburger.files.wordpress.com/2011/08/d451dd5e-0218-477c-a727-4158dc21cc94.gif" alt="" /></a></p>
+<p>I&rsquo;ve been using it over the past week on a digital forensics case. This is a project that involves examining a dozen production hard disks for any artifacts of inappropriate or malicious use (hacking, malware, unauthorized websites, breach of data policy, etc etc). The disks I&rsquo;m analyzing are about 120GB a piece, dual-boot between Windows XP and various linux distros. After some initial analysis, we have 3 data partitions per disk, and somewhere between 300 and 400 thousand artifacts per partition. That&rsquo;s over 10 million artifacts to collect and analyse, from 12 different physical devices. This is for a court case, so rules of evidence and expert witness rules apply- notes. Lots and lots of meticulous notes. Guess what? Bash makes it easy.</p>
 
-<p>From <a href="http://icanhascheezburger.com">http://icanhascheezburger.com</a></p>
+<p>To start off, I only actually had two physical devices to work from. Following consequences of <a href="http://en.wikipedia.org/wiki/Locard's_exchange_principle">Locard&rsquo;s principle</a>, the original devices were raw copied (<code>dd</code>ed) to a pair of aggregate drives. These aggregates then had a single file system with a handful of .raw files each. That&rsquo;s where we start from. Here are the tools I&rsquo;ve added to my belt (and <code>.bashrc</code>).</p>
+
+<h3>bkvs</h3>
+
+<p><a href="http://davidsouther.com/2011/08/bkvs-bash-keyvalue-store/">bkvs</a> is a little script I wrote that abstracts the file system into a key/value pair. It handles directory creation, file management, and generally keeps things from breaking. You&rsquo;ll see me using it several times, so it might help to read the man page, but generally, it supports <code>get(key</code>), <code>set(key, value)</code>, <code>add(key, value)</code> and <code>delete(key)</code>.</p>
+
+<h3>history -a</h3>
+
+<p><a href="http://ss64.com/bash/history.html">history</a> can append the current session to a file. Better yet, it only prints the history that&rsquo;s happened since the last time it was written. This makes it really easy to play around with a few commands, get the syntax right, save the history to your notes, clean it up, and then move on with the next step.</p>
+
+<h3>Intermediate Scripts</h3>
+
+<p>Because of the similarity in naming conventions and the tasks I&rsquo;m doing on each individual drive, I&rsquo;ll need to run the same command on several different partitions. xargs is built exactly for this. Or so it thinks. Actually, xargs is for running a single command inside a pipeline. I need to run several different pipelines, and building those pipes in xargs would be tricky, I think. Further, xargs could have a subtly different invocation each time it gets put in a pipe, and I don&rsquo;t know exactly what the command line expanded to. xargs also can&rsquo;t easily build a pipeline of Instead, I&rsquo;ve started using intermediate shell scripts. In general, I&rsquo;ll have a loop or pipeline that has variables bound and delimited fields in the pipe, and use awk to construct the command line I&rsquo;d want to run. Then, instead of executing it immediately, I wrap the entire looped pip in braces, and redirect that output to an intermediate script.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">{</span>
+</span><span class='line'><span class="k">for </span>drive in <span class="k">$(</span>bkvs get drives<span class="k">)</span>
+</span><span class='line'><span class="k">do</span>
+</span><span class='line'>bkvs get <span class="nv">$drive</span>/offsets | fgrep NTFS | awk <span class="s2">&quot;{print \&quot;log2timeline -p -r -f winxp bkvs/$drive/\&quot; \$1 \&quot; | bkvs add $drive/\&quot; \$1 \&quot;.timeline\&quot;}&quot;</span>
+</span><span class='line'><span class="k">done</span>
+</span><span class='line'><span class="o">}</span> &gt;| mount_timelines.sh
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This builds a nice script that looks very regular:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>log2timeline -p -r -f winxp bkvs/6HD1/6HD1.raw2 | bkvs add 6HD1/6HD1.raw2.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD2/6HD2.raw2 | bkvs add 6HD2/6HD2.raw2.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD2/6HD2.raw5 | bkvs add 6HD2/6HD2.raw5.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD3/6HD3.raw2 | bkvs add 6HD3/6HD3.raw2.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD4/6HD4.raw1 | bkvs add 6HD4/6HD4.raw1.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD5/6HD5.raw1 | bkvs add 6HD5/6HD5.raw1.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD5/6HD5.raw2 | bkvs add 6HD5/6HD5.raw2.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD6/6HD6.raw2 | bkvs add 6HD6/6HD6.raw2.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD7/6HD7.raw2 | bkvs add 6HD7/6HD7.raw2.timeline
+</span><span class='line'>log2timeline -p -r -f winxp bkvs/6HD8/6HD8.raw2 | bkvs add 6HD8/6HD8.raw2.timeline
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Paralyze</h3>
+
+<p>What I actually mean is parallelize, but I always miss a syllable. I want to run this script now, but log2timeline takes a significant chunk of time. I&rsquo;m a guy who&rsquo;s proud of his quad-core processor, and who&rsquo;s done his share of OpenMP and parallelization, so it&rsquo;d be nice to have a way to get my load up around 3.5, instead of the measly 0.1 it usually sits at. I&rsquo;ve added this handy little function to my bashrc.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">alias </span><span class="nv">ding</span><span class="o">=</span><span class="s1">&#39;echo &quot;Done&quot; | mail davidsouther@gmail.com&#39;</span>
+</span><span class='line'><span class="k">function </span>paralyze<span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>  <span class="nv">file</span><span class="o">=</span><span class="nv">$1</span>
+</span><span class='line'>  <span class="nv">tmp</span><span class="o">=</span><span class="s2">&quot;$file._tmp&quot;</span>
+</span><span class='line'>  cat <span class="s2">&quot;$file&quot;</span> | awk <span class="s1">&#39;{print &quot;{ &quot; $0 &quot;} &amp;&quot;}&#39;</span> | sed <span class="s1">&#39;n;n;s/&amp;$//&#39;</span> | sed <span class="s1">&#39;$s/&amp;$//&#39;</span> &gt;| <span class="nv">$tmp</span>
+</span><span class='line'>  nice -n 10 sh <span class="nv">$tmp</span> &gt;<span class="nv">$file</span>.log 2&gt;<span class="nv">$file</span>.log.error
+</span><span class='line'>  rm <span class="nv">$tmp</span>
+</span><span class='line'>  ding
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It takes a single parameter, a bash script in a similar format (one command per line). It adds an ampersand (&amp;) to the end of every line (to background it), and then removes the &amp; from every 3rd line. (Experimentation might show a better number, but I chose p-1 as an ideal of every core having 1 perfect, non-blocking process just running on its own, leaving a core for my desktop). Last it removes the last line&rsquo;s &amp;, so the last line will always block until the end. This gets put in a tmp file, since each line is supposed to be completely independent from every other line. Finally, we run the tmp file as a shell script, niced down low so it doesn&rsquo;t start thrashing, and redirect stdout and stderr to some log files. When it&rsquo;s done, it cleans up, and emails me.</p>
+
+<p>There are a couple issues. First, there&rsquo;s no guarantee that every third line will finish after the lines above it, or that the last line will also finish last. But, without writing some accounting mechanism to watch the current process list, it does a pretty damned good job of letting me run a lot of parallel tasks in the background, without having to monitor them by hand.</p>
+
+<h3>That&rsquo;s all for now</h3>
+
+<p>Those are the four little things I&rsquo;ve picked up on using over the past couple days. Again, the requirements are meticulous notetaking, and automation of repetitive tasks. These little helpers have made my life tremendously easier (in fact, possible) compared to sitting around typing each <code>fdisk -l</code> and <code>mount</code> out by hand.</p>
+
+<h3>Bonus</h3>
+
+<p>From Andrew Niemantsverdreit: (as root)</p>
+
+<p><code>strings /dev/mem | more</code></p>
 </div>
   
   

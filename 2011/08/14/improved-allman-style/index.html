@@ -105,86 +105,153 @@
 
 <div class="entry-content"><p>C-Based languages are those with “Brace” syntax describing blocks. Since the first C programming texts, there has been something of a holy war between zealots of different standards. Being an exemplar of the programming virtue of hubris, I have my entry. Allman-style bracing is the correct, best form for indenting block level code, provided a single addition: the opening brace MUST BE FOLLOWED BY AN INLINE COMMENT. The control statement might tell what the program is doing, but by always including a one-line verbal explanation of the block, other programmers know why the control statement is important. The following is an example mildly complex algorithm from the <a href="http://davidsouther.com/projects/jmtt/tree.js">jmtt analysis demo</a>.</p>
 
-<p>[javascript]
-this.calculate = function(li)
-/<em>*
- * Recursive function to calculate all the scores for a row in our analysis.
- * Gets the weight, grade, and cost from the children, then calcs the weighted
- * average for each middle node. Finally, hands off the data for a second
- * pass determining the target values.
- *
- * Params:
- *  li  HTMLLiNode tree row to calculate for.
- *
- * Returns:
- *  [weight, grade, cost]   Details for the current row.
- </em>/
-{</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">calculate</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">li</span><span class="p">)</span>
+</span><span class='line'><span class="cm">/**</span>
+</span><span class='line'><span class="cm"> * Recursive function to calculate all the scores for a row in our analysis.</span>
+</span><span class='line'><span class="cm"> * Gets the weight, grade, and cost from the children, then calcs the weighted</span>
+</span><span class='line'><span class="cm"> * average for each middle node. Finally, hands off the data for a second</span>
+</span><span class='line'><span class="cm"> * pass determining the target values.</span>
+</span><span class='line'><span class="cm"> *</span>
+</span><span class='line'><span class="cm"> * Params:</span>
+</span><span class='line'><span class="cm"> *   li  HTMLLiNode tree row to calculate for.</span>
+</span><span class='line'><span class="cm"> *</span>
+</span><span class='line'><span class="cm"> * Returns:</span>
+</span><span class='line'><span class="cm"> *   [weight, grade, cost]   Details for the current row.</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">grade</span><span class="p">,</span> <span class="nx">weight</span><span class="p">,</span> <span class="nx">cost</span><span class="p">,</span> <span class="nx">children</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="kc">undefined</span> <span class="o">===</span> <span class="nx">li</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>    <span class="c1">//Calcing the entire analysis.</span>
+</span><span class='line'>      <span class="nx">children</span> <span class="o">=</span> <span class="nx">tree</span><span class="p">.</span><span class="nx">treetable</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">weight</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>  <span class="p">{</span>    <span class="c1">//Just doing one branch</span>
+</span><span class='line'>      <span class="nx">children</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">li</span><span class="p">).</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;ul&quot;</span><span class="p">).</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">weight</span> <span class="o">=</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">li</span><span class="p">).</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;span.weight:first&quot;</span><span class="p">).</span><span class="nx">html</span><span class="p">().</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">));</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="nx">children</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>    <span class="c1">//A leaf, floating on the winds...</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">span</span><span class="p">,</span> <span class="nx">input</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">span</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">li</span><span class="p">).</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;span.grade&quot;</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">input</span> <span class="o">=</span> <span class="nx">span</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>      <span class="nx">grade</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">((</span><span class="nx">input</span> <span class="o">&amp;&amp;</span> <span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="o">||</span> <span class="nx">span</span><span class="p">.</span><span class="nx">html</span><span class="p">());</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nx">span</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">li</span><span class="p">).</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;span.cost&quot;</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">input</span> <span class="o">=</span> <span class="nx">span</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>      <span class="nx">cost</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">((</span><span class="nx">input</span> <span class="o">&amp;&amp;</span> <span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="o">||</span> <span class="nx">span</span><span class="p">.</span><span class="nx">html</span><span class="p">());</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>  <span class="p">{</span>    <span class="c1">//Weighted average the children.</span>
+</span><span class='line'>      <span class="nx">grade</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">cost</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">children</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">calc</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">calculate</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span><span class='line'>          <span class="nx">grade</span> <span class="o">+=</span> <span class="p">(</span><span class="nx">calc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nx">calc</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span><span class='line'>          <span class="nx">cost</span> <span class="o">+=</span> <span class="nx">calc</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span><span class='line'>      <span class="p">});</span>
+</span><span class='line'>      <span class="nx">grade</span> <span class="o">/=</span> <span class="mi">100</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nx">grade</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">rounder</span><span class="p">(</span><span class="nx">grade</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">//Fill in the node.</span>
+</span><span class='line'>      <span class="p">((</span><span class="nx">li</span> <span class="o">&amp;&amp;</span> <span class="nx">$</span><span class="p">(</span><span class="nx">li</span><span class="p">).</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;span.grade&quot;</span><span class="p">))</span> <span class="o">||</span> <span class="nx">grade_total</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">grade</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s2">&quot;aggregate&quot;</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">((</span><span class="nx">li</span> <span class="o">&amp;&amp;</span> <span class="nx">$</span><span class="p">(</span><span class="nx">li</span><span class="p">).</span><span class="nx">children</span><span class="p">(</span><span class="s2">&quot;span.cost&quot;</span><span class="p">))</span> <span class="o">||</span> <span class="nx">cost_total</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">cost</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s2">&quot;aggregate&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="kc">undefined</span> <span class="o">===</span> <span class="nx">li</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>    <span class="c1">//At the head, so go back to calculate cost/value</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">_calculate_value</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>  <span class="p">{</span>    <span class="c1">// Pass the aggregate values back up the call chain.</span>
+</span><span class='line'>      <span class="k">return</span> <span class="p">[</span><span class="nx">weight</span><span class="p">,</span> <span class="nx">grade</span><span class="p">,</span> <span class="nx">cost</span><span class="p">];</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<pre><code>var grade, weight, cost, children;
-if(undefined === li)
-{   //Calcing the entire analysis.
-    children = tree.treetable("body");
-    weight = 100;
-}
-else
-{   //Just doing one branch
-    children = $(li).children("ul").children("li");
-    weight = parseFloat($(li).children("span.weight:first").html().replace("%", ""));
-}
-
-if(children.length === 0)
-{   //A leaf, floating on the winds...
-    var span, input;
-    span = $(li).children("span.grade");
-    input = span.find("input")[0];
-    grade = parseInt((input &amp;&amp; input.value) || span.html());
-
-    span = $(li).children("span.cost");
-    input = span.find("input")[0];
-    cost = parseInt((input &amp;&amp; input.value) || span.html());
-}
-else
-{   //Weighted average the children.
-    grade = 0; cost = 0;
-    children.each(function(){
-        var calc = self.calculate(this);
-        grade += (calc[0] * calc[1]);
-        cost += calc[2];
-    });
-    grade /= 100;
-
-    grade = Math.rounder(grade);
-
-    //Fill in the node.
-    ((li &amp;&amp; $(li).children("span.grade")) || grade_total).html(grade).addClass("aggregate");
-    ((li &amp;&amp; $(li).children("span.cost")) || cost_total).html(cost).addClass("aggregate");
-}
-
-if(undefined === li)
-{   //At the head, so go back to calculate cost/value
-    return _calculate_value();
-}
-else
-{   // Pass the aggregate values back up the call chain.
-    return [weight, grade, cost];
-}
-</code></pre>
-
-<p>}
-[/javascript]</p>
-
-<!-- more -->
 
 
-<p>[javascript][/javascript]
-_decorate_cells: function(li)
-/<em>*
- * Private method to get the row in line with the rest of the table by
- * attaching any remaining cells and setting all the cell styles.
- *
- * Params:
- *  li  HTMLLiNode with s to apply classes to. </em>/ { var cells, columns; columns = this.options.columns; cells = $(li).children(this.options.cell_tag); while(cells.length &lt; columns.count) { //Add enough cells to make up for any missing cells in the body that are in the header. $(this.options.cell_tag_html).insertAfter($(li).children(this.options.cell_tag+&ldquo;:last&rdquo;)); cells = $(li).children(this.options.cell_tag); } for(i=0; i</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">_decorate_cells</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">li</span><span class="p">)</span>
+</span><span class='line'><span class="cm">/**</span>
+</span><span class='line'><span class="cm"> * Private method to get the row in line with the rest of the table by</span>
+</span><span class='line'><span class="cm"> * attaching any remaining cells and setting all the cell styles.</span>
+</span><span class='line'><span class="cm"> *</span>
+</span><span class='line'><span class="cm"> * Params:</span>
+</span><span class='line'><span class="cm"> *   li  HTMLLiNode with s to apply classes to. */</span> <span class="p">{</span> <span class="kd">var</span> <span class="nx">cells</span><span class="p">,</span> <span class="nx">columns</span><span class="p">;</span> <span class="nx">columns</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">columns</span><span class="p">;</span> <span class="nx">cells</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">li</span><span class="p">).</span><span class="nx">children</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">cell_tag</span><span class="p">);</span> <span class="k">while</span><span class="p">(</span><span class="nx">cells</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="nx">columns</span><span class="p">.</span><span class="nx">count</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//Add enough cells to make up for any missing cells in the body that are in the header. $(this.options.cell_tag_html).insertAfter($(li).children(this.options.cell_tag+&quot;:last&quot;)); cells = $(li).children(this.options.cell_tag); } for(i=0; i</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h3>More guidelines</h3>
 
@@ -198,77 +265,133 @@ _decorate_cells: function(li)
 
 <h4>INCORRECT</h4>
 
-<p>[c]
-$j = &lsquo;foo&rsquo;; // single letter variables should only be used in for() loops
-Str; // contains uppercase letters
-bufferedText; // Could be shortened without losing semantic meaning
-groupid; // multiple words, needs underscore separator or camel casing
-$name_of_last_city_used; // too long
-[/c]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="err">$</span><span class="n">j</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">foo</span><span class="err">&#39;</span><span class="p">;</span> <span class="c1">// single letter variables should only be used in for() loops</span>
+</span><span class='line'><span class="n">Str</span><span class="p">;</span> <span class="c1">// contains uppercase letters</span>
+</span><span class='line'><span class="n">bufferedText</span><span class="p">;</span> <span class="c1">// Could be shortened without losing semantic meaning</span>
+</span><span class='line'><span class="n">groupid</span><span class="p">;</span> <span class="c1">// multiple words, needs underscore separator or camel casing</span>
+</span><span class='line'><span class="err">$</span><span class="n">name_of_last_city_used</span><span class="p">;</span> <span class="c1">// too long</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h4>CORRECT</h4>
 
-<p>[c]
-for ($j = 0; $j &lt; 10; $j++)
-$str
-buffer
-group_id, groupID
-$last_city
-[/c]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">for</span> <span class="p">(</span><span class="err">$</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="err">$</span><span class="n">j</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="err">$</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'><span class="err">$</span><span class="n">str</span>
+</span><span class='line'><span class="n">buffer</span>
+</span><span class='line'><span class="n">group_id</span><span class="p">,</span> <span class="n">groupID</span>
+</span><span class='line'><span class="err">$</span><span class="n">last_city</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h3>Commenting</h3>
 
-<pre><code>In general, code should be commented prolifically. It not only helps describe the flow and intent of the code for less experienced programmers, but can prove invaluable when returning to your own code months down the line. Functions and classes must always have a DocBlock style comment. This includes private members. Sure, your users might only need the API, but your maintainers will really appreciate a comment saying the private _expand method implements a hacked LL(1) parser because the COTS LALR parser was too slow. DocBlock style comments preceding class and method declarations so they can be picked up by IDEs in all languages:
-[c]
-/**
-* Super Class
-*
-* @package Package Name
-* @subpackage Subpackage
-* @category Category
-* @author Author Name
-* @link http://example.com
-*/
-class SuperClass
+<p>In general, code should be commented prolifically. It not only helps describe the flow and intent of the code for less experienced programmers, but can prove invaluable when returning to your own code months down the line. Functions and classes must always have a DocBlock style comment. This includes private members. Sure, your users might only need the API, but your maintainers will really appreciate a comment saying the private _expand method implements a hacked LL(1) parser because the COTS LALR parser was too slow. DocBlock style comments preceding class and method declarations so they can be picked up by IDEs in all languages:</p>
 
-/**
-* Encodes string for use in XML
-*
-* @access public
-* @param string
-* @return string
-*/
-function xml_encode($str)
-[/c]
-Javascript Exception: In Javascript, the DocBlock should be placed BETWEEN the function declaration and the function’s opening brace. This makes the comment a syntactic part of the function, and when a developer passes the function to console.log, the comment will be included in the output.
-[c]
-var xml_encode = function($str)
-/**
-* Encodes string for use in XML
-*
-* @access public
-* @param string
-* @return string
-*/
-{
-[/c]
-Use single line comments within code, leaving a blank line between large comment blocks and code.
-[c]
-// break up the string by newlines
-$parts = explode("\n", $str);
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cm">/**</span>
+</span><span class='line'><span class="cm">* Super Class</span>
+</span><span class='line'><span class="cm">*</span>
+</span><span class='line'><span class="cm">* @package Package Name</span>
+</span><span class='line'><span class="cm">* @subpackage Subpackage</span>
+</span><span class='line'><span class="cm">* @category Category</span>
+</span><span class='line'><span class="cm">* @author Author Name</span>
+</span><span class='line'><span class="cm">* @link http://example.com</span>
+</span><span class='line'><span class="cm">*/</span>
+</span><span class='line'><span class="n">class</span> <span class="n">SuperClass</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/**</span>
+</span><span class='line'><span class="cm">* Encodes string for use in XML</span>
+</span><span class='line'><span class="cm">*</span>
+</span><span class='line'><span class="cm">* @access public</span>
+</span><span class='line'><span class="cm">* @param string</span>
+</span><span class='line'><span class="cm">* @return string</span>
+</span><span class='line'><span class="cm">*/</span>
+</span><span class='line'><span class="n">function</span> <span class="n">xml_encode</span><span class="p">(</span><span class="err">$</span><span class="n">str</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
-// A longer comment that needs to give greater detail on what is
-// occurring and why can use multiple single-line comments.  Try to
-// keep the width reasonable, around 70 characters is the easiest to
-// read.  Don't hesitate to link to permanent external resources
-// that may provide greater detail:
-//
-// http://example.com/information_about_something/in_particular/
 
-$parts = $this-&gt;foo($parts);
-[/c]
-As stated in the Indent Style section, control structures should always have a one-line comment on why they are necessary.
+<p>Javascript Exception: In Javascript, the DocBlock should be placed BETWEEN the function declaration and the function’s opening brace. This makes the comment a syntactic part of the function, and when a developer passes the function to console.log, the comment will be included in the output.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">var</span> <span class="n">xml_encode</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="err">$</span><span class="n">str</span><span class="p">)</span>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">    * Encodes string for use in XML</span>
+</span><span class='line'><span class="cm">    *</span>
+</span><span class='line'><span class="cm">    * @access public</span>
+</span><span class='line'><span class="cm">    * @param string</span>
+</span><span class='line'><span class="cm">    * @return string</span>
+</span><span class='line'><span class="cm">    */</span>
+</span><span class='line'>    <span class="p">{</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<pre><code>Use single line comments within code, leaving a blank line between large comment blocks and code.
 </code></pre>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">// break up the string by newlines</span>
+</span><span class='line'><span class="err">$</span><span class="n">parts</span> <span class="o">=</span> <span class="n">explode</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="err">$</span><span class="n">str</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// A longer comment that needs to give greater detail on what is</span>
+</span><span class='line'><span class="c1">// occurring and why can use multiple single-line comments.  Try to</span>
+</span><span class='line'><span class="c1">// keep the width reasonable, around 70 characters is the easiest to</span>
+</span><span class='line'><span class="c1">// read.  Don&#39;t hesitate to link to permanent external resources</span>
+</span><span class='line'><span class="c1">// that may provide greater detail:</span>
+</span><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">// http://example.com/information_about_something/in_particular/</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">$</span><span class="n">parts</span> <span class="o">=</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">foo</span><span class="p">(</span><span class="err">$</span><span class="n">parts</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As stated in the Indent Style section, control structures should always have a one-line comment on why they are necessary.</p>
 
 <h3>Constants</h3>
 
@@ -277,56 +400,78 @@ As stated in the Indent Style section, control structures should always have a o
 
 <h4>INCORRECT</h4>
 
-<p>[c]
-myConstant // missing underscore separator and not fully uppercase
-N // no single-letter constants
-S_C_VER // not descriptive
-[/c]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">myConstant</span> <span class="c1">// missing underscore separator and not fully uppercase</span>
+</span><span class='line'><span class="n">N</span> <span class="c1">// no single-letter constants</span>
+</span><span class='line'><span class="n">S_C_VER</span> <span class="c1">// not descriptive</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h4>CORRECT</h4>
 
-<p>[c]
-MY_CONSTANT
-NEWLINE
-SUPER_CLASS_VERSION
-[/c]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">MY_CONSTANT</span>
+</span><span class='line'><span class="n">NEWLINE</span>
+</span><span class='line'><span class="n">SUPER_CLASS_VERSION</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h3>TRUE, FALSE, NULL, UNDEFINED</h3>
 
 <pre><code>TRUE, FALSE, NULL, and similar keywords should always be either fully uppercase or undercase as the language allows. This is another “choose at the beginning of the project, then be consistent” rules. INCORRECT
-[c]
+
+```c
 if ($foo == true)
 $bar = false;
 function foo($bar = null)
-[/c]
+```
+
 CORRECT
-[c]
+
+```c
 if (TRUE === $foo)
 $bar = FALSE;
 function foo($bar = NULL)
 Logical Operators
-[/c]
-Use of || is discouraged as its clarity on some output devices is low (looking like the number 11 for instance). AND is preferred over &amp;&amp; . A space should always precede and follow !. INCORRECT
-[c]
-if ($foo || $bar)
-if ($foo &amp;&amp; $bar)  // okay but not recommended for common syntax highlighting applications
-if (!$foo)
-if (! is_array($foo))
-[/c]
-CORRECT
-[c]
-if ($foo OR $bar)
-if ($foo AND $bar) // recommended
-if ( ! $foo)
-if ( ! is_array($foo))
-[/c]
+```
+</code></pre>
+
+<p>Use of || is discouraged as its clarity on some output devices is low (looking like the number 11 for instance). AND is preferred over &amp;&amp; . A space should always precede and follow !. INCORRECT</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="err">$</span><span class="n">foo</span> <span class="o">||</span> <span class="err">$</span><span class="n">bar</span><span class="p">)</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="err">$</span><span class="n">foo</span> <span class="o">&amp;&amp;</span> <span class="err">$</span><span class="n">bar</span><span class="p">)</span> <span class="err"> </span><span class="c1">// okay but not recommended for common syntax highlighting applications</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="err">$</span><span class="n">foo</span><span class="p">)</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="n">is_array</span><span class="p">(</span><span class="err">$</span><span class="n">foo</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-&lt;h3&gt;Comparing Return Values and Typecasting&lt;/h3&gt;
+<pre><code>CORRECT
+</code></pre>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="err">$</span><span class="n">foo</span> <span class="n">OR</span> <span class="err">$</span><span class="n">bar</span><span class="p">)</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="err">$</span><span class="n">foo</span> <span class="n">AND</span> <span class="err">$</span><span class="n">bar</span><span class="p">)</span> <span class="c1">// recommended</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="err">$</span><span class="n">foo</span><span class="p">)</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="n">is_array</span><span class="p">(</span><span class="err">$</span><span class="n">foo</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-Some PHP functions return FALSE on failure, but may also have a valid return value of "" or 0, which would evaluate to FALSE in loose comparisons. Be explicit by comparing the variable type when using these return values in conditionals to ensure the return value is indeed what you expect, and not a value that has an equivalent loose-type evaluation. Use the same stringency in returning and checking your own variables. Always use === and !==. INCORRECT
-[php]
+<h3>Comparing Return Values and Typecasting</h3>
+
+<p>Some PHP functions return FALSE on failure, but may also have a valid return value of &ldquo;&rdquo; or 0, which would evaluate to FALSE in loose comparisons. Be explicit by comparing the variable type when using these return values in conditionals to ensure the return value is indeed what you expect, and not a value that has an equivalent loose-type evaluation. Use the same stringency in returning and checking your own variables. Always use === and !==. INCORRECT</p>
+
+<pre><code>[php]
 // If 'foo' is at the beginning of the string, strpos will return a 0,
 // resulting in this conditional evaluating as TRUE
 if (strpos($str, 'foo') == FALSE) ;
@@ -405,13 +550,13 @@ foreach ($query-&gt;result() as $row) // single space following PHP control stru
 
 
 Any text that is output in the control panel should use the translation function __. The __ function will be defined in as many languages as possible. Check the language specific documentation as needed. INCORRECT
-[c]
+```c
 return "Invalid Selection";
-[/c]
+```
 CORRECT
-[c]
+```c
 return __('Invalid Selection');
-[/c]
+```
 
 
 &lt;h3&gt;Private Methods and Variables&lt;/h3&gt;
@@ -422,14 +567,20 @@ Methods and variables that are only accessed internally by your class, such as u
 
 <h4>Example</h4>
 
-<p>[c]
- class Some_Class {
- public function convert_text() {
- }
- private function _convert_text() {
- }
- }
-[/c]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'> <span class="n">class</span> <span class="n">Some_Class</span> <span class="p">{</span>
+</span><span class='line'> <span class="n">public</span> <span class="n">function</span> <span class="n">convert_text</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'> <span class="p">}</span>
+</span><span class='line'> <span class="n">private</span> <span class="n">function</span> <span class="n">_convert_text</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'> <span class="p">}</span>
+</span><span class='line'> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h3>One Statement Per Line</h3>
 
@@ -440,13 +591,18 @@ Methods and variables that are only accessed internally by your class, such as u
 
 <p>[php]
 $foo = &lsquo;this&rsquo;; $bar = &lsquo;that&rsquo;; $bat = str_replace($foo, $bar, $bag);
-[/php]
-[c]
-int a = 0;
-float z = 1.0f;
-int c = count = 0;
-float r = z;
-[/c]</p>
+[/php]</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="kt">float</span> <span class="n">z</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="kt">float</span> <span class="n">r</span> <span class="o">=</span> <span class="n">z</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h4>CORRECT</h4>
 
@@ -454,12 +610,16 @@ float r = z;
 $foo = &lsquo;this&rsquo;;
 $bar = &lsquo;that&rsquo;;
 $bat = str_replace($foo, $bar, $bag);
-[/php]
-[c]
-int a = b = count = 0;
-int m = n = max = 10;
-float r = ratio = z = 1.0f;
-[/c]</p>
+[/php]</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">=</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">n</span> <span class="o">=</span> <span class="n">max</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'><span class="kt">float</span> <span class="n">r</span> <span class="o">=</span> <span class="n">ratio</span> <span class="o">=</span> <span class="n">z</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 

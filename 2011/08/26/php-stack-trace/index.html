@@ -105,57 +105,88 @@
 
 <div class="entry-content"><p>With the lack of an easy PHP debugger, it seems a lot of web developers think the best way to debug PHP is excessive print and log statements. I am one of those. I plod along with var_dumps and echos. I wanted a stack trace, and so I put this little guy together.</p>
 
-<!-- more -->
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Print a quick stack trace.</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">trace</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nb">ob_start</span><span class="p">();</span><span class="c1">//Buffer output. Output buffers work on a stack, so this OB will be specific to our debug routine.</span>
+</span><span class='line'><span class="k">echo</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;&lt;div class=debug&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&lt;div class=trace&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">$trace</span> <span class="o">=</span> <span class="nb">debug_backtrace</span><span class="p">();</span><span class="c1">//Get a stack trace to this point. Includes the current frame so we know where Debug() was called.</span>
+</span><span class='line'>  <span class="k">foreach</span><span class="p">(</span><span class="nv">$trace</span> <span class="k">as</span> <span class="nv">$id</span> <span class="o">=&gt;</span> <span class="nv">$frame</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>    <span class="c1">//Let&#39;s pull the data for each frame.</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span> <span class="k">AND</span> <span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$scope</span><span class="p">)</span> <span class="k">AND</span> <span class="o">!</span><span class="nb">stristr</span><span class="p">(</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">],</span> <span class="nv">$scope</span><span class="p">))</span>
+</span><span class='line'>      <span class="p">{</span>    <span class="c1">// Not enough data?</span>
+</span><span class='line'>          <span class="k">continue</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nv">$function</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;function&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">()&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]))</span>
+</span><span class='line'>      <span class="p">{</span>    <span class="c1">//Grab the class</span>
+</span><span class='line'>          <span class="nv">$function</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span><span class="si">}{</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="si">}{</span><span class="nv">$function</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="nv">$at</span> <span class="o">=</span> <span class="s2">&quot; at unknown&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]))</span>
+</span><span class='line'>      <span class="p">{</span>    <span class="c1">//The filename</span>
+</span><span class='line'>          <span class="nv">$at</span> <span class="o">=</span> <span class="s2">&quot; at </span><span class="si">{</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;line&#39;</span><span class="p">]))</span>
+</span><span class='line'>      <span class="p">{</span>    <span class="c1">//And the line number</span>
+</span><span class='line'>          <span class="nv">$at</span> <span class="o">.=</span> <span class="s2">&quot;::</span><span class="si">{</span><span class="nv">$frame</span><span class="p">[</span><span class="s1">&#39;line&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">echo</span> <span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2">&lt;div class=frame&gt;#</span><span class="si">{</span><span class="nv">$id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nv">$function</span><span class="si">}{</span><span class="nv">$at</span><span class="si">}</span><span class="s2">&lt;/div&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&lt;/div&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span><span class="c1">//class=trace</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;&lt;/div&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span><span class="c1">//class=debug</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nb">ob_get_clean</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>  <span class="c1">//trace</span>
+</span></code></pre></td></tr></table></div></figure>
 
-
-<p>[php]
-/<em>*
- * Print a quick stack trace.
- </em>/
-public static function trace() {</p>
-
-<pre><code>ob_start();//Buffer output. Output buffers work on a stack, so this OB will be specific to our debug routine.
-</code></pre>
-
-<p>echo &ldquo;\n&rdquo;;</p>
-
-<pre><code>echo "&lt;div class=debug&gt;\n";
-echo "\t&lt;div class=trace&gt;\n";
-
-$trace = debug_backtrace();//Get a stack trace to this point. Includes the current frame so we know where Debug() was called.
-foreach($trace as $id =&gt; $frame)
-{   //Let's pull the data for each frame.
-    if(isset($frame['file']) AND !empty($scope) AND !stristr($frame['file'], $scope))
-    {   // Not enough data?
-        continue;
-    }
-
-    $function = "{$frame['function']}()";
-    if(isset($frame['class']))
-    {   //Grab the class
-        $function = "{$frame['class']}{$frame['type']}{$function}";
-    }
-    $at = " at unknown";
-    if(isset($frame['file']))
-    {   //The filename
-        $at = " at {$frame['file']}";
-    }
-
-    if(isset($frame['line']))
-    {   //And the line number
-        $at .= "::{$frame['line']}";
-    }
-
-    echo "\t\t&lt;div class=frame&gt;#{$id}: {$function}{$at}&lt;/div&gt;\n";
-}
-echo "\t&lt;/div&gt;\n";//class=trace
-
-echo "&lt;/div&gt;\n";//class=debug
-return ob_get_clean();
-</code></pre>
-
-<p>}   //trace
-[/php]</p>
 
 <p>I have seen DBG and xdebug, but have been dissuaded by their seeming complexity. If anyone has a good reference, please share it!</p>
 </div>
