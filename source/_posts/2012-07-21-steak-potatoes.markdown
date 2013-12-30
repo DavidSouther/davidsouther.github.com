@@ -19,48 +19,17 @@ tags:
 Nothing says good eating like a steaming plate of steaks, mashed potatoes, and country veggies. The best part? It's one of the easiest things you can cook. Follow along, and in half an hour you'll be having better steaks than they server at Morton's.
 
 
-
-<!-- more -->
-
-
-
-
-
   * 2 to 4 Fillets, 1-2" thick.
-
-
   * 1 can whole kernel corn
-
-
   * 1 can sliced carrots
-
-
   * 1 can french-cut green beans
-
-
   * 1 white onion
-
-
   * 4-6 red potatoes
-
-
   * 2 tblsp butter
-
-
   * 1/4 quart half-and-half
-
-
   * Salt
-
-
   * Lawry's
-
-
   * Olive oil
-
-
-
-
 
 Quarter the potatoes. We're doing mashed potatoes, so go fast and dirty here. Find the longest, thinnest part of the potato, cut in half, find the next thinnest side, cut in half, then cut the last side two or three times. At this point you'll have <1" cubes of potato. Put those potatoes & some salt in pot. Add water to ~1" above the potatoes. Add a dash (~1 teaspoon) of oil (this stops the water from boiling over. Place the pot over high heat.
 
@@ -94,22 +63,6 @@ Wipe off counter, serve, & enjoy!
 
 ### Alternatives:
 
-
-
-
-
-
-
   1. Add clove, then onion.
-
-
-
   2. Use fresh veggies (adds ~5 minutes to dice).
-
-
-
   3. Use different meat: different steak cuts, pork, chicken, etc.
-
-
-
-

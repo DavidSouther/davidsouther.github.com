@@ -17,9 +17,6 @@ tags:
 
 I've played through Mass Effect 3 three times now, and I will play through a couple more. The ending, by which I mean the last 10 minutes, is atrocious, as documented many places. Now, most of these inconsistencies are not huge issues in and of themselves, but taken together have a very negative impact on the experience as a whole. Even then, for all those weaknesses leading up to the (anti)climactic final decision of the series, the ending material is mostly forgivable. What cannot be forgiven are the broken promises Casey Hudson and the Bioware team have been making since [before ME2 was released.](http://au.xbox360.ign.com/articles/105/1055366p2.html) "[T]ake all of the things you've done in Mass Effect 1 and Mass Effect 2 and then just let it go. Let it diverge into wildly different conclusions." And yet, I have had the exact same ending in three different playthroughs, across the reputation spectrum, a range of Military Strength, with wildly different decisions in ME1 and 2. The only difference? Red, Blue, or Green explosions. Why are fans let down? Bioware and Casey Hudson lied to us. Even worse than lying to us, it would not have been difficult to make the game wildly divergent, using the same assets already in the game, and minor tweaks in mechanics. Here's how.
 
-<!-- more -->
-
-
 ## Side Missions
 
 

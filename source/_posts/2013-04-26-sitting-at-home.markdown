@@ -18,6 +18,7 @@ tags:
 - passion
 ---
 
+<pre>
 The fire in your eyes sets my heart aflame
 
 the spark that lights the tinder in my soul
@@ -31,3 +32,4 @@ Nurtured by the passions of our love,
 tended by the tender touch we share,
 blooming in a garden we share
 in my breast, my mind.
+</pre>

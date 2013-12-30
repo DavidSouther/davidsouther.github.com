@@ -21,7 +21,7 @@ I freakin love bash. The thing's amazing, with some ridiculous language construc
 
 I've been using it over the past week on a digital forensics case. This is a project that involves examining a dozen production hard disks for any artifacts of inappropriate or malicious use (hacking, malware, unauthorized websites, breach of data policy, etc etc). The disks I'm analyzing are about 120GB a piece, dual-boot between Windows XP and various linux distros. After some initial analysis, we have 3 data partitions per disk, and somewhere between 300 and 400 thousand artifacts per partition. That's over 10 million artifacts to collect and analyse, from 12 different physical devices. This is for a court case, so rules of evidence and expert witness rules apply- notes. Lots and lots of meticulous notes. Guess what? Bash makes it easy.
 
-<!-- more --> To start off, I only actually had two physical devices to work from. Following consequences of [Locard's principle](http://en.wikipedia.org/wiki/Locard's_exchange_principle), the original devices were raw copied (`dd`ed) to a pair of aggregate drives. These aggregates then had a single file system with a handful of .raw files each. That's where we start from. Here are the tools I've added to my belt (and `.bashrc`).
+To start off, I only actually had two physical devices to work from. Following consequences of [Locard's principle](http://en.wikipedia.org/wiki/Locard's_exchange_principle), the original devices were raw copied (`dd`ed) to a pair of aggregate drives. These aggregates then had a single file system with a handful of .raw files each. That's where we start from. Here are the tools I've added to my belt (and `.bashrc`).
 
 
 ### bkvs
@@ -41,18 +41,18 @@ I've been using it over the past week on a digital forensics case. This is a pro
 
 Because of the similarity in naming conventions and the tasks I'm doing on each individual drive, I'll need to run the same command on several different partitions. xargs is built exactly for this. Or so it thinks. Actually, xargs is for running a single command inside a pipeline. I need to run several different pipelines, and building those pipes in xargs would be tricky, I think. Further, xargs could have a subtly different invocation each time it gets put in a pipe, and I don't know exactly what the command line expanded to. xargs also can't easily build a pipeline of Instead, I've started using intermediate shell scripts. In general, I'll have a loop or pipeline that has variables bound and delimited fields in the pipe, and use awk to construct the command line I'd want to run. Then, instead of executing it immediately, I wrap the entire looped pip in braces, and redirect that output to an intermediate script.
 
-[bash]
+```bash
 {
 for drive in $(bkvs get drives)
 do
 bkvs get $drive/offsets | fgrep NTFS | awk "{print \"log2timeline -p -r -f winxp bkvs/$drive/\" \$1 \" | bkvs add $drive/\" \$1 \".timeline\"}"
 done
 } >| mount_timelines.sh
-[/bash]
+```
 
 This builds a nice script that looks very regular:
 
-[bash]
+```bash
 log2timeline -p -r -f winxp bkvs/6HD1/6HD1.raw2 | bkvs add 6HD1/6HD1.raw2.timeline
 log2timeline -p -r -f winxp bkvs/6HD2/6HD2.raw2 | bkvs add 6HD2/6HD2.raw2.timeline
 log2timeline -p -r -f winxp bkvs/6HD2/6HD2.raw5 | bkvs add 6HD2/6HD2.raw5.timeline
@@ -63,15 +63,14 @@ log2timeline -p -r -f winxp bkvs/6HD5/6HD5.raw2 | bkvs add 6HD5/6HD5.raw2.timeli
 log2timeline -p -r -f winxp bkvs/6HD6/6HD6.raw2 | bkvs add 6HD6/6HD6.raw2.timeline
 log2timeline -p -r -f winxp bkvs/6HD7/6HD7.raw2 | bkvs add 6HD7/6HD7.raw2.timeline
 log2timeline -p -r -f winxp bkvs/6HD8/6HD8.raw2 | bkvs add 6HD8/6HD8.raw2.timeline
-[/bash]
-
+```
 
 ### Paralyze
 
 
 What I actually mean is parallelize, but I always miss a syllable. I want to run this script now, but log2timeline takes a significant chunk of time. I'm a guy who's proud of his quad-core processor, and who's done his share of OpenMP and parallelization, so it'd be nice to have a way to get my load up around 3.5, instead of the measly 0.1 it usually sits at. I've added this handy little function to my bashrc.
 
-[bash]
+```bash
 alias ding='echo "Done" | mail davidsouther@gmail.com'
 function paralyze() {
 	file=$1
@@ -81,7 +80,7 @@ function paralyze() {
 	rm $tmp
 	ding
 }
-[/bash]
+```
 
 It takes a single parameter, a bash script in a similar format (one command per line). It adds an ampersand (&) to the end of every line (to background it), and then removes the & from every 3rd line. (Experimentation might show a better number, but I chose p-1 as an ideal of every core having 1 perfect, non-blocking process just running on its own, leaving a core for my desktop). Last it removes the last line's &, so the last line will always block until the end. This gets put in a tmp file, since each line is supposed to be completely independent from every other line. Finally, we run the tmp file as a shell script, niced down low so it doesn't start thrashing, and redirect stdout and stderr to some log files. When it's done, it cleans up, and emails me.
 
@@ -99,4 +98,4 @@ Those are the four little things I've picked up on using over the past couple da
 
 From Andrew Niemantsverdreit: (as root)
 
-[bash]strings /dev/mem | more[/bash]
+`strings /dev/mem | more`

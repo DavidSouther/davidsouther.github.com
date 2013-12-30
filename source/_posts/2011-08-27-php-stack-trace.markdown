@@ -15,9 +15,7 @@ tags:
 
 With the lack of an easy PHP debugger, it seems a lot of web developers think the best way to debug PHP is excessive print and log statements. I am one of those. I plod along with var_dumps and echos. I wanted a stack trace, and so I put this little guy together.
 
-<!-- more -->
-
-[php]
+```php
 /**
  * Print a quick stack trace.
  */
@@ -58,6 +56,6 @@ echo "\n";
 	echo "</div>\n";//class=debug
 	return ob_get_clean();
 }	//trace
-[/php]
+```
 
 I have seen DBG and xdebug, but have been dissuaded by their seeming complexity. If anyone has a good reference, please share it!

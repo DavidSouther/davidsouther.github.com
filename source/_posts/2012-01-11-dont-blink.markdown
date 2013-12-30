@@ -12,11 +12,12 @@ categories:
 
 Since `<blink>` and `text-decoration: blink;` don't work in Webkit or IE9...
 
-[css]
+```css
 .invisible {
     visibility: hidden;    }
-[/css]
-[javascript]
+```
+
+```javascript
 $.fn.blink = function(){
     setInterval($.proxy(function() {
         this.each(function() {
@@ -24,12 +25,7 @@ $.fn.blink = function(){
         });
     }, this), 500);
 };
-[/javascript]
-[javascript]
+```
+```javascript
 $('a').blink();
-[/javascript]
-
-<!-- more -->
-Try it!
-
-
+```

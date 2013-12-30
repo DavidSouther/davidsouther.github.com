@@ -22,7 +22,7 @@ tags:
 
 C-Based languages are those with “Brace” syntax describing blocks. Since the first C programming texts, there has been something of a holy war between zealots of different standards. Being an exemplar of the programming virtue of hubris, I have my entry. Allman-style bracing is the correct, best form for indenting block level code, provided a single addition: the opening brace MUST BE FOLLOWED BY AN INLINE COMMENT. The control statement might tell what the program is doing, but by always including a one-line verbal explanation of the block, other programmers know why the control statement is important. The following is an example mildly complex algorithm from the [jmtt analysis demo](http://davidsouther.com/projects/jmtt/tree.js).
 
-[javascript]
+```javascript
 this.calculate = function(li)
 /**
  * Recursive function to calculate all the scores for a row in our analysis.
@@ -86,11 +86,9 @@ this.calculate = function(li)
 		return [weight, grade, cost];
 	}
 }
-[/javascript]
+```
 
-<!-- more -->
-
-[javascript][/javascript]
+```javascript
 _decorate_cells: function(li)
 /**
  * Private method to get the row in line with the rest of the table by
@@ -98,24 +96,12 @@ _decorate_cells: function(li)
  *
  * Params:
  *	li	HTMLLiNode with s to apply classes to. */ { var cells, columns; columns = this.options.columns; cells = $(li).children(this.options.cell_tag); while(cells.length < columns.count) { //Add enough cells to make up for any missing cells in the body that are in the header. $(this.options.cell_tag_html).insertAfter($(li).children(this.options.cell_tag+":last")); cells = $(li).children(this.options.cell_tag); } for(i=0; i
+```
 
-
-
-
-### More guidelines
-
-
-
-    
+### More guidelines    
     There are a few other guidelines I follow for consistently readable code.
 
-
-
-
 ### Variable Names
-
-
-
     
     Variables must be reasonably named to indicate their purpose and contents. Very short, non-word variables should only be used as iterators in for() loops. Projects should choose either lower-case underscore compound variables or camel case compound variables. Once a decision has been made, it must stay consistent throughout the project. In general, if using a framework, try to use whatever format the framework uses. That said, multi-word variable names should be discouraged. It is better to refactor variable visibility so that words don’t clash in a scope than try to juggle buffered_text, buffered_word, and buffered_reader.
 
@@ -125,34 +111,31 @@ _decorate_cells: function(li)
 #### INCORRECT
 
 
-[c]
+```c
 $j = 'foo'; // single letter variables should only be used in for() loops
 Str; // contains uppercase letters
 bufferedText; // Could be shortened without losing semantic meaning
 groupid; // multiple words, needs underscore separator or camel casing
 $name_of_last_city_used; // too long
-[/c]
+```
 
 
 #### CORRECT
 
 
-[c]
+```c
 for ($j = 0; $j < 10; $j++)
 $str
 buffer
 group_id, groupID
 $last_city
-[/c]
-
+```
 
 ### Commenting
 
+In general, code should be commented prolifically. It not only helps describe the flow and intent of the code for less experienced programmers, but can prove invaluable when returning to your own code months down the line. Functions and classes must always have a DocBlock style comment. This includes private members. Sure, your users might only need the API, but your maintainers will really appreciate a comment saying the private _expand method implements a hacked LL(1) parser because the COTS LALR parser was too slow. DocBlock style comments preceding class and method declarations so they can be picked up by IDEs in all languages:
 
-
-    
-    In general, code should be commented prolifically. It not only helps describe the flow and intent of the code for less experienced programmers, but can prove invaluable when returning to your own code months down the line. Functions and classes must always have a DocBlock style comment. This includes private members. Sure, your users might only need the API, but your maintainers will really appreciate a comment saying the private _expand method implements a hacked LL(1) parser because the COTS LALR parser was too slow. DocBlock style comments preceding class and method declarations so they can be picked up by IDEs in all languages:
-    [c]
+```c
     /**
     * Super Class
     *
@@ -172,10 +155,12 @@ $last_city
     * @return string
     */
     function xml_encode($str)
-    [/c]
-    Javascript Exception: In Javascript, the DocBlock should be placed BETWEEN the function declaration and the function’s opening brace. This makes the comment a syntactic part of the function, and when a developer passes the function to console.log, the comment will be included in the output.
-    [c]
-    var xml_encode = function($str)
+```
+
+Javascript Exception: In Javascript, the DocBlock should be placed BETWEEN the function declaration and the function’s opening brace. This makes the comment a syntactic part of the function, and when a developer passes the function to console.log, the comment will be included in the output.
+
+```c
+var xml_encode = function($str)
     /**
     * Encodes string for use in XML
     *
@@ -184,9 +169,11 @@ $last_city
     * @return string
     */
     {
-    [/c]
+```
+
     Use single line comments within code, leaving a blank line between large comment blocks and code.
-    [c]
+
+```c
     // break up the string by newlines
     $parts = explode("\n", $str);
     
@@ -199,11 +186,9 @@ $last_city
     // http://example.com/information_about_something/in_particular/
     
     $parts = $this->foo($parts);
-    [/c]
-    As stated in the Indent Style section, control structures should always have a one-line comment on why they are necessary.
+```
 
-
-
+As stated in the Indent Style section, control structures should always have a one-line comment on why they are necessary.
 
 ### Constants
 
@@ -218,21 +203,21 @@ $last_city
 #### INCORRECT
 
 
-[c]
+```c
 myConstant // missing underscore separator and not fully uppercase
 N // no single-letter constants
 S_C_VER // not descriptive
-[/c]
+```
 
 
 #### CORRECT
 
 
-[c]
+```c
 MY_CONSTANT
 NEWLINE
 SUPER_CLASS_VERSION
-[/c]
+```
 
 
 ### TRUE, FALSE, NULL, UNDEFINED
@@ -241,38 +226,44 @@ SUPER_CLASS_VERSION
 
     
     TRUE, FALSE, NULL, and similar keywords should always be either fully uppercase or undercase as the language allows. This is another “choose at the beginning of the project, then be consistent” rules. INCORRECT
-    [c]
+
+    ```c
     if ($foo == true)
     $bar = false;
     function foo($bar = null)
-    [/c]
+    ```
+
     CORRECT
-    [c]
+
+    ```c
     if (TRUE === $foo)
     $bar = FALSE;
     function foo($bar = NULL)
     Logical Operators
-    [/c]
-    Use of || is discouraged as its clarity on some output devices is low (looking like the number 11 for instance). AND is preferred over && . A space should always precede and follow !. INCORRECT
-    [c]
+    ```
+
+Use of || is discouraged as its clarity on some output devices is low (looking like the number 11 for instance). AND is preferred over && . A space should always precede and follow !. INCORRECT
+
+```c
     if ($foo || $bar)
     if ($foo && $bar)  // okay but not recommended for common syntax highlighting applications
     if (!$foo)
     if (! is_array($foo))
-    [/c]
+```
+
     CORRECT
-    [c]
+
+```c
     if ($foo OR $bar)
     if ($foo AND $bar) // recommended
     if ( ! $foo)
     if ( ! is_array($foo))
-    [/c]
+```
     
     
-    <h3>Comparing Return Values and Typecasting</h3>
-    
-    
-    Some PHP functions return FALSE on failure, but may also have a valid return value of "" or 0, which would evaluate to FALSE in loose comparisons. Be explicit by comparing the variable type when using these return values in conditionals to ensure the return value is indeed what you expect, and not a value that has an equivalent loose-type evaluation. Use the same stringency in returning and checking your own variables. Always use === and !==. INCORRECT
+### Comparing Return Values and Typecasting
+
+Some PHP functions return FALSE on failure, but may also have a valid return value of "" or 0, which would evaluate to FALSE in loose comparisons. Be explicit by comparing the variable type when using these return values in conditionals to ensure the return value is indeed what you expect, and not a value that has an equivalent loose-type evaluation. Use the same stringency in returning and checking your own variables. Always use === and !==. INCORRECT
     [php]
     // If 'foo' is at the beginning of the string, strpos will return a 0,
     // resulting in this conditional evaluating as TRUE
@@ -369,13 +360,13 @@ $str = (string) $str; // cast $str as a string
     
     
     Any text that is output in the control panel should use the translation function __. The __ function will be defined in as many languages as possible. Check the language specific documentation as needed. INCORRECT
-    [c]
+    ```c
     return "Invalid Selection";
-    [/c]
+    ```
     CORRECT
-    [c]
+    ```c
     return __('Invalid Selection');
-    [/c]
+    ```
     
     
     <h3>Private Methods and Variables</h3>
@@ -389,14 +380,14 @@ $str = (string) $str; // cast $str as a string
 #### Example
 
 
-[c]
+```c
  class Some_Class {
  public function convert_text() {
  }
  private function _convert_text() {
  }
  }
-[/c]
+```
 
 
 ### One Statement Per Line
@@ -415,12 +406,12 @@ $str = (string) $str; // cast $str as a string
 [php]
 $foo = 'this'; $bar = 'that'; $bat = str_replace($foo, $bar, $bag);
 [/php]
-[c]
+```c
 int a = 0;
 float z = 1.0f;
 int c = count = 0;
 float r = z;
-[/c]
+```
 
 
 #### CORRECT
@@ -431,8 +422,8 @@ $foo = 'this';
 $bar = 'that';
 $bat = str_replace($foo, $bar, $bag);
 [/php]
-[c]
+```c
 int a = b = count = 0;
 int m = n = max = 10;
 float r = ratio = z = 1.0f;
-[/c]
+```

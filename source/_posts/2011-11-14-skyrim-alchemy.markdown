@@ -11,7 +11,3 @@ categories:
 ---
 
 Skyrim is the shit. The game is friggin amazing. Crafting alone is a worthwhile pursuit- go mine ore, smelt ore, hunt animals, tan hides, build weapons and armor, study enchantments, and enchant weapons and armor, improve enchanted weapons. Full cycle, and when you're done, you have exactly the gear *you* want. Alchemy? Please, I'll make my own potions. How do I know what ingredients do? Eat them, of course. Or, use this handy tool.
-
-<!-- more -->
-
-

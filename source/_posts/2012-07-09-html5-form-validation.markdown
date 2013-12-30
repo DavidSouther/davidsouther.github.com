@@ -19,12 +19,6 @@ tags:
 
 Client-side form validation is a cross-cutting concern helping users get the most correct data into a form as quickly as possible. Good form validation will tell users what fields are most important in your form and exactly what is expected of their input. Form validation is not concerned with guaranteeing correct data gets sent from the user agent to the service backing the form -- the service should define its own data ingestion and validation concerns. This discussion is only concerned with client-side form validation and helping users input acceptable data.
 
-
-
-<!-- more -->
-
-
-
 In this view, the form itself is an entire application, independent of any other piece of software. The form, rendered in the browser DOM, provides visual elements for a user to provide input. As the user provides input, the form will indicate whether that data is correct, perhaps by highlighting the field in green, or provide warnings that the data is invalid, perhaps by highlighting the field in red and displaying a light-weight pop-up with a polite message describing what, exactly, is wrong with the input. When the user tells the form to submit data, the form can decide if the input is appropriate, and if so pass that data on to some other service. Generally, this will be an HTTP POST, but could occur as a full page redirect or an AJAX request. In a more exotic workflow, the form could aggregate the input and generate an event to some other element, or publish a message to a web-worker.
 
 
@@ -39,7 +33,7 @@ To achieve this view of form validation, a single library must meet a variety of
 
 
 
-  * **Semantic**
+## Semantic
 
 
 
@@ -51,7 +45,7 @@ Validation markup should describe the expected data as fully as possible. Semant
 
 
 
-    * _HTML5 Native_
+  ### HTML5 Native
 
 
 
@@ -61,7 +55,7 @@ The HTML5 specification provides a wealth of expressive form and validation feat
 
 
 
-    * _Settings in markup_
+  ### Settings in markup
 
 
 
@@ -71,7 +65,7 @@ Any validation settings, including rules and error behavior, should be described
 
 
 
-    * _Error markup_
+  ### Error markup
 
 
 
@@ -81,7 +75,7 @@ The markup rendering errors and notifications should have semantic descriptions,
 
 
 
-    * _Form & field_
+  ### Form & field
 
 
 
@@ -93,7 +87,7 @@ Validation rules will apply both to input fields individually, as well as to gro
 
 
 
-  * **Aspect**
+## Aspect
 
 
 
@@ -105,7 +99,7 @@ Form validation is a cross-cutting concern. Form code should not need to take an
 
 
 
-    * _Applies with no intervention_
+  ### Applies with no intervention
 
 
 
@@ -115,7 +109,7 @@ Including the code on a page should be the most intervention necessary by client
 
 
 
-    * _Hooks to sensible events_
+  ### Hooks to sensible events
 
 
 
@@ -127,7 +121,7 @@ There are places where forms' business logic will need additional or non-standar
 
 
 
-  * **Non-invasive**
+## Non-invasive
 
 
 
@@ -139,7 +133,7 @@ As validation logic gets applied cross-cuttingly, it is imperative the library n
 
 
 
-    * _Doesn't change page flow_
+  ### Doesn't change page flow
 
 
 
@@ -151,7 +145,7 @@ Under no circumstances can the validation library cause a page reflow under norm
 
 
 
-      * _Float with arrow_
+    ### Float with arrow
 
 
 
@@ -163,7 +157,7 @@ HTML5 browsers have independently adopted the convention of a floating div with 
 
 
 
-    * _Doesn't interupt the user_
+  ### Doesn't interupt the user
 
 
 
@@ -173,7 +167,7 @@ Validation should not occur while the user is actively providing input. In parti
 
 
 
-    * _Page data must remain visible_
+  ### Page data must remain visible
 
 
 
@@ -185,7 +179,7 @@ Validation error messages should not cover page content, unless the validation m
 
 
 
-  * **Extensible**
+## Extensible
 
 
 
@@ -197,7 +191,7 @@ Forms will need to have business logic that does not fit in the default configur
 
 
 
-    * _Add, override validator functions_
+  ### Add, override validator functions
 
 
 
@@ -207,7 +201,7 @@ Some validation functions may be incorrect. Forms may wish to constrain a URL to
 
 
 
-    * _Configure errors_
+  ### Configure errors
 
 
 
@@ -217,7 +211,7 @@ The default errors will not describe every error of some class. A form may wish 
 
 
 
-    * _Markup, messages, settings_
+  ### Markup, messages, settings
 
 
 
@@ -232,7 +226,7 @@ Form designers demand as much control as possible. Business analysts will want t
 
 
 
-### Current solutions
+## Current solutions
 
 
 
@@ -244,7 +238,7 @@ There are several libraries and tools today meeting some of these concerns.
 
 
 
-**HTML5 Form Validation**
+### HTML5 Form Validation
 
 
 
@@ -303,7 +297,7 @@ Another article, with some intriguing uses of `title` and `x-moz-errormessage` a
 
 
 
-**jQuery plugin**
+### jQuery plugin
 
 
 

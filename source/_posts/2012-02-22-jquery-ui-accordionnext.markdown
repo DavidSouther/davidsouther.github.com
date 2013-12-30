@@ -17,7 +17,7 @@ tags:
 I needed a "next" function to cycle between accordion panels in jQuery. The relevant [Stack Overflow question](http://stackoverflow.com/questions/1418202/jquery-accordion-next-and-previous-wizard-how-to-get-previous-and-next-section/) is a couple years old... :(
 
 <!-- more -->
-[javascript]
+```javascript
 $.extend($.ui.accordion.prototype, {
     next: function(){
         var index = this.option('active') || 0,
@@ -30,4 +30,4 @@ $.extend($.ui.accordion.prototype, {
         return this.activate(next);
     }
 });
-[/javascript]
+```

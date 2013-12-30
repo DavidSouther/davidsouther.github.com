@@ -17,10 +17,10 @@ tags:
 
 I think it's time for an attempt at an auditory shell, a la Star Trek: The Next Generation.
 
-"Computer<pause>" - The shell knows the next phrase is going to be a command for it, not background conversation
+"Computer&lt;pause&gt;" - The shell knows the next phrase is going to be a command for it, not background conversation
 
 "What is the current accepted value of the gravitational constant?"
-"The value of the gravitational constant is six point six seven times ten to the negative eleventh Newton square meters per kilogram squared." ([http://www.wolframalpha.com/input/?i=+What+is+the+current+accepted+value+of+the+gravitational+constant%3F](http://www.wolframalpha.com/input/?i=+What+is+the+current+accepted+value+of+the+gravitational+constant%3F))<!-- more -->
+"The value of the gravitational constant is six point six seven times ten to the negative eleventh Newton square meters per kilogram squared." ([http://www.wolframalpha.com/input/?i=+What+is+the+current+accepted+value+of+the+gravitational+constant%3F](http://www.wolframalpha.com/input/?i=+What+is+the+current+accepted+value+of+the+gravitational+constant%3F))
 
 "Computer, what is the current disk usage of my home folder?"
 "Your home folder, dev es dee aye four, is using forty-four percent of the available seven-hundred ninety-four gigabytes."

@@ -23,9 +23,6 @@ Why aren't you cooking for yourself? Do you think it's too expensive? Do you thi
 
 
 
-<!-- more -->
-
-
 
 I'm a busy guy, but man, I love to cook. I've yet to find a restaurant that can consistently satisfy me with their cooking more than I can do on my own. My secret is finding recipes, and ways to cook those recipes, that take as long to cook as it takes me to watch an episode of the Daily Show (then I watch Colbert while I eat!). Here at lazy-ass gourmet, I'll share a bunch of these recipes, and ways to cook them so that we have a wide combination of things to do with our dishes that we'll always have great food at home, and never get bored with what we're eating.
 
