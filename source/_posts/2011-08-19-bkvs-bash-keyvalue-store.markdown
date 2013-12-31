@@ -23,6 +23,8 @@ aa[hello]=world
 aa[ab]=cd
 ```
 
+<!-- more -->
+
 Well, I wanted something that could be used between sessions. Tada, the filesystem is a great key/value store.
 
 I wrote a wrapper for the set ADT get(key), set(key, value) and delete(key) to the file system. It's available at [http://code.google.com/p/bkvs/](http://code.google.com/p/bkvs/) and makes for some pretty nice loops.

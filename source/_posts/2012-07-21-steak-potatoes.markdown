@@ -18,6 +18,7 @@ tags:
 
 Nothing says good eating like a steaming plate of steaks, mashed potatoes, and country veggies. The best part? It's one of the easiest things you can cook. Follow along, and in half an hour you'll be having better steaks than they server at Morton's.
 
+<!-- more -->
 
   * 2 to 4 Fillets, 1-2" thick.
   * 1 can whole kernel corn

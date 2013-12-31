@@ -15,6 +15,8 @@ tags:
 
 With the lack of an easy PHP debugger, it seems a lot of web developers think the best way to debug PHP is excessive print and log statements. I am one of those. I plod along with var_dumps and echos. I wanted a stack trace, and so I put this little guy together.
 
+<!-- more -->
+
 ```php
 /**
  * Print a quick stack trace.

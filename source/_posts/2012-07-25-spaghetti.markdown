@@ -17,6 +17,8 @@ tags:
 
 The quickest Italian dish ever. If you can't cook this, you shouldn't cook. (Actually, you should try it a few more times and figure out how to cook.) If you can't make this tasty, try a couple more times.
 
+<!-- more -->
+
   * Spaghetti noodles
   * 1 lbs ground beef
   * 1 can Classico spaghetti sauce

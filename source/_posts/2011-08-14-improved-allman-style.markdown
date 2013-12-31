@@ -22,6 +22,8 @@ tags:
 
 C-Based languages are those with “Brace” syntax describing blocks. Since the first C programming texts, there has been something of a holy war between zealots of different standards. Being an exemplar of the programming virtue of hubris, I have my entry. Allman-style bracing is the correct, best form for indenting block level code, provided a single addition: the opening brace MUST BE FOLLOWED BY AN INLINE COMMENT. The control statement might tell what the program is doing, but by always including a one-line verbal explanation of the block, other programmers know why the control statement is important. The following is an example mildly complex algorithm from the [jmtt analysis demo](http://davidsouther.com/projects/jmtt/tree.js).
 
+<!-- more -->
+
 ```javascript
 this.calculate = function(li)
 /**

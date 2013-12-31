@@ -21,6 +21,8 @@ I freakin love bash. The thing's amazing, with some ridiculous language construc
 
 I've been using it over the past week on a digital forensics case. This is a project that involves examining a dozen production hard disks for any artifacts of inappropriate or malicious use (hacking, malware, unauthorized websites, breach of data policy, etc etc). The disks I'm analyzing are about 120GB a piece, dual-boot between Windows XP and various linux distros. After some initial analysis, we have 3 data partitions per disk, and somewhere between 300 and 400 thousand artifacts per partition. That's over 10 million artifacts to collect and analyse, from 12 different physical devices. This is for a court case, so rules of evidence and expert witness rules apply- notes. Lots and lots of meticulous notes. Guess what? Bash makes it easy.
 
+<!-- more -->
+
 To start off, I only actually had two physical devices to work from. Following consequences of [Locard's principle](http://en.wikipedia.org/wiki/Locard's_exchange_principle), the original devices were raw copied (`dd`ed) to a pair of aggregate drives. These aggregates then had a single file system with a handful of .raw files each. That's where we start from. Here are the tools I've added to my belt (and `.bashrc`).
 
 

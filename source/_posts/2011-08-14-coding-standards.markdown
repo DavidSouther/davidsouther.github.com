@@ -1,31 +1,19 @@
 ---
-
 author: admin
-
 comments: true
-
 date: 2011-08-14 04:46:48+00:00
-
 layout: post
-
 slug: coding-standards
-
 title: Coding Standards
-
 wordpress_id: 105
 
 categories:
-
 - Coding Standards
-
 - Technology
 
 tags:
-
 - coding
-
 - standards
-
 - style guidelines
 
 ---

@@ -18,6 +18,8 @@ My dad mentioned an interesting project to me the other day, posing the challeng
 
 **[See jmtt in action!](http://davidsouther.com/projects/jmtt/tree.html)**
 
+<!-- more -->
+
 There are a few treetable components out there ([Swing](http://java.sun.com/products/jfc/tsc/articles/treetable1/), [Qt](http://doc.qt.nokia.com/4.7-snapshot/qtreewidget.html), [ASP.NET](http://www.codeproject.com/KB/aspnet/ASPNET_TreeView_using_C_.aspx)), but I wanted to do this in jQuery. Because jQuery is the bees knees, and distributing apps purely in the browser is something I've been working towards. With that in mind, the design goal is that the application would be a single folder, completely self contained, and run by opening a .html file. Not being one to reinvent the wheel, I took a look at what plugins there were and found [treeTable](http://ludo.cubicphuse.nl/jquery-plugins/treeTable/doc/) and [JQTreeTable](http://www.hanpau.com/index.php?page=jqtreetable). Unfortunately, both are terrible. The HTML needed is horribly, disgustingly unsemantic. treeTable uses class and id attributes of the tr tags, and JQTreeTable has you pass in a map of child to parent ids. BLECH! Having to add an id to every row, and then ask a designer to follow that? NO!
 
 So, I wrote my own. The guiding, number one goal was a semantic markup- the list hierarchy *MUST* be conveyed using a ul/li structure. Beyond that, the plugin should be as configurable as possible, while using as clean a plugin architecture as possible. Since this was my first trip around the jQuery ui block, I found bililite.com's [jQuery UI Widget tutorial](http://bililite.com/blog/understanding-jquery-ui-widgets-a-tutorial/) an invaluable resource.

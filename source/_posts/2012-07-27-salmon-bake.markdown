@@ -17,6 +17,8 @@ tags:
 
 Fresh fish feels fantastically filling. This salmon bake is great year round, but an especially nice light summer dish.
 
+<!-- more -->
+
   * Salmon Fillets
   * 1 Bell Pepper
   * half-dozen spears asparagus

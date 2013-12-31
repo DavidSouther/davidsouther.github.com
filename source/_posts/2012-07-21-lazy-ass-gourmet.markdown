@@ -13,14 +13,11 @@ tags:
 - lazy
 ---
 
-### The art of cooking Fast, Cheap, Clean
-
-
-
-
+## The art of cooking Fast, Cheap, Clean
 
 Why aren't you cooking for yourself? Do you think it's too expensive? Do you think you don't know how to cook? Or do you just think you don't have enough time in the day? If any of those are your excuse, you're about to lose them. Cooking great food isn't that difficult once you have a few basic dishes, and with the right recipes, you can be cooking great dinners for yourself or your family in half an hour. This is lazy-ass gourmet, and we're going to cook the most fantastic meals in no time at all.
 
+<!-- more -->
 
 
 

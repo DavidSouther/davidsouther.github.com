@@ -25,8 +25,10 @@ tags:
     * You’re writing html5. Even in xhtml, when’s the last time you needed to embed an alternative xmlns in your docs? (If you’re working on a project that actually does use namespacing, than you aren’t using HTML5)
   * Specify `lang="en"` (or whatever your page’s language is)	
     * It’s just good practice to tell everyone what you’re speaking before you start talking. Plus, Google Chrome will pop up the little “Want to translate this page?” bar for your foreign visitors!
-### head
 
+<!-- more -->
+
+### head
   * `<meta charset="utf-8" />` should be the first tag in the head, and must be in the first 512 bytes of the page.
     * Always specify the encoding. It’s just good practice.
   * No content-type meta tag (should be set in HTTP headers)

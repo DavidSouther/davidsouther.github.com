@@ -17,6 +17,8 @@ _I stumbled across this while going through old emails. It was originally addres
 
 Homo Sapiens is, to it's knowledge, only unique in it's ability to make value judgments on it's actions in the world. Many other animals show knowledge of their environment and an ability to carry out tasks of relative complexity (including rather complex computer algorithms like A* pathfinding), but the ability to evaluate how a goal was completed remains solely in the realm of Human comprehension.
 
+<!-- more -->
+
 This presents many questions, and many answers in generations paced have placed a special prominence on the human race. Throughout western history, humans have always been special, separate from animals, plants, and gods. The Christian influence is not alone in the middle ages in presenting our race as coming with special providence from on-high, with a transcendent imperative making them simply better than everything else (with even the distinctions of what makes a human rather loosely defined). It is interesting that the scientific revolution of the renaissance represents a desire of christians to understand God and His Creation, but that that path leads directly to one inevitable conclusion: humanity is at best a chance occurence in the cosmos, at worst, humanity is just one of billions of ordinary races throughout the universe to have achieved intelligence.
 
 <!-- more -->

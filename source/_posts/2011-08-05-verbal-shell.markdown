@@ -22,6 +22,8 @@ I think it's time for an attempt at an auditory shell, a la Star Trek: The Next 
 "What is the current accepted value of the gravitational constant?"
 "The value of the gravitational constant is six point six seven times ten to the negative eleventh Newton square meters per kilogram squared." ([http://www.wolframalpha.com/input/?i=+What+is+the+current+accepted+value+of+the+gravitational+constant%3F](http://www.wolframalpha.com/input/?i=+What+is+the+current+accepted+value+of+the+gravitational+constant%3F))
 
+<!-- more -->
+
 "Computer, what is the current disk usage of my home folder?"
 "Your home folder, dev es dee aye four, is using forty-four percent of the available seven-hundred ninety-four gigabytes."
 (`$ df | grep /home

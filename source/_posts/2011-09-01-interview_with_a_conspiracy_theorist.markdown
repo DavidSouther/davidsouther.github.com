@@ -28,9 +28,11 @@ It's outrageous to take advantage of the urgent needs of hurricane survivors in 
 
 **Josh Carey** My point is that this happens everyday in third world countries ! Poverty , war , disease and we do nothing ! We are taxed to death illegally and all that money goes to shit ! We could change this world so this stuff doesn't happen ! We must first change the system !
 
+<!-- more -->
+
 **David Souther** And how, exactly, do you propose to do that, @Josh Carey?
 
-**<!-- more -->Josh Carey** Very simple !Stop supporting the failed system, stop giving them power ! A revolution if u will , they happen all the time throughout history to better the people :)
+**Josh Carey** Very simple !Stop supporting the failed system, stop giving them power ! A revolution if u will , they happen all the time throughout history to better the people :)
 
 **David Souther** That doesn't sound simple at all. First, what are the broken systems? Second, how are they broken? How does the current popular movements in the Arab Spring effect your rabblerousing revolutionarianism?
 

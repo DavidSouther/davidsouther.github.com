@@ -10,6 +10,8 @@ wordpress_id: 204
 
 I needed a way to lexicographically compare strings in a bash script. Unfortunately, test only test string equality. C's strcmp returns 0 if two strings are equal, or the index of where the strings differ (positive if the character is greater in the first string, negative if the character at that position is greater in the second string). For my purposes, I only needed to know which one was greater, not where it was greater at. I whipped up a quick version of the program in straight C, but immediately had problems with loading times being drastically heavier than computation times. This seemed like the perfect case for a bash loadable builtin. I hadn't worked with bash builtins before, but [bash cookbook](http://oreilly.com/catalog/9780596526788)'s recipe 16.15 is a guide on loadable builtins. This is one place where preparation is the larger part of luck. With that, here's a quick walkthrough of the code and compile process.
 
+<!-- more -->
+
 Start by donwloading and extracting the bash [source](http://ftp.gnu.org/gnu/bash/) ([latest is 4.2](http://ftp.gnu.org/gnu/bash/bash-4.2.tar.gz)). Extract the tarball. We are going to be working in a small part of the bash source tree, in the examples/loadables/ folder. cd there, then run the following commands:
 
 ```bash
