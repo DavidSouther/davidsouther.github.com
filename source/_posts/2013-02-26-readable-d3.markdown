@@ -12,19 +12,212 @@ categories:
 
 [d3 example code](https://github.com/mbostock/d3/wiki/Gallery) is horribly convoluted, depending on dozens of unstructured variables (and often some global magic) to achieve even the simplest effects. To improve the readability of my d3 projects, I've introduced a Canvas container, with the most commonly used properties conveniently encapsulated in a single object. Combined with mbostocks discussion in [Towards Reusable Charts](http://bost.ocks.org/mike/chart/), the canvas container can be used in nearly any project to greatly improve the structure and quality of d3 code.
 
-{% gist 5035560 canvas.js %}
+<!-- more -->
+
+```javascript "Readable Canvas (canvas.js)" https://gist.github.com/DavidSouther/5035560#file-canvas-js 
+(function(){
+  /*
+    Get a new SVG canvas, with margins and scales. Pass an object as `options` to
+    set values. Defaults:
+  
+    {
+      size: # Size of SVG. Returned size will be smaller by the size of the margins.
+        width: 960
+        height: 500
+      margin: # Margins for the graphic.
+        top: 20
+        right: 20
+        bottom: 30
+        left: 40
+      scale: # d3.scales to scale against the canvas
+        x: linear
+        y: linear
+      domain: # Domain of scales for the canvas.
+        x: [0, 1]
+        y: [0, 1]
+    }
+ 
+    @param root String selector for finding the SVG element.
+    @param options Object matching the defaults to override.
+    @return Object with defaults, overriden by the options, and an additional two properties:
+      {
+        svg: SVG_Element # SVG root
+        defs: SVG_Defs_Element # <defs> to attach gradient and filter definitions to.
+      }
+  */
+  this.Canvas = function(root, options){
+    var margin, width, height, svg, scales, canvas;
+    root == null && (root = 'body');
+    options == null && (options = {});
+    options.size || (options.size = {});
+    options.margin || (options.margin = {});
+    options.scale || (options.scale = {});
+    margin = {
+      top: options.margin.top || 20,
+      right: options.margin.top || 20,
+      bottom: options.margin.top || 30,
+      left: options.margin.top || 40
+    };
+    margin.leftright = margin.left + margin.right;
+    margin.topbottom = margin.top + margin.bottom;
+    width = (options.size.width || 960) - margin.leftright;
+    height = (options.size.height || 500) - margin.topbottom;
+    svg = d3.select(root).attr({
+      'width': width + margin.left + margin.right,
+      'height': height + margin.top + margin.bottom
+    });
+    scales = {
+      x: d3.scale[options.scale.x || 'linear']().range([0, width]).domain(options.domain.x || [0, 1]).nice(),
+      y: d3.scale[options.scale.y || 'linear']().range([0, height]).domain(options.domain.y || [0, 1]).nice()
+    };
+    canvas = {
+      size: {
+        width: width,
+        height: height
+      },
+      margin: margin,
+      scale: scales,
+      svg: svg,
+      defs: svg.select('defs')
+    };
+    return canvas;
+  };
+}).call(this);
+```
 
 This version binds the Canvas closure function to Window. Most of the code is to ensure the appropriate fields are set on the options object. The returned object has the final details of the drawing surface, including its size, the margins, and d3 scales calibrated to the canvas' coordinates. It also includes a refernce to the root SVG element, as well as the svg:defs element containing any filters or gradients defined for the image.
 
 This object works exceptionally well as the config parameter for reusable charts.
 
-{% gist 5035560 starmap.js %}
+```javascript Herzsprung Russel Diagram (starmap.js) https://gist.github.com/DavidSouther/5035560#file-starmap-js
+(function(){
+  var spectrate, Starmap, prepare;
+
+  // Small helper to look up a string
+  spectrate = function(star){
+    return "class" + spectral['class'](+star.temp);
+  };
+
+  // Given a canvas, add gradient definitions to the svg:defs element.
+  prepare = function(canvas){
+    var defs, grads;
+    defs = canvas.defs;
+    grads = defs.selectAll('radialGradient')
+      // A list of spectral classes
+      .data(spectral.spectro)
+      .enter()
+      .append('svg:radialGradient')
+      .attr({
+        'id': function(it){ return spectrate(it); },
+        'cx': +0.5,
+        'cy': +0.5,
+        'r': +1
+      });
+    grads.append('stop')
+      .attr({
+        'stop-color': function(it){ return it.color.brighter(); },
+        'offset', '0%'
+      });
+    grads.append('stop')
+      .attr({
+        'stop-color': function(it){ return it.color; },
+        'offset': '100%'
+      });
+  };
+
+  this.Starmap = function(canvas){
+    var star;
+    prepare(canvas);
+ 
+    // Callable function to draw circles in a selection
+    // EG a stencil
+    star = function(selection){
+      var circles;
+      circles = selection.enter()
+        .append('svg:circle')
+        .attr({
+          "r": 20,
+          "class": "star"
+        })
+        .style({
+          "opacity": 0.9
+        });
+      circles.attr({
+        "cx": function(it){ return canvas.scale.x(+it.temp); },
+        "cy": function(it){ return canvas.scale.y(+it.mag); },
+        "fill": function(it){ return "url(#" + spectrate(it) + ")"; }
+      });
+      selection.exit().remove();
+    };
+
+    // The main stencil. Takes an svg:g layer from inside canvas.svg
+    return function(layer){
+      // Load the spectrum data
+      d3.csv("hr.csv", function(error, stars){
+        layer.attr({
+            'id': "herzrus",
+            'transform': "translate(" + canvas.margin.left + ", " + canvas.margin.right + ")"
+          })
+          .style('opacity', 0.9)
+          .selectAll('.star')
+          .data(stars)
+          // Chained call to the reusable star stencil.
+          .call(star);
+      });
+    };
+  });
+}).call(this);
+```
 
 In this example, StarMap will draw a Herzsprung Russel diagram on the layer. An HR diagram is a log-linear scatterplot of stellar temperature to luminosity. This example takes a canvas to attach Gradient definitions to, and returns a function that will draw the HR diagram on a layer. The stencil function loads data from a CSV file, and uses an inner stencil funtion to draw the individual stars.
 
 Using the two is similarly easy.
 
-{% gist 5035560 starmap.html %}
+```html Starmap https://gist.github.com/DavidSouther/5035560#file-starmap-html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HR in D3</title>
+    <script src="http://d3js.org/d3.v3.min.js" />
+    <link rel="stylesheet" href="styles/nucleosynth.css">
+    <script src="canvas.js" />
+    <script src="starmap.js" />
+</head>
+<body>
+    <svg id="chart">
+        <defs>
+            <filter id="oil" filterUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
+                <femorphology in="SourceGraphic" radius="2" result="result_oil_morph" />
+                <feturbulence type="turbulence" baseFrequency="0.05" numOctaves="2" result="result_oil_turb" />
+                <fedisplacementmap in="result_oil_morph" in2="result_oil_turb" scale=4 xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+        </defs>
+    </svg>
+    <script type="text/javascript">
+        var background;
+        canvas = Canvas('#chart', {
+            scale: {
+                x: 'log'
+            },
+            domain: {
+                x: [100000, 1000],
+                y: [-8, 7]
+            }
+        });
+        background = canvas.svg.append('svg:g')
+            .attr('style', 'filter:url(#oil);');
+        background.append('svg:image')
+            .attr({
+                'xlink:href': "assets/dfb.png",
+                'width': canvas.size.width + canvas.margin.leftright,
+                'height': canvas.size.height + canvas.margin.topbottom,
+                'x': 0,
+                'y': 0
+            });
+        Starmap(canvas)(background.append('svg:g'));
+    </script>
+</body>
+```
 
 In this example, the SVG is preloaded in the HTML with a filter already defined. The script gets a canvas with a few custom properties, attaches a background image, then creates the Starmap and uses it immediately.
 
