@@ -19,14 +19,14 @@ The bug might be shallow when it's first found, but how does it never happen aga
 > "The three chief virtues of a programmer are: Laziness, Impatience and Hubris."
 > - Larry Wall (creator of Perl)
 
+<!-- more -->
+
 
 That little gremlin I wrote to prove the (non)existence of a bug? That's me being lazy. I have absolutely zero desire to fix a bug a second time - that's time I could be playing ping pong, or writing a new operating system. That little gremlin better be fast, too, or I'm not going to wait around for him. The gremlin must be small and focused, with a family of small, focused gremlins that can run all my critical tests (the features I'm touching) in under 5 seconds, and my entire codebase quickly enough to not block anyone else on my team ([or they will not test, because it takes too long to be useful](http://codeascraft.com/2013/09/23/lxc-running-14000-tests-per-day-and-beyond-part-1/)). My code always works correctly, the first time. At least, it does every time I write a test before I write a feature. I know most developers aren't as egotistical as I am, but I don't know a single good developer who doesn't want to take pride in the code they've written. It's damned easy to take pride in code that Works Right.
 
 ## Why don't I test more often?
 
-
-![](https://lh3.googleusercontent.com/OkcCl_KVOvD6J7q4w_mWsgvj01mc_3jqS_fKcKIZbJDqq5HMCoPE0J2fnJld_XA9Zxs21XSH429Rnwk9V-T_MHB19-Wk090pYtvHD0pGOUdf_QKls6HXaX-dUA)
-
+<span style="float:right"><img src="https://lh3.googleusercontent.com/OkcCl_KVOvD6J7q4w_mWsgvj01mc_3jqS_fKcKIZbJDqq5HMCoPE0J2fnJld_XA9Zxs21XSH429Rnwk9V-T_MHB19-Wk090pYtvHD0pGOUdf_QKls6HXaX-dUA" /></span>
 
 Testing is hard. It's not the way most programmers learned to program. The other side of the laziness sword? If it's easier to take a shortcut, to get code out the door, I probably will. Testing is in many cases as hard as writing production code, but for a completely different reason: testing requires discipline. Discipline is not, in my experience, something prided by the great hackers of our field. It is a completely different way to approach building software, and requires an equal level of commitment and experience to become comfortable for a developer or team. Without that discipline, shortcuts will happen, and developers won't write code.
 
@@ -42,7 +42,9 @@ Three things need to happen when a team gets to that point. The tests need to be
          A ratchet won't slip.
 </pre>
 
-![](https://lh4.googleusercontent.com/4dgJC56kg--PvW2NHWSTtKr6H0RbQHFAi4pKitQOyUhOBT0KgAyX_Yau1efUdBnI4USrPk63-KEBB9Twrd-yRK8nN_yevJLYOpOullHdpi0hmpdHQgblbjwQYw)Programming is like drawing water from a well. When the well is shallow, and the bucket small, it's not too difficult a task. When the bucket is big, and the well deep, it becomes harder to draw the bucket, and every mistake can be more disastrous. Automated testing is like installing a ratchet on the rope - every time you write tested code, that bit of rope will never slip. Embracing test driven development is installing a pulley to hoist the bucket with the program. The force and exertion to write a feature halves, because you only write the actual half of the feature the customer needs.
+<span style="float:left"><img src="https://lh4.googleusercontent.com/4dgJC56kg--PvW2NHWSTtKr6H0RbQHFAi4pKitQOyUhOBT0KgAyX_Yau1efUdBnI4USrPk63-KEBB9Twrd-yRK8nN_yevJLYOpOullHdpi0hmpdHQgblbjwQYw" /></span>
+
+Programming is like drawing water from a well. When the well is shallow, and the bucket small, it's not too difficult a task. When the bucket is big, and the well deep, it becomes harder to draw the bucket, and every mistake can be more disastrous. Automated testing is like installing a ratchet on the rope - every time you write tested code, that bit of rope will never slip. Embracing test driven development is installing a pulley to hoist the bucket with the program. The force and exertion to write a feature halves, because you only write the actual half of the feature the customer needs.
 
 
 ## Excoriation of Excuses
@@ -53,7 +55,9 @@ If you're a manager and don't demand your team writes tests, I'm going to assume
 
 ## Prototypes, Too!
 
-[![Evils of the Refactoring Cat](http://davidsouther.com/wp-content/uploads/2013/10/post-10513-Code-Refactoring-Cat-in-Bathtu-yRZT.gif)](http://davidsouther.com/wp-content/uploads/2013/10/post-10513-Code-Refactoring-Cat-in-Bathtu-yRZT.gif)I reject the concept of one-off code. If you're at a hackathon, there is that point, about three hours before demo, where your project is AWESOME, and going to win best of show, but you have three hours so you might as well implement a new feature. Without tests, your demo will fail. You will accidentally, in the heat of the moment, break the old, MVP feature with that whiz-bang animation, and have no idea how to get back. At best, you will have a commit to roll back to. At worst, your hackathon time was ruined. With a prototype, you are trying to convince someone to go out of their way to do you a favor. Don't play the lottery - write tests.
+<span style="float:right"><img alt="Evils of the Refactoring Cat" src="http://davidsouther.com/assets/images/Code-Refactoring-Cat-in-Bathtub.gif" /></span>
+
+I reject the concept of one-off code. If you're at a hackathon, there is that point, about three hours before demo, where your project is AWESOME, and going to win best of show, but you have three hours so you might as well implement a new feature. Without tests, your demo will fail. You will accidentally, in the heat of the moment, break the old, MVP feature with that whiz-bang animation, and have no idea how to get back. At best, you will have a commit to roll back to. At worst, your hackathon time was ruined. With a prototype, you are trying to convince someone to go out of their way to do you a favor. Don't play the lottery - write tests.
 
 ## Call to Action
 
