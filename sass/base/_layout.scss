@@ -45,22 +45,33 @@ $header-padding-bottom: 0.25em !default;
 
 body {
   -webkit-text-size-adjust: none;
-  max-width: $max-width;
   position: relative;
   margin: 0 auto;
   > header, > nav, > footer, #content > article, #content > div > article, #content > div > section {
+    .entry-content {
+      padding-left: $pad-min * 2;
+    }
     @extend .group;
     padding-left: $pad-min;
     padding-right: $pad-min;
     @media only screen and (min-width: 480px) {
+      .entry-content {
+        padding-left: $pad-narrow * 2;
+      }
       padding-left: $pad-narrow;
       padding-right: $pad-narrow;
     }
     @media only screen and (min-width: 768px) {
+      .entry-content {
+        padding-left: $pad-medium * 2;
+      }
       padding-left: $pad-medium;
       padding-right: $pad-medium;
     }
     @media only screen and (min-width: 992px) {
+      .entry-content {
+        padding-left: $pad-wide * 2;
+      }
       padding-left: $pad-wide;
       padding-right: $pad-wide;
     }
