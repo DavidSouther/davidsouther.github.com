@@ -1,0 +1,14 @@
+{% if site.stack_overflow_user %}
+<section>
+  <h1>Stack Overflow Answers</h1>
+  <ul id="stackoverflow">
+    <li class="loading">Answers updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $(function(){
+      getStackOverflowFeed("{{site.stack_overflow_user}}", {{site.stack_overflow_count}});
+    });
+  </script>
+  <script src="{{ root_url }}/javascripts/stackoverflow.js" type="text/javascript"> </script>
+</section>
+{% endif %}
