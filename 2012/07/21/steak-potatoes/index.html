@@ -105,6 +105,9 @@
 
 <div class="entry-content"><p>Nothing says good eating like a steaming plate of steaks, mashed potatoes, and country veggies. The best part? It&rsquo;s one of the easiest things you can cook. Follow along, and in half an hour you&rsquo;ll be having better steaks than they server at Morton&rsquo;s.</p>
 
+<!-- more -->
+
+
 <ul>
 <li>2 to 4 Fillets, 1-2&#8221; thick.</li>
 <li>1 can whole kernel corn</li>
@@ -200,7 +203,20 @@
 
 <aside class="sidebar">
   
-    <section>
+    
+<section>
+  <h1>Stack Overflow Answers</h1>
+  <ul id="stackoverflow">
+    <li class="loading">Answers updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $(function(){
+      getStackOverflowFeed("240358", 7);
+    });
+  </script>
+  <script src="/javascripts/stackoverflow.js" type="text/javascript"> </script>
+</section>
+<section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
@@ -222,6 +238,14 @@
     
       <li class="post">
         <a href="/2013/02/25/readable-d3/">Readable D3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/01/11/this-rationalists-world-view/">This Rationalist's World-View</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/12/07/observers-in-my-syntax/">Observers? In *my* Syntax?</a>
       </li>
     
   </ul>
@@ -247,7 +271,7 @@
 
         github.showRepos({
             user: 'DavidSouther',
-            count: 5,
+            count: 7,
             skip_forks: true,
             target: '#gh_repos'
         });
@@ -255,7 +279,6 @@
   </script>
   <script src="/javascripts/github.js" type="text/javascript"> </script>
 </section>
-
 
 
 <section class="googleplus">

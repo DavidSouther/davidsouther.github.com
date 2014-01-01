@@ -107,6 +107,9 @@
 
 <p><strong><a href="http://davidsouther.com/projects/jmtt/tree.html">See jmtt in action!</a></strong></p>
 
+<!-- more -->
+
+
 <p>There are a few treetable components out there (<a href="http://java.sun.com/products/jfc/tsc/articles/treetable1/">Swing</a>, <a href="http://doc.qt.nokia.com/4.7-snapshot/qtreewidget.html">Qt</a>, <a href="http://www.codeproject.com/KB/aspnet/ASPNET_TreeView_using_C_.aspx">ASP.NET</a>), but I wanted to do this in jQuery. Because jQuery is the bees knees, and distributing apps purely in the browser is something I&rsquo;ve been working towards. With that in mind, the design goal is that the application would be a single folder, completely self contained, and run by opening a .html file. Not being one to reinvent the wheel, I took a look at what plugins there were and found <a href="http://ludo.cubicphuse.nl/jquery-plugins/treeTable/doc/">treeTable</a> and <a href="http://www.hanpau.com/index.php?page=jqtreetable">JQTreeTable</a>. Unfortunately, both are terrible. The HTML needed is horribly, disgustingly unsemantic. treeTable uses class and id attributes of the tr tags, and JQTreeTable has you pass in a map of child to parent ids. BLECH! Having to add an id to every row, and then ask a designer to follow that? NO!</p>
 
 <p>So, I wrote my own. The guiding, number one goal was a semantic markup- the list hierarchy <em>MUST</em> be conveyed using a ul/li structure. Beyond that, the plugin should be as configurable as possible, while using as clean a plugin architecture as possible. Since this was my first trip around the jQuery ui block, I found bililite.com&rsquo;s <a href="http://bililite.com/blog/understanding-jquery-ui-widgets-a-tutorial/">jQuery UI Widget tutorial</a> an invaluable resource.</p>
@@ -265,7 +268,20 @@
 
 <aside class="sidebar">
   
-    <section>
+    
+<section>
+  <h1>Stack Overflow Answers</h1>
+  <ul id="stackoverflow">
+    <li class="loading">Answers updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $(function(){
+      getStackOverflowFeed("240358", 7);
+    });
+  </script>
+  <script src="/javascripts/stackoverflow.js" type="text/javascript"> </script>
+</section>
+<section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
@@ -287,6 +303,14 @@
     
       <li class="post">
         <a href="/2013/02/25/readable-d3/">Readable D3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/01/11/this-rationalists-world-view/">This Rationalist's World-View</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/12/07/observers-in-my-syntax/">Observers? In *my* Syntax?</a>
       </li>
     
   </ul>
@@ -312,7 +336,7 @@
 
         github.showRepos({
             user: 'DavidSouther',
-            count: 5,
+            count: 7,
             skip_forks: true,
             target: '#gh_repos'
         });
@@ -320,7 +344,6 @@
   </script>
   <script src="/javascripts/github.js" type="text/javascript"> </script>
 </section>
-
 
 
 <section class="googleplus">

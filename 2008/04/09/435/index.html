@@ -111,6 +111,9 @@
 
 <p>In today&rsquo;s world, computers are tools to help humanity process information. Engineers design hardware and programs with the express purpose of helping humans communicate and think more efficiently, but not necessarily more creatively. Computers make it easier to deal with large amounts of information, but we still need people to decide rules on which analysis is possible. The field of artificial intelligence aims to destroy that by removing humans from the equation, so the machines alone can think, decide, and improve. In all science fiction, and most science fact, AI computers are either controlling overlords or degraded slaves. It seems, however, that modern pursuits and trends point towards a more harmonious, if not utopian, symbiosis between man and machine.</p>
 
+<!-- more -->
+
+
 <p>Machines and computers have always been a means to circumvent human deficiencies. While a team of men can pass buckets to move water uphill, Archimedes felt it was much easier to have one man operate a pump, which coincidentally had several times the water moving capacity as the team of men. The cost in time and effort to develop that one machine compared to the savings in the number of men working on it times the increased amount moved &emdash; doubling the capacity of a three-man team would be a six-fold increase in productivity, and two of the three men can spend their time doing other things (like pumping more water, for an even greater increase in overall productivity). This continues today in computer hardware, especially with Moore&rsquo;s law and Kurzweil&rsquo;s Law of Accelerating returns.</p>
 
 <p>Another area of continual machine improvement, as mentioned earlier, is access to and distillation of information. With open formats and the Internet, humans have access to tremendous amounts of knowledge; for the past 40 years it is only feasible to absorb that knowledge with the help of computers. Social networking sites display this phenomenon especially well- with a site like Facebook, it is possible to explore incredibly detailed correlations and interactions among a someone&rsquo;s social group- tremendous connections about a person and the flow of information through society. In a business setting, computers provide data mining capabilities and business intelligence mechanisms which allow organizations the ability to forecast and predict trends that allow management and even low employees tremendous decision-making support and possibilities. All this information, however, must be analyzed by a human at the end of the day, when decisions are made. Computers can present information in an easy-to-use format, but people still direct and directly use that data.</p>
@@ -226,7 +229,20 @@
 
 <aside class="sidebar">
   
-    <section>
+    
+<section>
+  <h1>Stack Overflow Answers</h1>
+  <ul id="stackoverflow">
+    <li class="loading">Answers updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $(function(){
+      getStackOverflowFeed("240358", 7);
+    });
+  </script>
+  <script src="/javascripts/stackoverflow.js" type="text/javascript"> </script>
+</section>
+<section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
@@ -248,6 +264,14 @@
     
       <li class="post">
         <a href="/2013/02/25/readable-d3/">Readable D3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/01/11/this-rationalists-world-view/">This Rationalist's World-View</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/12/07/observers-in-my-syntax/">Observers? In *my* Syntax?</a>
       </li>
     
   </ul>
@@ -273,7 +297,7 @@
 
         github.showRepos({
             user: 'DavidSouther',
-            count: 5,
+            count: 7,
             skip_forks: true,
             target: '#gh_repos'
         });
@@ -281,7 +305,6 @@
   </script>
   <script src="/javascripts/github.js" type="text/javascript"> </script>
 </section>
-
 
 
 <section class="googleplus">
