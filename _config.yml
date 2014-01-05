@@ -5,7 +5,7 @@
 url: http://DavidSouther.github.io
 title: David Souther
 subtitle: Crafstmanship - Software, Hardware, Art, Language
-author: David Souther <davidsouther@gmail.com>
+author: David Souther
 simple_search: http://google.com/search
 description:
 
@@ -27,7 +27,7 @@ email: davidsouther@gmail.com
 
 # If publishing to a subdirectory as in http://site.com/project set 'root: /project'
 root: /
-permalink: /:year/:month/:title/
+permalink: /:year/:month/:title
 source: source
 destination: public
 plugins: plugins
@@ -59,7 +59,11 @@ default_asides: [
 
 # Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below
 # and add an array with the asides you want to use.
-# blog_index_asides:
+blog_index_asides: [
+    asides/stack_overflow.html,
+    asides/github.html,
+    asides/googleplus.html
+]
 # post_asides:
 # page_asides:
 
