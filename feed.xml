@@ -4,7 +4,7 @@
   <title><![CDATA[David Souther]]></title>
   <link href="http://DavidSouther.github.io/atom.xml" rel="self"/>
   <link href="http://DavidSouther.github.io/"/>
-  <updated>2013-12-31T19:50:43-05:00</updated>
+  <updated>2014-01-05T11:26:10-05:00</updated>
   <id>http://DavidSouther.github.io/</id>
   <author>
     <name><![CDATA[David Souther ]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Testing. It's Hard. Just Do It!]]></title>
-    <link href="http://DavidSouther.github.io/2013/10/30/testing-its-hard-just-do-it/"/>
+    <link href="http://DavidSouther.github.io/2013/10/testing-its-hard-just-do-it/"/>
     <updated>2013-10-30T13:31:11-04:00</updated>
-    <id>http://DavidSouther.github.io/2013/10/30/testing-its-hard-just-do-it</id>
+    <id>http://DavidSouther.github.io/2013/10/testing-its-hard-just-do-it</id>
     <content type="html"><![CDATA[<p><a href="http://en.wikipedia.org/wiki/Linus's_Law">&ldquo;With enough eyeballs, all bugs are shallow.&rdquo;</a></p>
 
 <p>The bug might be shallow when it&rsquo;s first found, but how does it never happen again? Automated Testing. When a bug is found, prove it exists with a test. Then, that bug is guaranteed to never happen again &ndash; a little computer gremlin with eagle-eye focus will look at that bug every time your program runs, and the bug will NEVER HAPPEN AGAIN. It will never happen, because if you come close to making that bug, the gremlin will make your console bleed with the red of a failed test.</p>
@@ -83,9 +83,9 @@
   
   <entry>
     <title type="html"><![CDATA[Sitting at Home, Listening to Beethoven, Thinking of Maenee]]></title>
-    <link href="http://DavidSouther.github.io/2013/04/25/sitting-at-home/"/>
+    <link href="http://DavidSouther.github.io/2013/04/sitting-at-home/"/>
     <updated>2013-04-25T22:37:22-04:00</updated>
-    <id>http://DavidSouther.github.io/2013/04/25/sitting-at-home</id>
+    <id>http://DavidSouther.github.io/2013/04/sitting-at-home</id>
     <content type="html"><![CDATA[<pre>
 The fire in your eyes sets my heart aflame
 
@@ -107,9 +107,9 @@ in my breast, my mind.
   
   <entry>
     <title type="html"><![CDATA[National Gallery, West Building]]></title>
-    <link href="http://DavidSouther.github.io/2013/03/18/national-gallery-west-building/"/>
+    <link href="http://DavidSouther.github.io/2013/03/national-gallery-west-building/"/>
     <updated>2013-03-18T11:51:56-04:00</updated>
-    <id>http://DavidSouther.github.io/2013/03/18/national-gallery-west-building</id>
+    <id>http://DavidSouther.github.io/2013/03/national-gallery-west-building</id>
     <content type="html"><![CDATA[<pre>
 Art in the halls art on the walls
 Paintings and sculpture oh my 
@@ -161,9 +161,9 @@ then, at the end, the cherubs alight.
   
   <entry>
     <title type="html"><![CDATA[7th Ave Between the Square and the Park]]></title>
-    <link href="http://DavidSouther.github.io/2013/03/14/7th-ave-between-the-square-and-the-park/"/>
+    <link href="http://DavidSouther.github.io/2013/03/7th-ave-between-the-square-and-the-park/"/>
     <updated>2013-03-14T21:03:09-04:00</updated>
-    <id>http://DavidSouther.github.io/2013/03/14/7th-ave-between-the-square-and-the-park</id>
+    <id>http://DavidSouther.github.io/2013/03/7th-ave-between-the-square-and-the-park</id>
     <content type="html"><![CDATA[<pre>
 I walk her streets alone, awake;
 I walk her streets with friends.
@@ -221,9 +221,9 @@ She will always be with you.
   
   <entry>
     <title type="html"><![CDATA[Readable D3]]></title>
-    <link href="http://DavidSouther.github.io/2013/02/25/readable-d3/"/>
+    <link href="http://DavidSouther.github.io/2013/02/readable-d3/"/>
     <updated>2013-02-25T22:26:58-05:00</updated>
-    <id>http://DavidSouther.github.io/2013/02/25/readable-d3</id>
+    <id>http://DavidSouther.github.io/2013/02/readable-d3</id>
     <content type="html"><![CDATA[<p><a href="https://github.com/mbostock/d3/wiki/Gallery">d3 example code</a> is horribly convoluted, depending on dozens of unstructured variables (and often some global magic) to achieve even the simplest effects. To improve the readability of my d3 projects, I&rsquo;ve introduced a Canvas container, with the most commonly used properties conveniently encapsulated in a single object. Combined with mbostocks discussion in <a href="http://bost.ocks.org/mike/chart/">Towards Reusable Charts</a>, the canvas container can be used in nearly any project to greatly improve the structure and quality of d3 code.</p>
 
 <!-- more -->
@@ -632,9 +632,9 @@ She will always be with you.
   
   <entry>
     <title type="html"><![CDATA[This Rationalist's World-View]]></title>
-    <link href="http://DavidSouther.github.io/2013/01/11/this-rationalists-world-view/"/>
+    <link href="http://DavidSouther.github.io/2013/01/this-rationalists-world-view/"/>
     <updated>2013-01-11T00:32:51-05:00</updated>
-    <id>http://DavidSouther.github.io/2013/01/11/this-rationalists-world-view</id>
+    <id>http://DavidSouther.github.io/2013/01/this-rationalists-world-view</id>
     <content type="html"><![CDATA[<p>The myriad parameters to support human life are nearly all emergent.</p>
 
 <p>Look out in the night sky. How many stars do you see? (In the suburbs, maybe 2000). How many of those are actually galaxies? About a dozen. How many planets can you see? 5. How many stars do our telescopes see, <a href="https://www.google.com/search?q=stars%20in%20the%20milky%20way&amp;aq=f&amp;oq=stars%20in%20the%20&amp;aqs=chrome.0.59j0j57j5j61j60.2058&amp;sugexp=chrome,mod=0&amp;sourceid=chrome&amp;ie=UTF-8">in the Milky Way</a>? 300 billion. <a href="https://www.google.com/search?q=galaxies%20in%20the%20universe&amp;aq=0&amp;oq=Galaxies%20in%20the%20uni&amp;aqs=chrome.2.57j5j0l2j62l2.2777&amp;sugexp=chrome,mod=0&amp;sourceid=chrome&amp;ie=UTF-8">Galaxies</a>? 170 billion. Planets? Nearly 1000 confirmed (ok, only a dozen or so extra solar have been directly imaged) and another 2,000 awaiting data analysis, and we are literally just getting started. The latest analysis estimates 100 billion planets in the milky way (one every three stars, but more like 3 &ndash; 5 every 10 stars, given the way planetary systems form). 17 billion or so of those are <a href="http://www.slate.com/blogs/bad_astronomy/2013/01/07/alien_earths_new_study_indicates_there_are_billions_of_earth_sized_planets.html">probably Earth-like</a> (rocky, with masses between Mars and ~1.5x Earth).</p>
@@ -681,9 +681,9 @@ She will always be with you.
   
   <entry>
     <title type="html"><![CDATA[Observers? In *my* Syntax?]]></title>
-    <link href="http://DavidSouther.github.io/2012/12/07/observers-in-my-syntax/"/>
+    <link href="http://DavidSouther.github.io/2012/12/observers-in-my-syntax/"/>
     <updated>2012-12-07T10:13:24-05:00</updated>
-    <id>http://DavidSouther.github.io/2012/12/07/observers-in-my-syntax</id>
+    <id>http://DavidSouther.github.io/2012/12/observers-in-my-syntax</id>
     <content type="html"><![CDATA[<p>Modern graphical programming is dependent on the <a href="http://en.wikipedia.org/wiki/Observer_pattern">observer pattern</a>. Its use in Model-View-Controller architectures vaulted the pattern into widespread use. Its continues to find applicability in event and interrupt based systems. The underlying conceptual pattern is astounding. In traditional APIs, the user is allowed to call library code arbitrarily, but there is no mechanism for a library to call user space code. While this is somewhat obviated by extensive callback usage, having formally defined and documented locations where library code calls user code is a great boon in large-scale software architectures. The observer pattern provides such a mechanism. In short, observers are great. How can they be worked even tighter into a coding environment?</p>
 
 <!-- more -->
@@ -752,9 +752,9 @@ She will always be with you.
   
   <entry>
     <title type="html"><![CDATA[Election 2012: Referendum on War]]></title>
-    <link href="http://DavidSouther.github.io/2012/08/31/election-2012-referendum-on-war/"/>
+    <link href="http://DavidSouther.github.io/2012/08/election-2012-referendum-on-war/"/>
     <updated>2012-08-31T14:06:52-04:00</updated>
-    <id>http://DavidSouther.github.io/2012/08/31/election-2012-referendum-on-war</id>
+    <id>http://DavidSouther.github.io/2012/08/election-2012-referendum-on-war</id>
     <content type="html"><![CDATA[<p>All domestic policies will be for nothing if <a href="http://www.nytimes.com/2012/08/31/world/middleeast/report-on-iran-nuclear-work-puts-israel-in-a-box.html">Israel starts a war with Iran</a>.</p>
 
 <p>The Economy is on everyone&rsquo;s mind, but the economy&rsquo;s not going to change overnight (so says Ryan, and I can agree on that point). The Environment is in serious danger of long-term damage that will make it materially more difficult for us as a species to prosper. Our Education system has many calling for a complete overhaul, but that will take years before our best and brightest children are able to make positive changes from such changes.</p>
@@ -792,9 +792,9 @@ She will always be with you.
   
   <entry>
     <title type="html"><![CDATA[Salmon Bake]]></title>
-    <link href="http://DavidSouther.github.io/2012/07/27/salmon-bake/"/>
+    <link href="http://DavidSouther.github.io/2012/07/salmon-bake/"/>
     <updated>2012-07-27T14:00:05-04:00</updated>
-    <id>http://DavidSouther.github.io/2012/07/27/salmon-bake</id>
+    <id>http://DavidSouther.github.io/2012/07/salmon-bake</id>
     <content type="html"><![CDATA[<p>Fresh fish feels fantastically filling. This salmon bake is great year round, but an especially nice light summer dish.</p>
 
 <!-- more -->
@@ -826,9 +826,9 @@ She will always be with you.
   
   <entry>
     <title type="html"><![CDATA[Spaghetti]]></title>
-    <link href="http://DavidSouther.github.io/2012/07/25/spaghetti/"/>
+    <link href="http://DavidSouther.github.io/2012/07/spaghetti/"/>
     <updated>2012-07-25T14:00:50-04:00</updated>
-    <id>http://DavidSouther.github.io/2012/07/25/spaghetti</id>
+    <id>http://DavidSouther.github.io/2012/07/spaghetti</id>
     <content type="html"><![CDATA[<p>The quickest Italian dish ever. If you can&rsquo;t cook this, you shouldn&rsquo;t cook. (Actually, you should try it a few more times and figure out how to cook.) If you can&rsquo;t make this tasty, try a couple more times.</p>
 
 <!-- more -->
@@ -859,9 +859,9 @@ She will always be with you.
   
   <entry>
     <title type="html"><![CDATA[Chili]]></title>
-    <link href="http://DavidSouther.github.io/2012/07/23/chili/"/>
+    <link href="http://DavidSouther.github.io/2012/07/chili/"/>
     <updated>2012-07-23T14:00:06-04:00</updated>
-    <id>http://DavidSouther.github.io/2012/07/23/chili</id>
+    <id>http://DavidSouther.github.io/2012/07/chili</id>
     <content type="html"><![CDATA[<p>Cold day or hot, nothing quite says tasty like a bowl of home-made chili. Probably the easiest dish to take and make your own, so many easy things go into the flavors of a pot of easy chili, you can&rsquo;t help but not experiment with this recipe!</p>
 
 <!-- more -->
@@ -898,9 +898,9 @@ She will always be with you.
   
   <entry>
     <title type="html"><![CDATA[Lazy-Ass Gourmet]]></title>
-    <link href="http://DavidSouther.github.io/2012/07/21/lazy-ass-gourmet/"/>
+    <link href="http://DavidSouther.github.io/2012/07/lazy-ass-gourmet/"/>
     <updated>2012-07-21T14:00:51-04:00</updated>
-    <id>http://DavidSouther.github.io/2012/07/21/lazy-ass-gourmet</id>
+    <id>http://DavidSouther.github.io/2012/07/lazy-ass-gourmet</id>
     <content type="html"><![CDATA[<h2>The art of cooking Fast, Cheap, Clean</h2>
 
 <p>Why aren&rsquo;t you cooking for yourself? Do you think it&rsquo;s too expensive? Do you think you don&rsquo;t know how to cook? Or do you just think you don&rsquo;t have enough time in the day? If any of those are your excuse, you&rsquo;re about to lose them. Cooking great food isn&rsquo;t that difficult once you have a few basic dishes, and with the right recipes, you can be cooking great dinners for yourself or your family in half an hour. This is lazy-ass gourmet, and we&rsquo;re going to cook the most fantastic meals in no time at all.</p>
@@ -920,9 +920,9 @@ She will always be with you.
   
   <entry>
     <title type="html"><![CDATA[Steak & Potatoes]]></title>
-    <link href="http://DavidSouther.github.io/2012/07/21/steak-potatoes/"/>
+    <link href="http://DavidSouther.github.io/2012/07/steak-potatoes/"/>
     <updated>2012-07-21T14:00:14-04:00</updated>
-    <id>http://DavidSouther.github.io/2012/07/21/steak-potatoes</id>
+    <id>http://DavidSouther.github.io/2012/07/steak-potatoes</id>
     <content type="html"><![CDATA[<p>Nothing says good eating like a steaming plate of steaks, mashed potatoes, and country veggies. The best part? It&rsquo;s one of the easiest things you can cook. Follow along, and in half an hour you&rsquo;ll be having better steaks than they server at Morton&rsquo;s.</p>
 
 <!-- more -->
@@ -966,9 +966,9 @@ She will always be with you.
   
   <entry>
     <title type="html"><![CDATA[HTML5 Form Validation]]></title>
-    <link href="http://DavidSouther.github.io/2012/07/09/html5-form-validation/"/>
+    <link href="http://DavidSouther.github.io/2012/07/html5-form-validation/"/>
     <updated>2012-07-09T09:23:43-04:00</updated>
-    <id>http://DavidSouther.github.io/2012/07/09/html5-form-validation</id>
+    <id>http://DavidSouther.github.io/2012/07/html5-form-validation</id>
     <content type="html"><![CDATA[<p>Client-side form validation is a cross-cutting concern helping users get the most correct data into a form as quickly as possible. Good form validation will tell users what fields are most important in your form and exactly what is expected of their input. Form validation is not concerned with guaranteeing correct data gets sent from the user agent to the service backing the form &mdash; the service should define its own data ingestion and validation concerns. This discussion is only concerned with client-side form validation and helping users input acceptable data.</p>
 
 <!-- more -->
@@ -1093,18 +1093,18 @@ She will always be with you.
   
   <entry>
     <title type="html"><![CDATA[Mass Effect 3: The Actual Ending]]></title>
-    <link href="http://DavidSouther.github.io/2012/06/27/mass-effect-3-the-actual-ending/"/>
+    <link href="http://DavidSouther.github.io/2012/06/mass-effect-3-the-actual-ending/"/>
     <updated>2012-06-27T00:38:01-04:00</updated>
-    <id>http://DavidSouther.github.io/2012/06/27/mass-effect-3-the-actual-ending</id>
+    <id>http://DavidSouther.github.io/2012/06/mass-effect-3-the-actual-ending</id>
     <content type="html"><![CDATA[<p>Oh look ME3 has a real ending! You know, the kind of ending that has resolution to a storyline! Still not as good an ending as I could have written, but oh well. More tomorrow, when I&rsquo;ve played more than one of the endings and am not buzzed. PS Scotch Parties FTW!</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Superscore]]></title>
-    <link href="http://DavidSouther.github.io/2012/06/16/superscore/"/>
+    <link href="http://DavidSouther.github.io/2012/06/superscore/"/>
     <updated>2012-06-16T10:27:06-04:00</updated>
-    <id>http://DavidSouther.github.io/2012/06/16/superscore</id>
+    <id>http://DavidSouther.github.io/2012/06/superscore</id>
     <content type="html"><![CDATA[<p><a href="http://underscorejs.org/">Underscore.js</a> is a fantastic tool, something that nearly every javascript project will probably want to pull in at some point. Underscore is the collections framework for Javascript. It does all the collectiony things, in a functional way, very quickly and efficiently. There are still a couple other every-day things that JS libraries need, that don&rsquo;t quite touch the DOM, making jQuery a bit too heavy. To that end, I&rsquo;ve put those features in a library called Superscore, a few additions to the underscore library. Many of these stand on their own, but since you should already be using underscore, it makes sense to namespace them there.</p>
 
 <p>The project is available on <a href="https://github.com/DavidSouther/superscore">github</a>, along with all the <a href="http://davidsouther.github.com/superscore/">documentation</a>. Take a look and see if there&rsquo;s a place for it in your projects!</p>
@@ -1113,9 +1113,9 @@ She will always be with you.
   
   <entry>
     <title type="html"><![CDATA[Fedora Chrome Installer]]></title>
-    <link href="http://DavidSouther.github.io/2012/06/16/fedora-chrome-installer/"/>
+    <link href="http://DavidSouther.github.io/2012/06/fedora-chrome-installer/"/>
     <updated>2012-06-16T10:26:33-04:00</updated>
-    <id>http://DavidSouther.github.io/2012/06/16/fedora-chrome-installer</id>
+    <id>http://DavidSouther.github.io/2012/06/fedora-chrome-installer</id>
     <content type="html"><![CDATA[<p><a href="https://raw.github.com/gist/81046a9002616bbfab54/14b3a3be6def4bb25a880513cbf052e853d8f6f9/fedora-16-x86_64-chrome">This gist</a> saves the Chrome repo block and installs latest stable.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1127,9 +1127,9 @@ She will always be with you.
   
   <entry>
     <title type="html"><![CDATA[It's a Spetus!]]></title>
-    <link href="http://DavidSouther.github.io/2012/05/06/its-a-spetus/"/>
+    <link href="http://DavidSouther.github.io/2012/05/its-a-spetus/"/>
     <updated>2012-05-06T12:11:00-04:00</updated>
-    <id>http://DavidSouther.github.io/2012/05/06/its-a-spetus</id>
+    <id>http://DavidSouther.github.io/2012/05/its-a-spetus</id>
     <content type="html"><![CDATA[<p><a href="http://apod.nasa.gov/apod/ap080825.html">2008 August 25&rsquo;s NASA Astronomy Picture of the Day</a></p>
 
 <p>NASA makes a joke about this not being a planetary forming nebula. While they are correct in that this nebula is not a fetus, it looks like a fetus. Ergo, spetus.</p>
@@ -1140,18 +1140,18 @@ She will always be with you.
   
   <entry>
     <title type="html"><![CDATA[Need Firefox, Have Bash]]></title>
-    <link href="http://DavidSouther.github.io/2012/04/29/need-firefox-have-bash/"/>
+    <link href="http://DavidSouther.github.io/2012/04/need-firefox-have-bash/"/>
     <updated>2012-04-29T09:56:48-04:00</updated>
-    <id>http://DavidSouther.github.io/2012/04/29/need-firefox-have-bash</id>
+    <id>http://DavidSouther.github.io/2012/04/need-firefox-have-bash</id>
     <content type="html"><![CDATA[<p>For web development, we often need to test our code on multiple browsers. Firefox makes it really easy to run multiple versions side-by-side, so long as we take some care to not clobber profiles. This is a quick script to download and install the production versions of Firefox from 4 through 12 (13 is in beta1 as of this writing; 3.6 has no x86_64 support)</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[*boink*]]></title>
-    <link href="http://DavidSouther.github.io/2012/04/14/boink/"/>
+    <link href="http://DavidSouther.github.io/2012/04/boink/"/>
     <updated>2012-04-14T10:44:41-04:00</updated>
-    <id>http://DavidSouther.github.io/2012/04/14/boink</id>
+    <id>http://DavidSouther.github.io/2012/04/boink</id>
     <content type="html"><![CDATA[<p><a href="http://davidsouther.com/wp-content/uploads/2012/04/funny-animal-gifs-animal-gifs-boink.gif"><img src="http://davidsouther.com/wp-content/uploads/2012/04/funny-animal-gifs-animal-gifs-boink.gif" alt="" /></a></p>
 
 <p><a href="http://icanhascheezburger.com/2012/04/12/funny-animal-gifs-boink/">via</a></p>

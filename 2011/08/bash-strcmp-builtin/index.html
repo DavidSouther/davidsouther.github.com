@@ -1,0 +1,511 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Bash Strcmp Builtin - David Souther</title>
+  <meta name="author" content="David Souther <davidsouther@gmail.com>">
+
+  
+  <meta name="description" content="I needed a way to lexicographically compare strings in a bash script. Unfortunately, test only test string equality. C&rsquo;s strcmp returns 0 if &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://DavidSouther.github.io/2011/08/bash-strcmp-builtin">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/feed.xml" rel="alternate" title="David Souther" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-505666-4']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Souther</a></h1>
+  
+    <h2>Crafstmanship - Software, Hardware, Art, Language</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:DavidSouther.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Posts</a></li>
+  <li><a href="/about-me/">About</a></li>
+  <li><a href="/resume/">Resume</a></li>
+  <li><a href="/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Bash Strcmp Builtin</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-31T10:46:24-04:00" pubdate data-updated="true">Aug 31<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I needed a way to lexicographically compare strings in a bash script. Unfortunately, test only test string equality. C&rsquo;s strcmp returns 0 if two strings are equal, or the index of where the strings differ (positive if the character is greater in the first string, negative if the character at that position is greater in the second string). For my purposes, I only needed to know which one was greater, not where it was greater at. I whipped up a quick version of the program in straight C, but immediately had problems with loading times being drastically heavier than computation times. This seemed like the perfect case for a bash loadable builtin. I hadn&rsquo;t worked with bash builtins before, but <a href="http://oreilly.com/catalog/9780596526788">bash cookbook</a>&rsquo;s recipe 16.15 is a guide on loadable builtins. This is one place where preparation is the larger part of luck. With that, here&rsquo;s a quick walkthrough of the code and compile process.</p>
+
+<!-- more -->
+
+
+<p>Start by donwloading and extracting the bash <a href="http://ftp.gnu.org/gnu/bash/">source</a> (<a href="http://ftp.gnu.org/gnu/bash/bash-4.2.tar.gz">latest is 4.2</a>). Extract the tarball. We are going to be working in a small part of the bash source tree, in the examples/loadables/ folder. cd there, then run the following commands:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>cp template.c strcmp.c
+</span><span class='line'>sed -i <span class="s1">&#39;s/template/strcmp/g&#39;</span> strcmp.c
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Before we run configure, we need to add strcmp to Makefile.in</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>--- a/examples/loadables/Makefile.in 2009-01-04 12:32:27.000000000 -0700
+</span><span class='line'>+++ b/examples/loadables/Makefile.in  2011-08-31 08:39:01.707126956 -0600
+</span><span class='line'>@@ -85,7 +85,7 @@
+</span><span class='line'>
+</span><span class='line'> <span class="nv">ALLPROG</span> <span class="o">=</span> print truefalse sleep <span class="nb">pushd </span>finfo logname basename dirname <span class="se">\</span>
+</span><span class='line'>    tty pathchk tee head mkdir rmdir printenv id whoami <span class="se">\</span>
+</span><span class='line'>-   uname sync push ln unlink cut realpath getconf strftime mypid
+</span><span class='line'>+   uname sync push ln unlink cut realpath getconf strftime mypid strcmp
+</span><span class='line'> <span class="nv">OTHERPROG</span> <span class="o">=</span> necho hello cat
+</span><span class='line'>
+</span><span class='line'> all: <span class="k">$(</span>SHOBJ_STATUS<span class="k">)</span>
+</span><span class='line'>@@ -191,6 +191,9 @@
+</span><span class='line'> mypid:   mypid.o
+</span><span class='line'>  <span class="k">$(</span>SHOBJ_LD<span class="k">)</span> <span class="k">$(</span>SHOBJ_LDFLAGS<span class="k">)</span> <span class="k">$(</span>SHOBJ_XLDFLAGS<span class="k">)</span> -o <span class="nv">$@</span> mypid.o <span class="k">$(</span>SHOBJ_LIBS<span class="k">)</span>
+</span><span class='line'>
+</span><span class='line'>+strcmp:  strcmp.o
+</span><span class='line'>+ <span class="k">$(</span>SHOBJ_LD<span class="k">)</span> <span class="k">$(</span>SHOBJ_LDFLAGS<span class="k">)</span> <span class="k">$(</span>SHOBJ_XLDFLAGS<span class="k">)</span> -o <span class="nv">$@</span> strcmp.o <span class="k">$(</span>SHOBJ_LIBS<span class="k">)</span>
+</span><span class='line'>+
+</span><span class='line'> <span class="c"># pushd is a special case.  We use the same source that the builtin version</span>
+</span><span class='line'> <span class="c"># uses, with special compilation options.</span>
+</span><span class='line'> <span class="c">#</span>
+</span><span class='line'>@@ -242,3 +245,4 @@
+</span><span class='line'> realpath.o: realpath.c
+</span><span class='line'> strftime.o: strftime.c
+</span><span class='line'> mypid.o: mypid.c
+</span><span class='line'>+strcmp.o: strcmp.c
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>First, take a moment to look at the bare strcmp.c &ndash; it has a lot of good stuff in it. That said, we&rsquo;re going to get rid of most of it.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;config.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;stdio.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;string.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#include &quot;builtins.h&quot;</span>
+</span><span class='line'><span class="cp">#include &quot;shell.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#define EXIT_GREATER 1</span>
+</span><span class='line'><span class="cp">#define EXIT_EQUAL 0</span>
+</span><span class='line'><span class="cp">#define EXIT_LESS 2</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">strcmp_builtin</span> <span class="p">(</span><span class="n">list</span><span class="p">)</span>
+</span><span class='line'><span class="n">WORD_LIST</span> <span class="o">*</span><span class="n">list</span><span class="p">;</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">char</span> <span class="o">**</span><span class="n">v</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">c</span><span class="p">,</span> <span class="n">rval</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">**</span><span class="p">)</span><span class="n">make_builtin_argv</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="n">c</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">return</span> <span class="p">(</span><span class="n">EX_USAGE</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">q</span> <span class="o">=</span> <span class="n">strcmp</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+</span><span class='line'><span class="cp">#ifdef DEBUG</span>
+</span><span class='line'>  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;q is %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
+</span><span class='line'><span class="cp">#endif</span>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="n">q</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">rval</span> <span class="o">=</span> <span class="n">EXIT_GREATER</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">q</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">rval</span> <span class="o">=</span> <span class="n">EXIT_LESS</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>      <span class="n">rval</span> <span class="o">=</span> <span class="n">EXIT_EQUAL</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">return</span> <span class="p">(</span><span class="n">rval</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">char</span> <span class="o">*</span><span class="n">strcmp_doc</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="s">&quot;strcmp compares two strings lexicographically. It returns&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s">&quot;0 if the strings are equal, 1 if the first string is greater&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s">&quot;2 if the second string is greater.&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="nb">NULL</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">struct</span> <span class="n">builtin</span> <span class="n">strcmp_struct</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="s">&quot;strcmp&quot;</span><span class="p">,</span> <span class="cm">/* builtin name */</span>
+</span><span class='line'>  <span class="n">strcmp_builtin</span><span class="p">,</span> <span class="cm">/* function implementing the builtin */</span>
+</span><span class='line'>  <span class="n">BUILTIN_ENABLED</span><span class="p">,</span> <span class="cm">/* initial flags for builtin */</span>
+</span><span class='line'>  <span class="n">strcmp_doc</span><span class="p">,</span> <span class="cm">/* array of long documentation strings. */</span>
+</span><span class='line'>  <span class="s">&quot;strcmp &#39;string 1&#39; &#39;string 2&#39;&quot;</span><span class="p">,</span> <span class="cm">/* usage synopsis; becomes short_doc */</span>
+</span><span class='line'>  <span class="mi">0</span> <span class="cm">/* reserved for internal use */</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There is one flag we might use, -DDEBUG to print debug info. Otherwise, we define our three exit statuses. Every builtin takes a WORD_LIST* as its arguments. I want a regular old argv array. Bash handily includes the make_builtin_argv for just that purpose. Now, argv[0] has the builtin name, and the rest of argv has the args. Make sure we have 3 args, run the strcmp, and set the appropriate return code. The rest is the support that bash needs to load everything.</p>
+
+<p>Assuming the Makefile.in was edited correctly, cd to the root of the bash source tree and run ./configure. Then, cd back to examples/loadables, and run the following session:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rm strcmp<span class="o">{</span>,.o<span class="o">}</span> ; make strcmp
+</span><span class='line'>gcc -fPIC -DHAVE_CONFIG_H -DSHELL  -g -O2 -I. -I.. -I../.. -I../../lib -I../../builtins -I../../include -I/home/southerd/devel/random/bash-4.2 -I/home/southerd/devel/random/bash-4.2/lib -I/home/southerd/devel/random/bash-4.2/builtins  -c -o strcmp.o strcmp.c
+</span><span class='line'>gcc -shared -Wl,-soname,strcmp  -L./lib/termcap  -o strcmp strcmp.o
+</span><span class='line'><span class="nv">$ </span><span class="nb">enable</span> -f ./strcmp strcmp
+</span><span class='line'><span class="nv">$ </span>strcmp hi ho ; <span class="nb">echo</span> <span class="nv">$?</span>
+</span><span class='line'>2
+</span><span class='line'><span class="nv">$ </span>strcmp hi ha ; <span class="nb">echo</span> <span class="nv">$?</span>
+</span><span class='line'>1
+</span><span class='line'><span class="nv">$ </span>strcmp hi hi ; <span class="nb">echo</span> <span class="nv">$?</span>
+</span><span class='line'>0
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you didn&rsquo;t get any errors, you&rsquo;re a-ok! That&rsquo;s all there is to writing a bash builtin. Now, the shell is even more powerful!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-31T10:46:24-04:00" pubdate data-updated="true">Aug 31<span>st</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://DavidSouther.github.io/2011/08/bash-strcmp-builtin/" data-via="david_souther" data-counturl="http://DavidSouther.github.io/2011/08/bash-strcmp-builtin/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/08/php-stack-trace/" title="Previous Post: PHP Stack Trace">&laquo; PHP Stack Trace</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/08/troubleshooting-gcc/" title="Next Post: Troubleshooting GCC">Troubleshooting GCC &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    
+<section>
+  <h1>Stack Overflow Answers</h1>
+  <ul id="stackoverflow">
+    <li class="loading">Answers updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $(function(){
+      getStackOverflowFeed("240358", 7);
+    });
+  </script>
+  <script src="/javascripts/stackoverflow.js" type="text/javascript"> </script>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/10/testing-its-hard-just-do-it/">Testing. It's Hard. Just Do It!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/04/sitting-at-home/">Sitting at Home, Listening to Beethoven, Thinking of Maenee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/national-gallery-west-building/">National Gallery, West Building</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/7th-ave-between-the-square-and-the-park/">7th Ave Between the Square and the Park</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/readable-d3/">Readable D3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/01/this-rationalists-world-view/">This Rationalist's World-View</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/12/observers-in-my-syntax/">Observers? In *my* Syntax?</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/DavidSouther">@DavidSouther</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'DavidSouther',
+            count: 7,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/davidsouther?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David Souther <davidsouther@gmail.com> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

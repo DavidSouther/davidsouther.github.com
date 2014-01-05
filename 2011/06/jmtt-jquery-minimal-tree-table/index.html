@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Jmtt - jQuery Minimal Tree Table - David Souther</title>
+  <meta name="author" content="David Souther <davidsouther@gmail.com>">
+
+  
+  <meta name="description" content="My dad mentioned an interesting project to me the other day, posing the challenge of coming up with an interface for examining deep rubrics for &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://DavidSouther.github.io/2011/06/jmtt-jquery-minimal-tree-table">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/feed.xml" rel="alternate" title="David Souther" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-505666-4']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Souther</a></h1>
+  
+    <h2>Crafstmanship - Software, Hardware, Art, Language</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:DavidSouther.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Posts</a></li>
+  <li><a href="/about-me/">About</a></li>
+  <li><a href="/resume/">Resume</a></li>
+  <li><a href="/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Jmtt - jQuery Minimal Tree Table</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-10T18:01:54-04:00" pubdate data-updated="true">Jun 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>My dad mentioned an interesting project to me the other day, posing the challenge of coming up with an interface for examining deep rubrics for grading classes, or businesses, or anything that needs a grade. The idea is that you have a tree of different aspects that go into an overall grade. The interface needs to show this tree breakdown, while showing several controls with each item in the list. In short, the interface needs a <a href="http://designinginterfaces.com/firstedition/index.php?page=Tree-Table">Tree Table</a>.</p>
+
+<p><strong><a href="http://davidsouther.com/projects/jmtt/tree.html">See jmtt in action!</a></strong></p>
+
+<!-- more -->
+
+
+<p>There are a few treetable components out there (<a href="http://java.sun.com/products/jfc/tsc/articles/treetable1/">Swing</a>, <a href="http://doc.qt.nokia.com/4.7-snapshot/qtreewidget.html">Qt</a>, <a href="http://www.codeproject.com/KB/aspnet/ASPNET_TreeView_using_C_.aspx">ASP.NET</a>), but I wanted to do this in jQuery. Because jQuery is the bees knees, and distributing apps purely in the browser is something I&rsquo;ve been working towards. With that in mind, the design goal is that the application would be a single folder, completely self contained, and run by opening a .html file. Not being one to reinvent the wheel, I took a look at what plugins there were and found <a href="http://ludo.cubicphuse.nl/jquery-plugins/treeTable/doc/">treeTable</a> and <a href="http://www.hanpau.com/index.php?page=jqtreetable">JQTreeTable</a>. Unfortunately, both are terrible. The HTML needed is horribly, disgustingly unsemantic. treeTable uses class and id attributes of the tr tags, and JQTreeTable has you pass in a map of child to parent ids. BLECH! Having to add an id to every row, and then ask a designer to follow that? NO!</p>
+
+<p>So, I wrote my own. The guiding, number one goal was a semantic markup- the list hierarchy <em>MUST</em> be conveyed using a ul/li structure. Beyond that, the plugin should be as configurable as possible, while using as clean a plugin architecture as possible. Since this was my first trip around the jQuery ui block, I found bililite.com&rsquo;s <a href="http://bililite.com/blog/understanding-jquery-ui-widgets-a-tutorial/">jQuery UI Widget tutorial</a> an invaluable resource.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;tree&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;head&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;aspect&quot;</span><span class="nt">&gt;</span>Aspect<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;weight&quot;</span><span class="nt">&gt;</span>Weight<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;grade&quot;</span><span class="nt">&gt;</span>Grade<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;cost&quot;</span><span class="nt">/&gt;</span>Cost<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;value&quot;</span><span class="nt">/&gt;</span>G/$<span class="nt">&lt;/span&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;li&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;span&gt;</span>Software Develoment<span class="nt">&lt;/span&gt;&lt;span&gt;</span>70%<span class="nt">&lt;/span&gt;&lt;span&gt;&lt;/span&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;ul&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;li&gt;</span>
+</span><span class='line'>                <span class="nt">&lt;span&gt;</span>Design<span class="nt">&lt;/span&gt;&lt;span&gt;</span>30%<span class="nt">&lt;/span&gt;&lt;span&gt;&lt;/span&gt;</span>
+</span><span class='line'>                <span class="nt">&lt;ul&gt;</span>
+</span><span class='line'>                    <span class="nt">&lt;li&gt;</span>
+</span><span class='line'>                        <span class="nt">&lt;span&gt;</span>Requirements<span class="nt">&lt;/span&gt;&lt;span&gt;</span>33%<span class="nt">&lt;/span&gt;&lt;span&gt;</span>85<span class="nt">&lt;/span&gt;&lt;span&gt;</span>30<span class="nt">&lt;/span&gt;</span>
+</span><span class='line'>                    <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>                    <span class="nt">&lt;li&gt;</span>
+</span><span class='line'>                        <span class="nt">&lt;span&gt;</span>Mockups<span class="nt">&lt;/span&gt;&lt;span&gt;</span>33%<span class="nt">&lt;/span&gt;&lt;span&gt;</span>90<span class="nt">&lt;/span&gt;&lt;span&gt;</span>5<span class="nt">&lt;/span&gt;</span>
+</span><span class='line'>                    <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>                    <span class="nt">&lt;li&gt;</span>
+</span><span class='line'>                        <span class="nt">&lt;span&gt;</span>Planning<span class="nt">&lt;/span&gt;&lt;span&gt;</span>33%<span class="nt">&lt;/span&gt;&lt;span&gt;</span>60<span class="nt">&lt;/span&gt;&lt;span&gt;</span>50<span class="nt">&lt;/span&gt;</span>
+</span><span class='line'>                    <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>                <span class="nt">&lt;/ul&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;li&gt;</span>
+</span><span class='line'>                <span class="nt">&lt;span&gt;</span>Development<span class="nt">&lt;/span&gt;&lt;span&gt;</span>50%<span class="nt">&lt;/span&gt;&lt;span&gt;</span>80<span class="nt">&lt;/span&gt;&lt;span&gt;</span>70<span class="nt">&lt;/span&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;li&gt;</span>
+</span><span class='line'>                <span class="nt">&lt;span&gt;</span>QA<span class="nt">&lt;/span&gt;&lt;span&gt;</span>20%<span class="nt">&lt;/span&gt;&lt;span&gt;</span>50<span class="nt">&lt;/span&gt;&lt;span&gt;</span>100<span class="nt">&lt;/span&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/ul&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;li&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;span&gt;</span>Marketing<span class="nt">&lt;/span&gt;&lt;span&gt;</span>30%<span class="nt">&lt;/span&gt;&lt;span&gt;&lt;/span&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;ul&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;li&gt;</span>
+</span><span class='line'>                <span class="nt">&lt;span&gt;</span>Online<span class="nt">&lt;/span&gt;&lt;span&gt;</span>45%<span class="nt">&lt;/span&gt;&lt;span&gt;</span>85<span class="nt">&lt;/span&gt;&lt;span&gt;</span>10<span class="nt">&lt;/span&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;li&gt;</span>
+</span><span class='line'>                <span class="nt">&lt;span&gt;</span>Print<span class="nt">&lt;/span&gt;&lt;span&gt;</span>35%<span class="nt">&lt;/span&gt;&lt;span&gt;</span>60<span class="nt">&lt;/span&gt;&lt;span&gt;</span>25<span class="nt">&lt;/span&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;li&gt;</span>
+</span><span class='line'>                <span class="nt">&lt;span&gt;</span>Radio<span class="nt">&lt;/span&gt;&lt;span&gt;</span>25%<span class="nt">&lt;/span&gt;&lt;span&gt;</span>75<span class="nt">&lt;/span&gt;&lt;span&gt;</span>15<span class="nt">&lt;/span&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/ul&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'><span class="nt">&lt;/ul&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty minimal, isn&rsquo;t it? The API is exposed through triggers, in a very functional way. Extending is easy, as show in the full demo. The code is available at <a href="http://code.google.com/p/jmtt/">http://code.google.com/p/jmtt/</a> under an lgpl license. For bonus points, the columns are resizable.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-10T18:01:54-04:00" pubdate data-updated="true">Jun 10<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/technology/'>Technology</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://DavidSouther.github.io/2011/06/jmtt-jquery-minimal-tree-table/" data-via="david_souther" data-counturl="http://DavidSouther.github.io/2011/06/jmtt-jquery-minimal-tree-table/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/02/american-empire/" title="Previous Post: American Empire">&laquo; American Empire</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/07/software-craftsmanship/" title="Next Post: Software Craftsmanship">Software Craftsmanship &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    
+<section>
+  <h1>Stack Overflow Answers</h1>
+  <ul id="stackoverflow">
+    <li class="loading">Answers updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $(function(){
+      getStackOverflowFeed("240358", 7);
+    });
+  </script>
+  <script src="/javascripts/stackoverflow.js" type="text/javascript"> </script>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/10/testing-its-hard-just-do-it/">Testing. It's Hard. Just Do It!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/04/sitting-at-home/">Sitting at Home, Listening to Beethoven, Thinking of Maenee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/national-gallery-west-building/">National Gallery, West Building</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/7th-ave-between-the-square-and-the-park/">7th Ave Between the Square and the Park</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/readable-d3/">Readable D3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/01/this-rationalists-world-view/">This Rationalist's World-View</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/12/observers-in-my-syntax/">Observers? In *my* Syntax?</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/DavidSouther">@DavidSouther</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'DavidSouther',
+            count: 7,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/davidsouther?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David Souther <davidsouther@gmail.com> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
