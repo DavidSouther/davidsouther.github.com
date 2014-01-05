@@ -78,6 +78,14 @@ article {
     .byline + time:before, time +time:before, .comments:before, .byline ~ .categories:before {
       @extend .separator;
     }
+    /** Sharing inside meta style overrides */
+    .byline ~ .sharing:before, .byline ~ .sharing > div:before {
+      @extend .separator;
+    }
+    .sharing > .twitter-share-button, .sharing > div {
+      position: relative;
+      top: 5px;
+    }
   }
 
 }
