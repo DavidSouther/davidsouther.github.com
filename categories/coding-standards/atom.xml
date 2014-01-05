@@ -4,10 +4,10 @@
   <title><![CDATA[Category: Coding Standards | David Souther]]></title>
   <link href="http://DavidSouther.github.io/categories/coding-standards/atom.xml" rel="self"/>
   <link href="http://DavidSouther.github.io/"/>
-  <updated>2014-01-05T12:23:38-05:00</updated>
+  <updated>2014-01-05T12:45:58-05:00</updated>
   <id>http://DavidSouther.github.io/</id>
   <author>
-    <name><![CDATA[David Souther ]]></name>
+    <name><![CDATA[David Souther]]></name>
     <email><![CDATA[davidsouther@gmail.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,7 +15,7 @@
   
   <entry>
     <title type="html"><![CDATA[Coding Standards]]></title>
-    <link href="http://DavidSouther.github.io/2011/08/coding-standards/"/>
+    <link href="http://DavidSouther.github.io/2011/08/coding-standards"/>
     <updated>2011-08-14T00:46:48-04:00</updated>
     <id>http://DavidSouther.github.io/2011/08/coding-standards</id>
     <content type="html"><![CDATA[<p>Coding standards are a Good Thing™. When working in a team it is critically important to be able to read code written by other developers, immediately understand what is happening and how they are thinking. Coding standards facilitate this process in two critical ways. One, standards remove the uncertainty of reading a new piece of code. A unified, followed standard guarantees that similar blocks will be formatted the same. Two, standards allow an additional layer of semantics for the human readers of code on top of the language features recognized by the compiler. This technique is part of programming into a language. The criterion for a good standard is fourfold. First, it should visually highlight the “flow” of the code. Second, it should make common typographical errors become fatal code smells. Third, it should be flexible to adapt to new languages and technologies. Fourth, it should encourage programmers to write literate code. Above all, these requirements follow the guiding principle of making software better to use and easier to write. These are my standards for code, with explanations for how they fit in these goals.</p>
@@ -33,7 +33,7 @@
   
   <entry>
     <title type="html"><![CDATA[Gedit Tips & Tricks]]></title>
-    <link href="http://DavidSouther.github.io/2011/08/gedit-tips-tricks/"/>
+    <link href="http://DavidSouther.github.io/2011/08/gedit-tips-tricks"/>
     <updated>2011-08-14T00:46:10-04:00</updated>
     <id>http://DavidSouther.github.io/2011/08/gedit-tips-tricks</id>
     <content type="html"><![CDATA[<p><a href="http://projects.gnome.org/gedit/">gedit</a> is awesome. Lightweight, with an excellent plugin ecosystem. It is a text editor. Not an IDE. Not a programming environment. All it does it text. That is a Good Thing™. With a few small tweaks, gedit will do LaTeX, C, C#, Haskell, or any other text-based thing you want to do. It embodies the Unix principle of doing one thing only and one thing well, while providing all the modern conventions we expect text editors to follow today (sorry, but both Vi and Emacs are weird for anyone who&rsquo;s learned to type in the last 10 years). gedit provides plenty of configuration options. These are the tips and tricks to make gedit just that much more awesome to help developers (me) meet the style guidelines I have here.</p>
@@ -110,7 +110,7 @@
   
   <entry>
     <title type="html"><![CDATA[Improved Allman Style]]></title>
-    <link href="http://DavidSouther.github.io/2011/08/improved-allman-style/"/>
+    <link href="http://DavidSouther.github.io/2011/08/improved-allman-style"/>
     <updated>2011-08-14T00:35:38-04:00</updated>
     <id>http://DavidSouther.github.io/2011/08/improved-allman-style</id>
     <content type="html"><![CDATA[<p>C-Based languages are those with “Brace” syntax describing blocks. Since the first C programming texts, there has been something of a holy war between zealots of different standards. Being an exemplar of the programming virtue of hubris, I have my entry. Allman-style bracing is the correct, best form for indenting block level code, provided a single addition: the opening brace MUST BE FOLLOWED BY AN INLINE COMMENT. The control statement might tell what the program is doing, but by always including a one-line verbal explanation of the block, other programmers know why the control statement is important. The following is an example mildly complex algorithm from the <a href="http://davidsouther.com/projects/jmtt/tree.js">jmtt analysis demo</a>.</p>
@@ -505,7 +505,7 @@ float r = ratio = z = 1.0f;
   
   <entry>
     <title type="html"><![CDATA[CSS Written Right]]></title>
-    <link href="http://DavidSouther.github.io/2011/08/css-written-right/"/>
+    <link href="http://DavidSouther.github.io/2011/08/css-written-right"/>
     <updated>2011-08-14T00:10:47-04:00</updated>
     <id>http://DavidSouther.github.io/2011/08/css-written-right</id>
     <content type="html"><![CDATA[<p>I have never seen a large CSS file that I thought was maintainable. In programming languages, we use indentation exhaustively to provide visual cues of related blocks of code. Unfortunately, CSS is often a giant wall of text, with all selectors at col 0 and all properties starting 1 tab deep. Instead, CSS blocks should be indented based on their selector’s expressiveness. In the example, we have body, a, and .content-wrapper all at the same level. Then, we indent .content-wrapper h1 one extra level, visually demarcating it as subordinate to .content-wrapper. In large CSS files, not only does this make it much easier to quickly scroll code, it discourages excessively deep selectors, encouraging designers to be more descriptive and accurate.</p>
@@ -613,7 +613,7 @@ a:hover {
   
   <entry>
     <title type="html"><![CDATA[HTML Coding Standards]]></title>
-    <link href="http://DavidSouther.github.io/2011/08/html-coding-standards/"/>
+    <link href="http://DavidSouther.github.io/2011/08/html-coding-standards"/>
     <updated>2011-08-14T00:03:45-04:00</updated>
     <id>http://DavidSouther.github.io/2011/08/html-coding-standards</id>
     <content type="html"><![CDATA[<h3>Doctype</h3>
