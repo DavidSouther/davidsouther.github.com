@@ -4,7 +4,7 @@
   <title><![CDATA[David Souther]]></title>
   <link href="http://DavidSouther.github.io/atom.xml" rel="self"/>
   <link href="http://DavidSouther.github.io/"/>
-  <updated>2014-01-05T11:26:10-05:00</updated>
+  <updated>2014-01-05T11:31:49-05:00</updated>
   <id>http://DavidSouther.github.io/</id>
   <author>
     <name><![CDATA[David Souther ]]></name>
@@ -12,6 +12,112 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[AngularJS Mock Render]]></title>
+    <link href="http://DavidSouther.github.io/2014/01/angularjs-mock-render/"/>
+    <updated>2014-01-05T11:30:00-05:00</updated>
+    <id>http://DavidSouther.github.io/2014/01/angularjs-mock-render</id>
+    <content type="html"><![CDATA[<p>We test. A lot. We have quite a few directives. We&rsquo;re using this mock render
+function to quickly test those directives. It takes the simple html name of the
+directive, an object with any parent scope properties, an object with any DOM
+attributes to set, and a string to use for transclusion &ndash; <code>mock(directive,
+data = {}, attributes = {}, transclude = "")</code></p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'><figcaption><span>render.coffee</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">toKeyVal = </span><span class="nf">(attributes, separator = &#39; &#39;)-&gt;</span>
+</span><span class='line'>    <span class="p">(</span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">key</span><span class="si">}</span><span class="s"> = \&quot;</span><span class="si">#{</span><span class="nx">val</span><span class="si">}</span><span class="s">\&quot;&quot;</span> <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">val</span> <span class="k">of</span> <span class="nx">attributes</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">.</span><span class="nx">join</span> <span class="nx">separator</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">mock</span>
+</span><span class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nv">render = angular.mock.render =</span>
+</span><span class='line'>    <span class="nf">(directive, data = {}, attributes = {}, transclude = &quot;&quot;)-&gt;</span>
+</span><span class='line'>        <span class="nv">$element = </span><span class="kc">null</span>
+</span><span class='line'>        <span class="nx">inject</span> <span class="nf">($compile, $rootScope)-&gt;</span>
+</span><span class='line'>            <span class="nv">$scope = </span><span class="nx">$rootScope</span><span class="p">.</span><span class="nx">$new</span><span class="p">()</span>
+</span><span class='line'>            <span class="nx">$scope</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">val</span> <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">val</span> <span class="k">of</span> <span class="nx">data</span>
+</span><span class='line'>            <span class="nv">attributes = </span><span class="nx">toKeyVal</span> <span class="nx">attributes</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="nv">template = </span><span class="nx">$compile</span><span class="p">(</span>
+</span><span class='line'>                <span class="s">&quot;&lt;div </span><span class="si">#{</span><span class="nx">directive</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">attributes</span><span class="si">}</span><span class="s">&gt;</span><span class="si">#{</span><span class="nx">transclude</span><span class="si">}</span><span class="s">&lt;/div&gt;&quot;</span>
+</span><span class='line'>            <span class="p">)</span>
+</span><span class='line'>            <span class="nv">$element = </span><span class="nx">template</span><span class="p">(</span><span class="nx">$scope</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">try</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">$digest</span><span class="p">()</span>
+</span><span class='line'>        <span class="nx">$element</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Its usage is pretty straight forward. Here, we are testing a directive that
+emits some event when it has finished rendering data received from the
+$httpBackend (configued elsewhere). We render the element, listen for the render
+event when we&rsquo;ll run our test assertions, and flush the http backend to force
+Angular to digest all the changes in the app. In this way, our test setup and
+action phases are drastically simplified. Our test code shows the assertions our
+business demands, not the setup our platform happens to use.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">should = </span><span class="nx">chai</span><span class="p">.</span><span class="nx">should</span><span class="p">()</span>
+</span><span class='line'><span class="nx">describe</span> <span class="s">&#39;Performance Overview&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">describe</span> <span class="s">&#39;directive&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">beforeEach</span> <span class="nx">module</span> <span class="s">&#39;nv-waves&#39;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">it</span> <span class="s">&#39;has some chart stuff.&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">inject</span> <span class="nf">($rootScope, $httpBackend)-&gt;</span>
+</span><span class='line'>            <span class="nv">$element = </span><span class="nx">render</span> <span class="s">&#39;performance-summary&#39;</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="nx">$rootScope</span><span class="p">.</span><span class="nx">$on</span> <span class="s">&#39;Wave Rendered&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+</span><span class='line'>                <span class="nx">$element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;svg&#39;</span><span class="p">).</span><span class="nx">length</span><span class="p">.</span><span class="nx">should</span><span class="p">.</span><span class="nx">equal</span> <span class="mi">2</span>
+</span><span class='line'>                <span class="nx">$element</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s">&#39;.chart&#39;</span><span class="p">).</span><span class="nx">length</span><span class="p">.</span><span class="nx">should</span><span class="p">.</span><span class="nx">equal</span> <span class="mi">2</span>
+</span><span class='line'>                <span class="nx">$element</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s">&#39;.grid&#39;</span><span class="p">).</span><span class="nx">length</span><span class="p">.</span><span class="nx">should</span><span class="p">.</span><span class="nx">equal</span> <span class="mi">2</span>
+</span><span class='line'>                <span class="nx">$element</span><span class="p">.</span><span class="nx">scope</span><span class="p">().</span><span class="nx">data</span><span class="p">.</span><span class="nx">header</span><span class="p">.</span><span class="nx">sortable</span><span class="p">.</span><span class="nx">should</span><span class="p">.</span><span class="nx">equal</span> <span class="kc">true</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="nx">$httpBackend</span><span class="p">.</span><span class="nx">flush</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Testing. It's Hard. Just Do It!]]></title>
@@ -1144,17 +1250,6 @@ She will always be with you.
     <updated>2012-04-29T09:56:48-04:00</updated>
     <id>http://DavidSouther.github.io/2012/04/need-firefox-have-bash</id>
     <content type="html"><![CDATA[<p>For web development, we often need to test our code on multiple browsers. Firefox makes it really easy to run multiple versions side-by-side, so long as we take some care to not clobber profiles. This is a quick script to download and install the production versions of Firefox from 4 through 12 (13 is in beta1 as of this writing; 3.6 has no x86_64 support)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[*boink*]]></title>
-    <link href="http://DavidSouther.github.io/2012/04/boink/"/>
-    <updated>2012-04-14T10:44:41-04:00</updated>
-    <id>http://DavidSouther.github.io/2012/04/boink</id>
-    <content type="html"><![CDATA[<p><a href="http://davidsouther.com/wp-content/uploads/2012/04/funny-animal-gifs-animal-gifs-boink.gif"><img src="http://davidsouther.com/wp-content/uploads/2012/04/funny-animal-gifs-animal-gifs-boink.gif" alt="" /></a></p>
-
-<p><a href="http://icanhascheezburger.com/2012/04/12/funny-animal-gifs-boink/">via</a></p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Technology | David Souther]]></title>
   <link href="http://DavidSouther.github.io/categories/technology/atom.xml" rel="self"/>
   <link href="http://DavidSouther.github.io/"/>
-  <updated>2014-01-05T11:26:10-05:00</updated>
+  <updated>2014-01-05T11:31:49-05:00</updated>
   <id>http://DavidSouther.github.io/</id>
   <author>
     <name><![CDATA[David Souther ]]></name>
@@ -12,6 +12,80 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[AngularJS Mock Render]]></title>
+    <link href="http://DavidSouther.github.io/2014/01/angularjs-mock-render/"/>
+    <updated>2014-01-05T11:30:00-05:00</updated>
+    <id>http://DavidSouther.github.io/2014/01/angularjs-mock-render</id>
+    <content type="html"><![CDATA[<p>We test. A lot. We have quite a few directives. We&rsquo;re using this mock render
+function to quickly test those directives. It takes the simple html name of the
+directive, an object with any parent scope properties, an object with any DOM
+attributes to set, and a string to use for transclusion &ndash; <code>mock(directive,
+data = {}, attributes = {}, transclude = "")</code></p>
+
+<!-- more -->
+
+
+<p>```coffeescript render.coffee
+toKeyVal = (attributes, separator = &lsquo; &rsquo;)&ndash;></p>
+
+<pre><code>("#{key} = \"#{val}\"" for key, val of attributes)
+    .join separator
+</code></pre>
+
+<p>if angular.mock</p>
+
+<pre><code>window.render = angular.mock.render =
+(directive, data = {}, attributes = {}, transclude = "")-&gt;
+    $element = null
+    inject ($compile, $rootScope)-&gt;
+        $scope = $rootScope.$new()
+        $scope[key] = val for key, val of data
+        attributes = toKeyVal attributes
+
+        template = $compile(
+            "&lt;div #{directive} #{attributes}&gt;#{transclude}&lt;/div&gt;"
+        )
+        $element = template($scope)
+
+        try $scope.$digest()
+    $element
+</code></pre>
+
+<p>```</p>
+
+<p>Its usage is pretty straight forward. Here, we are testing a directive that
+emits some event when it has finished rendering data received from the
+$httpBackend (configued elsewhere). We render the element, listen for the render
+event when we&rsquo;ll run our test assertions, and flush the http backend to force
+Angular to digest all the changes in the app. In this way, our test setup and
+action phases are drastically simplified. Our test code shows the assertions our
+business demands, not the setup our platform happens to use.</p>
+
+<p>```coffeescript
+should = chai.should()
+describe &lsquo;Performance Overview&rsquo;, &ndash;></p>
+
+<pre><code>describe 'directive', -&gt;
+
+    beforeEach module 'nv-waves'
+
+    it 'has some chart stuff.', -&gt; inject ($rootScope, $httpBackend)-&gt;
+        $element = render 'performance-summary'
+
+        $rootScope.$on 'Wave Rendered', -&gt;
+            $element.find('svg').length.should.equal 2
+            $element[0].querySelectorAll('.chart').length.should.equal 2
+            $element[0].querySelectorAll('.grid').length.should.equal 2
+            $element.scope().data.header.sortable.should.equal true
+
+        $httpBackend.flush()
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Testing. It's Hard. Just Do It!]]></title>
@@ -507,15 +581,6 @@ equal source.child.pass, 1
 <p><em><a href="http://docs.jquery.com/Plugins/Validation">jQuery Plugin</a></em></p>
 
 <p>jQuery.com plugin page.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Mass Effect 3: The Actual Ending]]></title>
-    <link href="http://DavidSouther.github.io/2012/06/mass-effect-3-the-actual-ending/"/>
-    <updated>2012-06-27T00:38:01-04:00</updated>
-    <id>http://DavidSouther.github.io/2012/06/mass-effect-3-the-actual-ending</id>
-    <content type="html"><![CDATA[<p>Oh look ME3 has a real ending! You know, the kind of ending that has resolution to a storyline! Still not as good an ending as I could have written, but oh well. More tomorrow, when I&rsquo;ve played more than one of the endings and am not buzzed. PS Scotch Parties FTW!</p>
 ]]></content>
   </entry>
   
