@@ -4,7 +4,7 @@
   <title><![CDATA[David Souther]]></title>
   <link href="http://DavidSouther.github.io/atom.xml" rel="self"/>
   <link href="http://DavidSouther.github.io/"/>
-  <updated>2014-01-05T11:31:49-05:00</updated>
+  <updated>2014-01-05T11:34:16-05:00</updated>
   <id>http://DavidSouther.github.io/</id>
   <author>
     <name><![CDATA[David Souther ]]></name>
@@ -21,7 +21,7 @@
     <content type="html"><![CDATA[<p>We test. A lot. We have quite a few directives. We&rsquo;re using this mock render
 function to quickly test those directives. It takes the simple html name of the
 directive, an object with any parent scope properties, an object with any DOM
-attributes to set, and a string to use for transclusion &ndash; <code>mock(directive,
+attributes to set, and a string to use for transclusion: <code>render(directive,
 data = {}, attributes = {}, transclude = "")</code></p>
 
 <!-- more -->
