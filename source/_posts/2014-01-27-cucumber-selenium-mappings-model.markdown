@@ -121,9 +121,53 @@ allows an abstraction between the steps' browser interaction, and the actual
 browser backend. Most commonly, `selenium-webdriver` serves as the browser
 backend, but that could be replaced with `browserstack-webdriver` for
 [browserstack][browserstack] testing in CI or [Zombie][zombie], for headless,
-pure-js testing.
+pure-js testing. This extra abstraction provides a minimal jquery-esque API for
+retrieving DOM content, across possible browser backends.
+
+```coffeescript
+module.exports = class World
+    constructor: (capabilities = {browserName: "firefox"})->
+        @driver = new webdriver.Builder().
+            usingServer(process.env.SELENIUM_HUB).
+            withCapabilities(capabilities).build()
+
+        @driver.manage().timeouts().setScriptTimeout(10000)
+
+    #...
+
+    find: (selector)->
+        @driver.findElement By.css selector
+
+    #...
+
+    text: (where)->
+        @find(where).getText()
+```
+
+This world is an object instance that configures itself using some webdriver,
+and has a method to do CSS lookup. It's taken from [qcumberbatch][qcumberbatch],
+a library I have that implements the concepts here.
+
+## Limitations & Benefits
+
+The largest intrinsic drawback in this approach is the lack of flexibility in
+constructing selectors on the fly. While nothing in the code prevents it, it is
+discouraged to build such selectors, because anything you'd need to select in
+the DOM should have its own name, listed in the mappings. Those names must be
+part of the project as a whole, and known and agreed to (at least in
+conversation) by not only the product team, but the entire product stakeholder
+group. When dicussing the application, stakeholders must take care to use these
+phrases from the ubiquitous language.
+
+This, while taking discipline, becomes one benefit of this ubiquitous language
+and mapping approach. Because there is a very limited subset of language to use
+for the project, conversations spend less time mucking over meaning of words.
+The meaning has already been defined and agreed to, and any mention of a phrase
+is immediately understood. The tradeoff of extra work and discipline pays for
+itseld in improved communication.
 
 [fowler_ul]: http://martinfowler.com/bliki/UbiquitousLanguage.html
 [qcumber]: https://github.com/DavidSouther/qcumber
+[qcumberbatch]: https://github.com/DavidSouther/qcumberbatch
 [browserstack]: http://www.browserstack.com/
 [zombie]: http://zombie.labnotes.org/
