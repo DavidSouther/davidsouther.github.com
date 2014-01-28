@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Technology | David Souther]]></title>
   <link href="http://DavidSouther.github.io/categories/technology/atom.xml" rel="self"/>
   <link href="http://DavidSouther.github.io/"/>
-  <updated>2014-01-05T12:45:58-05:00</updated>
+  <updated>2014-01-28T10:16:19-05:00</updated>
   <id>http://DavidSouther.github.io/</id>
   <author>
     <name><![CDATA[David Souther]]></name>
@@ -12,6 +12,175 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Cucumber Selenium Mappings Model]]></title>
+    <link href="http://DavidSouther.github.io/2014/01/cucumber-selenium-mappings-model"/>
+    <updated>2014-01-27T10:52:00-05:00</updated>
+    <id>http://DavidSouther.github.io/2014/01/cucumber-selenium-mappings-model</id>
+    <content type="html"><![CDATA[<p>To create a ubiquitous language for a project&rsquo;s interface, I recommend creating
+a semantic mapping. This is an in-code key/value object defining words and
+phrases in a <a href="http://martinfowler.com/bliki/UbiquitousLanguage.html">ubiquitous language</a> that maps to a specific CSS
+selector for use in code. This has many advantages, with a couple draw backs.
+The benefits of having a ubiquitous language are documented in various sources,
+but in sum, mean less time wasted in a team discussing which piece of the
+solution is under discussion. This exact solution has some specific drawbacks,
+that I&rsquo;ll mention later.</p>
+
+<p>A Cuke mapping, here, is a set of nouns and noun phrases that describe some part
+of a DOM interface. In one example, the application has a main content area. The
+mapping is relatively simple: <code>'main content': '#main'</code> (coffeescript key/value
+bare object). The same application has two distinct menu areas, which are mapped
+with <code>'main menu': 'main [tab-nav="tab-nav"]'</code> and <code>'page menu': 'main div
+[tab-nav="tab-nav"]'</code>. The subtleties in DOM structure are hidden behind this
+mappings concept. If the DOM changes, the tests can be fixed by eding the
+selector in a single place.</p>
+
+<!-- more -->
+
+
+<h2>Given/When/Then</h2>
+
+<p>Short aside to cover the basics of Cuke best practices. As is recommended in
+automated testing scenarios, each test has five phases. Two of those phases are
+hidden in the test harness, the before and after test setup phases. The test
+itself is broken into application state setup, taking an action, and asserting
+aspects of the final state. Yes, testing is exercising the big old state
+machine of your application &ndash; put the program in some state, take an action,
+make sure it&rsquo;s in the expected next state.</p>
+
+<p>In Cucumber, these phases are described with the phrases <code>Given</code>, <code>When</code>, and
+<code>Then</code>. The <code>Given</code> assertions are grouped at the beginning of the test, where
+they include things specific to the test that the <code>Before</code> steps haven&rsquo;t
+covered. For a large application I work on, <code>Before</code> guarantees the browser will
+be open, and on the root page of the application (<code>http://localhost:1024/</code>).
+Because of this, we sometimes drop the <code>Given</code> state, or use a dummy noop step,
+<code>Given the user is on the home page</code>. However, when verifying some action on a
+specific page, we will use <code>Given</code> to navigate to the page under test. <code>Given
+the user navigates to "Performance" "Summary"</code>.</p>
+
+<p>The <code>When</code> and <code>Then</code> tests are pretty straightforward, and for this application
+generally click some DOM node, then check some other DOM status, often for the
+presence of a string in text, or the presence or absence of a node. Some of our
+tests, however, assert rendered properties, especially dimension constraints.
+For instance, we have asserts to check if elements of the page are on the top,
+left, or center of a page, or meet certain minimum and maximum size constraints.
+Finally, we have tests that assert look and feel by comparing screenshot image
+differences.</p>
+
+<p>There is some discretion in choosing when to use <code>Given</code> vs when to use
+<code>When</code> &ndash; are the values filled in a form part of the given condition, or part of
+the test action? I find this depends on what state transition is under test. If
+the test is verifying the form shows validation rules for invalid input, the
+form filling should be a <code>When</code> statement. On the other hand, if the test is
+verifying a &ldquo;Thanks for shopping!&rdquo; page, the form should be filled in <code>Given</code>
+steps. Cucumber itself relaxes constraints, and doesn&rsquo;t actually enforce only
+steps only run in their defined phase, so in reality any step can match
+anywhere.</p>
+
+<h2>Mappings</h2>
+
+<p>When writing steps, cucumber uses regular expression matching groups to pass
+arguments to the step body. Generally, these the form <code>/"([^"]+)"/</code>, matching
+any non-zero length of string inside double quotation marks. That value then is
+passed to the step definition function, in argument order. For cuke mappings, we
+constrain the valid items within quotes, to either be a key in the mappings
+table, or a string literal to assert in some test.</p>
+
+<p>Here&rsquo;s a line from our tests.</p>
+
+<p>```
+Then the &ldquo;header nav&rdquo; should have links to</p>
+
+<pre><code>"""
+Dashboard
+Portfolios
+"""
+</code></pre>
+
+<p>```</p>
+
+<p>The step definition matches the first quote group against the mappings object,
+here finding the expression <code>"#header nav"</code> as the CSS to select with. It can
+then look for links to each of the titles in the list of expected links. The
+full step is defined as</p>
+
+<p>```coffeescript</p>
+
+<pre><code>@Then /"([^"]+)" should have links to/, (selector, list)-&gt;
+    selector = mappings[selector] + ' a'
+    @world.text(selector)
+    .then (text)-&gt;
+        for link in list.split '\n'
+            text.indexOf(link).should.be.greaterThan -1
+</code></pre>
+
+<p>```</p>
+
+<p>This test creates a selector by looking for any <code>a</code> children of the selector
+for <code>"header nav"</code>, asking the world to return the joined text for all those
+elements, and asserting that each link text is in that joined string. Also, this
+test is using the <a href="https://github.com/DavidSouther/qcumber">qcumber</a> cucumberjs library, which makes steps
+behave with promises &ndash; a step can return a value, throw an exception, or return
+a promise. It will pass if a value is returned or a returned promise resolves,
+and will fail if an exception is thrown, or a returned promise rejects.</p>
+
+<h2>World</h2>
+
+<p>The world object abstracts the details of working with a browser backend. This
+allows an abstraction between the steps' browser interaction, and the actual
+browser backend. Most commonly, <code>selenium-webdriver</code> serves as the browser
+backend, but that could be replaced with <code>browserstack-webdriver</code> for
+<a href="http://www.browserstack.com/">browserstack</a> testing in CI or <a href="http://zombie.labnotes.org/">Zombie</a>, for headless,
+pure-js testing. This extra abstraction provides a minimal jquery-esque API for
+retrieving DOM content, across possible browser backends.</p>
+
+<p>```coffeescript
+module.exports = class World</p>
+
+<pre><code>constructor: (capabilities = {browserName: "firefox"})-&gt;
+    @driver = new webdriver.Builder().
+        usingServer(process.env.SELENIUM_HUB).
+        withCapabilities(capabilities).build()
+
+    @driver.manage().timeouts().setScriptTimeout(10000)
+
+#...
+
+find: (selector)-&gt;
+    @driver.findElement By.css selector
+
+#...
+
+text: (where)-&gt;
+    @find(where).getText()
+</code></pre>
+
+<p>```</p>
+
+<p>This world is an object instance that configures itself using some webdriver,
+and has a method to do CSS lookup. It&rsquo;s taken from <a href="https://github.com/DavidSouther/qcumberbatch">qcumberbatch</a>,
+a library I have that implements the concepts here.</p>
+
+<h2>Limitations &amp; Benefits</h2>
+
+<p>The largest intrinsic drawback in this approach is the lack of flexibility in
+constructing selectors on the fly. While nothing in the code prevents it, it is
+discouraged to build such selectors, because anything you&rsquo;d need to select in
+the DOM should have its own name, listed in the mappings. Those names must be
+part of the project as a whole, and known and agreed to (at least in
+conversation) by not only the product team, but the entire product stakeholder
+group. When dicussing the application, stakeholders must take care to use these
+phrases from the ubiquitous language.</p>
+
+<p>This, while taking discipline, becomes one benefit of this ubiquitous language
+and mapping approach. Because there is a very limited subset of language to use
+for the project, conversations spend less time mucking over meaning of words.
+The meaning has already been defined and agreed to, and any mention of a phrase
+is immediately understood. The tradeoff of extra work and discipline pays for
+itseld in improved communication.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[AngularJS Mock Render]]></title>
@@ -454,133 +623,6 @@ equal source.child.pass, 1
 <p>My branch is available at <a href="http://github.com/DavidSouther/LiveScript">github.com/DavidSouther/LiveScript</a>. I intend to rewrite the eventing library used in two places. First, it should compile to a known method signature, with options on whether to include the function definition in the compiled scope. This will allow the eventing implementation to decouple from the compiler. Second, I would like to rework the implementation to detect if the event source is a function. This will allow the syntax to handle jQuery events natively.</p>
 
 <p>I would ask <a href="https://github.com/gkz">gkz</a> and other users of LiveScript to consider this approach to an eventing syntax.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[HTML5 Form Validation]]></title>
-    <link href="http://DavidSouther.github.io/2012/07/html5-form-validation"/>
-    <updated>2012-07-09T09:23:43-04:00</updated>
-    <id>http://DavidSouther.github.io/2012/07/html5-form-validation</id>
-    <content type="html"><![CDATA[<p>Client-side form validation is a cross-cutting concern helping users get the most correct data into a form as quickly as possible. Good form validation will tell users what fields are most important in your form and exactly what is expected of their input. Form validation is not concerned with guaranteeing correct data gets sent from the user agent to the service backing the form &mdash; the service should define its own data ingestion and validation concerns. This discussion is only concerned with client-side form validation and helping users input acceptable data.</p>
-
-<!-- more -->
-
-
-<p>In this view, the form itself is an entire application, independent of any other piece of software. The form, rendered in the browser DOM, provides visual elements for a user to provide input. As the user provides input, the form will indicate whether that data is correct, perhaps by highlighting the field in green, or provide warnings that the data is invalid, perhaps by highlighting the field in red and displaying a light-weight pop-up with a polite message describing what, exactly, is wrong with the input. When the user tells the form to submit data, the form can decide if the input is appropriate, and if so pass that data on to some other service. Generally, this will be an HTTP POST, but could occur as a full page redirect or an AJAX request. In a more exotic workflow, the form could aggregate the input and generate an event to some other element, or publish a message to a web-worker.</p>
-
-<p>To achieve this view of form validation, a single library must meet a variety of concerns.</p>
-
-<h2>Semantic</h2>
-
-<p>Validation markup should describe the expected data as fully as possible. Semantic descriptions of data should be as consistent as possible, ensuring a consistent and quality experience across the forms on the domain.</p>
-
-<p>  ### HTML5 Native</p>
-
-<p>The HTML5 specification provides a wealth of expressive form and validation features. HTML4 forms not served as strict XHTML are able to access these attributes programmatically. Any implementation should at least look to the design decisions made by the HTML5 working group.</p>
-
-<p>  ### Settings in markup</p>
-
-<p>Any validation settings, including rules and error behavior, should be described as close to the input field as possible, preferably as an attribute directly. Localization and internationalization may require settings stored in alternative locations, in which case the l10n and i18n keys should be as close to the element as possible.</p>
-
-<p>  ### Error markup</p>
-
-<p>The markup rendering errors and notifications should have semantic descriptions, probably achieved with specific classes. Browser support for pseudo-selectors would also be an excellent hook for designers to use.</p>
-
-<p>  ### Form &amp; field</p>
-
-<p>Validation rules will apply both to input fields individually, as well as to groups of input fields and forms as a whole. The library needs a mechanism to support business logic at any level of field aggregation. For instance, a form may need to ask for multiple email addresses. A component could be built around a <code>&lt;ul&gt;</code> and adding <code>&lt;li&gt;&lt;input type="email" name="to[]" class="distinct" /&gt;</code> for every new email address the user wishes to add. Each input must contain a valid email address, and the <code>&lt;ul&gt;</code> as a whole should guarantee that each address in the <code>to[]</code> array is unique.</p>
-
-<h2>Aspect</h2>
-
-<p>Form validation is a cross-cutting concern. Form code should not need to take any actions beyond describing the validation rules (in as little code as possible). The validation tools should apply without further intervention to any form and form element available.</p>
-
-<p>  ### Applies with no intervention</p>
-
-<p>Including the code on a page should be the most intervention necessary by client code. If the validation library is part of the browser itself, purely semantic html/css forms will work with no developer intervention (though library extensions may still be necessary to bridge incompatible or incomplete implementations).</p>
-
-<p>  ### Hooks to sensible events</p>
-
-<p>There are places where forms' business logic will need additional or non-standard logic given its data descriptions. While the validation library should attach to forms automatically, it should also provide appropriate events and hooks for forms to extend additional behaviors. Further, some forms libraries may attempt to make disparate user agents behave consistently; in this case, the library must provide a common event interface across implementations.</p>
-
-<h2>Non-invasive</h2>
-
-<p>As validation logic gets applied cross-cuttingly, it is imperative the library not cause render, layout, page-reflow, and other errors.</p>
-
-<p>  ### Doesn&rsquo;t change page flow</p>
-
-<p>Under no circumstances can the validation library cause a page reflow under normal CSS conditions. Any elements added to the page must be given a default style removing them from page flow. Any classes added should be well-described, and chosen to minimize the chance of conflicting with other common class names.</p>
-
-<pre><code>### Float with arrow
-</code></pre>
-
-<p>HTML5 browsers have independently adopted the convention of a floating div with an arrow pointing at the input element.</p>
-
-<p>  ### Doesn&rsquo;t interupt the user</p>
-
-<p>Validation should not occur while the user is actively providing input. In particular, if an element has focus validation should wait until absolutely certain the user is done inputting data to display validation errors. In a similar vein, if a user is rapidly jumping between fields, validation should not display errors in a way allowing users to miss the prompts.</p>
-
-<p>  ### Page data must remain visible</p>
-
-<p>Validation error messages should not cover page content, unless the validation message explicitly replaces that information.</p>
-
-<h2>Extensible</h2>
-
-<p>Forms will need to have business logic that does not fit in the default configuration of any particular validation library. The default error messages may not correctly describe the validation concern with the form.</p>
-
-<p>  ### Add, override validator functions</p>
-
-<p>Some validation functions may be incorrect. Forms may wish to constrain a URL to only accept <code>ftp:</code> connections. Emails may want to restrict to a certain mail domain. In any of these cases, the form will need to either add additional rules, or override the default rules.</p>
-
-<p>  ### Configure errors</p>
-
-<p>The default errors will not describe every error of some class. A form may wish to tell a user that not only is the email invalid, it must be in a certain domain.</p>
-
-<p>  ### Markup, messages, settings</p>
-
-<p>Form designers demand as much control as possible. Business analysts will want to tweak and localize error messages. Developers will need to edit some default settings at some point. These should all be trivially easy to override piecemeal, as needed.</p>
-
-<h2>Current solutions</h2>
-
-<p>There are several libraries and tools today meeting some of these concerns.</p>
-
-<h3>HTML5 Form Validation</h3>
-
-<p>HTML5 has a variety of validation features in place and implemented by the newer browsers. The specification covers what is likely to be 90% of the validation criteria in a fully standards compliant way (no more need to implement a grammar recognizing RFCs 5321 and 5322). Any additional rules can be added by a javascript library, focused on adding only the small subset of features a particular forms application needs.</p>
-
-<p><em><a href="http://www.alistapart.com/articles/forward-thinking-form-validation/">Usage</a></em></p>
-
-<p>This article from A List Apart is a fantastic discussion of ways to control validation using almost purely CSS.</p>
-
-<p><em><a href="https://github.com/ryanseddon/H5F">Shim</a></em></p>
-
-<p>A shim for HTML4 browsers adding most of the utilities now provided by HTML5 browsers. Has some flaws:</p>
-
-<ul>
-<li><p>Doesn&rsquo;t fall back on native implementation</p></li>
-<li><p>Pseudo-selectors don&rsquo;t work for CSS2.</p></li>
-</ul>
-
-
-<p><em><a href="http://stephenwalther.com/archive/2012/03/13/html5-form-validation.aspx">More discussion</a></em></p>
-
-<p>Another article, with some intriguing uses of <code>title</code> and <code>x-moz-errormessage</code> attributes.</p>
-
-<h3>jQuery plugin</h3>
-
-<p>The bassistance jQuery plugin has become the de-facto standard jQuery validation library. It provides nearly every feature and meets all the concerns mentioned here, though is not as strictly focused as a pure HTML5 solution might be.</p>
-
-<p><em><a href="http://bassistance.de/jquery-plugins/jquery-plugin-validation/">Article</a></em></p>
-
-<p>The original discussion, highlighting its usefulness at meeting the criteria for a robust validation library. Claims &ldquo;Most used validation library.&rdquo;</p>
-
-<p><em><a href="https://github.com/jzaefferer/jquery-validation">GitHub</a></em></p>
-
-<p>Github repo for the project.</p>
-
-<p><em><a href="http://docs.jquery.com/Plugins/Validation">jQuery Plugin</a></em></p>
-
-<p>jQuery.com plugin page.</p>
 ]]></content>
   </entry>
   

@@ -1,0 +1,491 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Cucumber Selenium Mappings Model - David Souther</title>
+  <meta name="author" content="David Souther">
+
+  
+  <meta name="description" content="To create a ubiquitous language for a project&rsquo;s interface, I recommend creating
+a semantic mapping. This is an in-code key/value object &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://DavidSouther.github.io/2014/01/cucumber-selenium-mappings-model">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/feed.xml" rel="alternate" title="David Souther" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-505666-4']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Souther</a></h1>
+  
+    <h2>Crafstmanship - Software, Hardware, Art, Language</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:DavidSouther.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Posts</a></li>
+  <li><a href="/about-me/">About</a></li>
+  <li><a href="/resume/">Resume</a></li>
+  <li><a href="/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Cucumber Selenium Mappings Model</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  <time datetime="2014-01-27T10:52:00-05:00" pubdate data-updated="true">Jan 27<span>th</span>, 2014</time>
+
+
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>To create a ubiquitous language for a project&rsquo;s interface, I recommend creating
+a semantic mapping. This is an in-code key/value object defining words and
+phrases in a <a href="http://martinfowler.com/bliki/UbiquitousLanguage.html">ubiquitous language</a> that maps to a specific CSS
+selector for use in code. This has many advantages, with a couple draw backs.
+The benefits of having a ubiquitous language are documented in various sources,
+but in sum, mean less time wasted in a team discussing which piece of the
+solution is under discussion. This exact solution has some specific drawbacks,
+that I&rsquo;ll mention later.</p>
+
+<p>A Cuke mapping, here, is a set of nouns and noun phrases that describe some part
+of a DOM interface. In one example, the application has a main content area. The
+mapping is relatively simple: <code>'main content': '#main'</code> (coffeescript key/value
+bare object). The same application has two distinct menu areas, which are mapped
+with <code>'main menu': 'main [tab-nav="tab-nav"]'</code> and <code>'page menu': 'main div
+[tab-nav="tab-nav"]'</code>. The subtleties in DOM structure are hidden behind this
+mappings concept. If the DOM changes, the tests can be fixed by eding the
+selector in a single place.</p>
+
+<!-- more -->
+
+
+<h2>Given/When/Then</h2>
+
+<p>Short aside to cover the basics of Cuke best practices. As is recommended in
+automated testing scenarios, each test has five phases. Two of those phases are
+hidden in the test harness, the before and after test setup phases. The test
+itself is broken into application state setup, taking an action, and asserting
+aspects of the final state. Yes, testing is exercising the big old state
+machine of your application &ndash; put the program in some state, take an action,
+make sure it&rsquo;s in the expected next state.</p>
+
+<p>In Cucumber, these phases are described with the phrases <code>Given</code>, <code>When</code>, and
+<code>Then</code>. The <code>Given</code> assertions are grouped at the beginning of the test, where
+they include things specific to the test that the <code>Before</code> steps haven&rsquo;t
+covered. For a large application I work on, <code>Before</code> guarantees the browser will
+be open, and on the root page of the application (<code>http://localhost:1024/</code>).
+Because of this, we sometimes drop the <code>Given</code> state, or use a dummy noop step,
+<code>Given the user is on the home page</code>. However, when verifying some action on a
+specific page, we will use <code>Given</code> to navigate to the page under test. <code>Given
+the user navigates to "Performance" "Summary"</code>.</p>
+
+<p>The <code>When</code> and <code>Then</code> tests are pretty straightforward, and for this application
+generally click some DOM node, then check some other DOM status, often for the
+presence of a string in text, or the presence or absence of a node. Some of our
+tests, however, assert rendered properties, especially dimension constraints.
+For instance, we have asserts to check if elements of the page are on the top,
+left, or center of a page, or meet certain minimum and maximum size constraints.
+Finally, we have tests that assert look and feel by comparing screenshot image
+differences.</p>
+
+<p>There is some discretion in choosing when to use <code>Given</code> vs when to use
+<code>When</code> &ndash; are the values filled in a form part of the given condition, or part of
+the test action? I find this depends on what state transition is under test. If
+the test is verifying the form shows validation rules for invalid input, the
+form filling should be a <code>When</code> statement. On the other hand, if the test is
+verifying a &ldquo;Thanks for shopping!&rdquo; page, the form should be filled in <code>Given</code>
+steps. Cucumber itself relaxes constraints, and doesn&rsquo;t actually enforce only
+steps only run in their defined phase, so in reality any step can match
+anywhere.</p>
+
+<h2>Mappings</h2>
+
+<p>When writing steps, cucumber uses regular expression matching groups to pass
+arguments to the step body. Generally, these the form <code>/"([^"]+)"/</code>, matching
+any non-zero length of string inside double quotation marks. That value then is
+passed to the step definition function, in argument order. For cuke mappings, we
+constrain the valid items within quotes, to either be a key in the mappings
+table, or a string literal to assert in some test.</p>
+
+<p>Here&rsquo;s a line from our tests.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Then the "header nav" should have links to
+</span><span class='line'>    """
+</span><span class='line'>    Dashboard
+</span><span class='line'>    Portfolios
+</span><span class='line'>    """</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The step definition matches the first quote group against the mappings object,
+here finding the expression <code>"#header nav"</code> as the CSS to select with. It can
+then look for links to each of the titles in the list of expected links. The
+full step is defined as</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">@Then</span> <span class="sr">/&quot;([^&quot;]+)&quot; should have links to/</span><span class="p">,</span> <span class="nf">(selector, list)-&gt;</span>
+</span><span class='line'>    <span class="nv">selector = </span><span class="nx">mappings</span><span class="p">[</span><span class="nx">selector</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39; a&#39;</span>
+</span><span class='line'>    <span class="nx">@world</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="nx">selector</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">then</span> <span class="nf">(text)-&gt;</span>
+</span><span class='line'>        <span class="k">for</span> <span class="nx">link</span> <span class="k">in</span> <span class="nx">list</span><span class="p">.</span><span class="nx">split</span> <span class="s">&#39;\n&#39;</span>
+</span><span class='line'>            <span class="nx">text</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">link</span><span class="p">).</span><span class="nx">should</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nx">greaterThan</span> <span class="o">-</span><span class="mi">1</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This test creates a selector by looking for any <code>a</code> children of the selector
+for <code>"header nav"</code>, asking the world to return the joined text for all those
+elements, and asserting that each link text is in that joined string. Also, this
+test is using the <a href="https://github.com/DavidSouther/qcumber">qcumber</a> cucumberjs library, which makes steps
+behave with promises &ndash; a step can return a value, throw an exception, or return
+a promise. It will pass if a value is returned or a returned promise resolves,
+and will fail if an exception is thrown, or a returned promise rejects.</p>
+
+<h2>World</h2>
+
+<p>The world object abstracts the details of working with a browser backend. This
+allows an abstraction between the steps&#8217; browser interaction, and the actual
+browser backend. Most commonly, <code>selenium-webdriver</code> serves as the browser
+backend, but that could be replaced with <code>browserstack-webdriver</code> for
+<a href="http://www.browserstack.com/">browserstack</a> testing in CI or <a href="http://zombie.labnotes.org/">Zombie</a>, for headless,
+pure-js testing. This extra abstraction provides a minimal jquery-esque API for
+retrieving DOM content, across possible browser backends.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">module.exports = </span><span class="k">class</span> <span class="nx">World</span>
+</span><span class='line'>    <span class="nv">constructor: </span><span class="nf">(capabilities = {browserName: &quot;firefox&quot;})-&gt;</span>
+</span><span class='line'>        <span class="vi">@driver = </span><span class="k">new</span> <span class="nx">webdriver</span><span class="p">.</span><span class="nx">Builder</span><span class="p">().</span>
+</span><span class='line'>            <span class="nx">usingServer</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">SELENIUM_HUB</span><span class="p">).</span>
+</span><span class='line'>            <span class="nx">withCapabilities</span><span class="p">(</span><span class="nx">capabilities</span><span class="p">).</span><span class="nx">build</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">@driver</span><span class="p">.</span><span class="nx">manage</span><span class="p">().</span><span class="nx">timeouts</span><span class="p">().</span><span class="nx">setScriptTimeout</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">#...</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nv">find: </span><span class="nf">(selector)-&gt;</span>
+</span><span class='line'>        <span class="nx">@driver</span><span class="p">.</span><span class="nx">findElement</span> <span class="nx">By</span><span class="p">.</span><span class="nx">css</span> <span class="nx">selector</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">#...</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nv">text: </span><span class="nf">(where)-&gt;</span>
+</span><span class='line'>        <span class="nx">@find</span><span class="p">(</span><span class="nx">where</span><span class="p">).</span><span class="nx">getText</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This world is an object instance that configures itself using some webdriver,
+and has a method to do CSS lookup. It&rsquo;s taken from <a href="https://github.com/DavidSouther/qcumberbatch">qcumberbatch</a>,
+a library I have that implements the concepts here.</p>
+
+<h2>Limitations &amp; Benefits</h2>
+
+<p>The largest intrinsic drawback in this approach is the lack of flexibility in
+constructing selectors on the fly. While nothing in the code prevents it, it is
+discouraged to build such selectors, because anything you&rsquo;d need to select in
+the DOM should have its own name, listed in the mappings. Those names must be
+part of the project as a whole, and known and agreed to (at least in
+conversation) by not only the product team, but the entire product stakeholder
+group. When dicussing the application, stakeholders must take care to use these
+phrases from the ubiquitous language.</p>
+
+<p>This, while taking discipline, becomes one benefit of this ubiquitous language
+and mapping approach. Because there is a very limited subset of language to use
+for the project, conversations spend less time mucking over meaning of words.
+The meaning has already been defined and agreed to, and any mention of a phrase
+is immediately understood. The tradeoff of extra work and discipline pays for
+itseld in improved communication.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David Souther</span></span>
+
+      
+
+
+
+
+
+
+
+
+  <time datetime="2014-01-27T10:52:00-05:00" pubdate data-updated="true">Jan 27<span>th</span>, 2014</time>
+
+
+
+
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/technology/'>Technology</a>
+  
+</span>
+
+
+      
+        <span class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://DavidSouther.github.io/2014/01/cucumber-selenium-mappings-model" data-via="david_souther" data-counturl="http://DavidSouther.github.io/2014/01/cucumber-selenium-mappings-model" >Tweet</a>
+  
+  
+  <span class="g-plusone" data-size="medium"></span>
+  
+  
+    <span class="fb-like" data-send="true" data-width="450" data-show-faces="false"></span>
+  
+</span>
+
+      
+    </p>
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2014/01/angularjs-mock-render" title="Previous Post: AngularJS Mock Render">&laquo; AngularJS Mock Render</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    
+<section>
+  <h1>Stack Overflow Answers</h1>
+  <ul id="stackoverflow">
+    <li class="loading">Answers updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $(function(){
+      getStackOverflowFeed("240358", 7);
+    });
+  </script>
+  <script src="/javascripts/stackoverflow.js" type="text/javascript"> </script>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/01/cucumber-selenium-mappings-model">Cucumber Selenium Mappings Model</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/01/angularjs-mock-render">AngularJS Mock Render</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/10/testing-its-hard-just-do-it">Testing. It's Hard. Just Do It!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/04/sitting-at-home">Sitting at Home, Listening to Beethoven, Thinking of Maenee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/national-gallery-west-building">National Gallery, West Building</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/7th-ave-between-the-square-and-the-park">7th Ave Between the Square and the Park</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/readable-d3">Readable D3</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/DavidSouther">@DavidSouther</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'DavidSouther',
+            count: 7,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/davidsouther?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David Souther -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

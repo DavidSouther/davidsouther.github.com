@@ -9,8 +9,8 @@
   <meta name="author" content="David Souther">
 
   
-  <meta name="description" content="We test. A lot. We have quite a few directives. We&rsquo;re using this mock render
-function to quickly test those directives. It takes the simple &hellip;">
+  <meta name="description" content="To create a ubiquitous language for a project&rsquo;s interface, I recommend creating
+a semantic mapping. This is an in-code key/value object &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +80,64 @@ function to quickly test those directives. It takes the simple &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2014/01/cucumber-selenium-mappings-model">Cucumber Selenium Mappings Model</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  <time datetime="2014-01-27T10:52:00-05:00" pubdate data-updated="true">Jan 27<span>th</span>, 2014</time>
+
+
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>To create a ubiquitous language for a project&rsquo;s interface, I recommend creating
+a semantic mapping. This is an in-code key/value object defining words and
+phrases in a <a href="http://martinfowler.com/bliki/UbiquitousLanguage.html">ubiquitous language</a> that maps to a specific CSS
+selector for use in code. This has many advantages, with a couple draw backs.
+The benefits of having a ubiquitous language are documented in various sources,
+but in sum, mean less time wasted in a team discussing which piece of the
+solution is under discussion. This exact solution has some specific drawbacks,
+that I&rsquo;ll mention later.</p>
+
+<p>A Cuke mapping, here, is a set of nouns and noun phrases that describe some part
+of a DOM interface. In one example, the application has a main content area. The
+mapping is relatively simple: <code>'main content': '#main'</code> (coffeescript key/value
+bare object). The same application has two distinct menu areas, which are mapped
+with <code>'main menu': 'main [tab-nav="tab-nav"]'</code> and <code>'page menu': 'main div
+[tab-nav="tab-nav"]'</code>. The subtleties in DOM structure are hidden behind this
+mappings concept. If the DOM changes, the tests can be fixed by eding the
+selector in a single place.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2014/01/cucumber-selenium-mappings-model">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -778,48 +836,6 @@ She will always be with you.
   
     <footer>
       <a rel="full-article" href="/2012/07/steak-potatoes">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2012/07/html5-form-validation">HTML5 Form Validation</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  <time datetime="2012-07-09T09:23:43-04:00" pubdate data-updated="true">Jul 9<span>th</span>, 2012</time>
-
-
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Client-side form validation is a cross-cutting concern helping users get the most correct data into a form as quickly as possible. Good form validation will tell users what fields are most important in your form and exactly what is expected of their input. Form validation is not concerned with guaranteeing correct data gets sent from the user agent to the service backing the form &mdash; the service should define its own data ingestion and validation concerns. This discussion is only concerned with client-side form validation and helping users input acceptable data.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2012/07/html5-form-validation">Read on &rarr;</a>
     </footer>
   
 

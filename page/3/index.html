@@ -9,7 +9,16 @@
   <meta name="author" content="David Souther">
 
   
-  <meta name="description" content="Most javascript guides recommend the generally standard parseInt and parseFloat methods to convert from a string to a number. Multiplying by 1 works &hellip;">
+  <meta name="description" content="Since &lt;blink&gt; and text-decoration: blink; don&rsquo;t work in Webkit or IE9&hellip; 1
+2
+.invisible { visibility: hidden; } 1
+2
+3
+4
+5
+6
+7
+$.fn. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +88,74 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/01/dont-blink">Don&#8217;t Blink!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  <time datetime="2012-01-11T14:35:52-05:00" pubdate data-updated="true">Jan 11<span>th</span>, 2012</time>
+
+
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Since <code>&lt;blink&gt;</code> and <code>text-decoration: blink;</code> don&rsquo;t work in Webkit or IE9&hellip;</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nc">.invisible</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">visibility</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">blink</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="nx">setInterval</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">proxy</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">toggleClass</span><span class="p">(</span><span class="s1">&#39;invisible&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">});</span>
+</span><span class='line'>    <span class="p">},</span> <span class="k">this</span><span class="p">),</span> <span class="mi">500</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">blink</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -672,48 +749,6 @@ It&rsquo;s outrageous to take advantage of the urgent needs of hurricane survivo
 
 </div>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/08/gedit-tips-tricks">Gedit Tips & Tricks</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  <time datetime="2011-08-14T00:46:10-04:00" pubdate data-updated="true">Aug 14<span>th</span>, 2011</time>
-
-
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://projects.gnome.org/gedit/">gedit</a> is awesome. Lightweight, with an excellent plugin ecosystem. It is a text editor. Not an IDE. Not a programming environment. All it does it text. That is a Good Thing™. With a few small tweaks, gedit will do LaTeX, C, C#, Haskell, or any other text-based thing you want to do. It embodies the Unix principle of doing one thing only and one thing well, while providing all the modern conventions we expect text editors to follow today (sorry, but both Vi and Emacs are weird for anyone who&rsquo;s learned to type in the last 10 years). gedit provides plenty of configuration options. These are the tips and tricks to make gedit just that much more awesome to help developers (me) meet the style guidelines I have here.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2011/08/gedit-tips-tricks">Read on &rarr;</a>
-    </footer>
   
 
 
