@@ -25,7 +25,7 @@ holy war, I'll post a rebuttal for how we're using Angular to great effect at
     they're absolutely correct. Especially for a site like theirs, which is creating
     large amounts of dynamic content with few caching opportunities, rendering a
     page for a crawler is expensive and will probably only be used a single time.
-    Their analysis of the solutions, either rewritting all your pages server side or
+    Their analysis of the solutions, either rewriting all your pages server side or
     handling a farm of headless browsers to pre-render for the server are about the
     only ways to handle the situation.
 
@@ -42,7 +42,7 @@ holy war, I'll post a rebuttal for how we're using Angular to great effect at
 
     Sourcegraph argue that it's hard to integrate a third-party analytics provider
     with an SPA. There are tricky issues with the HTML5 history api, and what about
-    the replaceState events? And when you found out you tracked it wrong, it's nigh
+    the replaceState events? When you found out you tracked it wrong, it's nigh
     impossible to recover those stats.
 
     This argument is dubious to me, at best. I can see that tacking tracking on
@@ -53,8 +53,8 @@ holy war, I'll post a rebuttal for how we're using Angular to great effect at
 
 1. **Slow, complex build tools**
 
-    Sourcegraph doesn't like [ng-bilerplate][ngbp]. They find Grunt configurations
-    complex, and FE build tools too be slow. I guess they've never compiled a QT C++
+    Sourcegraph doesn't like [ng-boilerplate][ngbp]. They find Grunt configurations
+    complex, and FE build tools too slow. I guess they've never compiled a QT C++
     application. JS build times are teh slowz! they say. And ngmin takes forever!
 
     I agree, ngbp has a mediocre Gruntfile at best. At Novus, we have IMHO a much
@@ -67,7 +67,7 @@ holy war, I'll post a rebuttal for how we're using Angular to great effect at
     only run the tests of the component under active development.
 
     Don't get me wrong, the last project I was on had single-module build times of
-    over a minute (on the lead devs machine, one guy was getting three+ minute build
+    over a minute (on the lead devs machine; another guy was getting three-plus minute build
     times for CSS changes). You can write bad build configurations. We haven't.
 
     Oh, if you want to see parts of our kick-ass build process, check out my [TDD
@@ -75,7 +75,7 @@ holy war, I'll post a rebuttal for how we're using Angular to great effect at
 
 1. **Slow, flaky tests**
 
-    Souregraph seems to have problems with browser-based feature tests. It took us
+    Sourcegraph seems to have problems with browser-based feature tests. It took us
     all of 8 lines in 3 config files to set up and run headless Firefox on our CI
     server. Running the entire Browserstack matrix is going to be a different beast,
     but that's because of our IT department's (justified) security concerns. As for
@@ -126,3 +126,4 @@ Happy hacking!
 [csmm]: http://davidsouther.com/2014/01/cucumber-selenium-mappings-model/
 [tdd-angular]: http://davidsouther.com/tdd-angular/
 [ngbp]: http://joshdmiller.github.io/ng-boilerplate/#/home
+
