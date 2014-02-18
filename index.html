@@ -165,15 +165,6 @@ but in sum, mean less time wasted in a team discussing which piece of the
 solution is under discussion. This exact solution has some specific drawbacks,
 that I&rsquo;ll mention later.</p>
 
-<p>A Cuke mapping, here, is a set of nouns and noun phrases that describe some part
-of a DOM interface. In one example, the application has a main content area. The
-mapping is relatively simple: <code>'main content': '#main'</code> (coffeescript key/value
-bare object). The same application has two distinct menu areas, which are mapped
-with <code>'main menu': 'main [tab-nav="tab-nav"]'</code> and <code>'page menu': 'main div
-[tab-nav="tab-nav"]'</code>. The subtleties in DOM structure are hidden behind this
-mappings concept. If the DOM changes, the tests can be fixed by eding the
-selector in a single place.</p>
-
 </div>
   
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Technology | David Souther]]></title>
   <link href="http://DavidSouther.github.io/categories/technology/atom.xml" rel="self"/>
   <link href="http://DavidSouther.github.io/"/>
-  <updated>2014-02-17T23:14:37-05:00</updated>
+  <updated>2014-02-17T23:16:13-05:00</updated>
   <id>http://DavidSouther.github.io/</id>
   <author>
     <name><![CDATA[David Souther]]></name>
@@ -140,6 +140,9 @@ but in sum, mean less time wasted in a team discussing which piece of the
 solution is under discussion. This exact solution has some specific drawbacks,
 that I&rsquo;ll mention later.</p>
 
+<!-- more -->
+
+
 <p>A Cuke mapping, here, is a set of nouns and noun phrases that describe some part
 of a DOM interface. In one example, the application has a main content area. The
 mapping is relatively simple: <code>'main content': '#main'</code> (coffeescript key/value
@@ -148,9 +151,6 @@ with <code>'main menu': 'main [tab-nav="tab-nav"]'</code> and <code>'page menu':
 [tab-nav="tab-nav"]'</code>. The subtleties in DOM structure are hidden behind this
 mappings concept. If the DOM changes, the tests can be fixed by eding the
 selector in a single place.</p>
-
-<!-- more -->
-
 
 <h2>Given/When/Then</h2>
 
