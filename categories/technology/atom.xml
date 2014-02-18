@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Technology | David Souther]]></title>
   <link href="http://DavidSouther.github.io/categories/technology/atom.xml" rel="self"/>
   <link href="http://DavidSouther.github.io/"/>
-  <updated>2014-02-18T08:46:18-05:00</updated>
+  <updated>2014-02-18T08:47:06-05:00</updated>
   <id>http://DavidSouther.github.io/</id>
   <author>
     <name><![CDATA[David Souther]]></name>
@@ -29,7 +29,7 @@ holy war, I&rsquo;ll post a rebuttal for how we&rsquo;re using Angular to great 
 <ol>
 <li><p><strong>Bad search ranking and Twitter/Facebook previews</strong></p>
 
-<p> Sourcegraph thinks it&rsquo;s hard to present a reasonable SPA to crawlers, and
+<p> Sourcegraph thinks it&rsquo;s hard to present a reasonable SPA (Single-Page web Application) to crawlers, and
  they&rsquo;re absolutely correct. Especially for a site like theirs, which is creating
  large amounts of dynamic content with few caching opportunities, rendering a
  page for a crawler is expensive and will probably only be used a single time.
