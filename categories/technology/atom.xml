@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Technology | David Souther]]></title>
   <link href="http://DavidSouther.github.io/categories/technology/atom.xml" rel="self"/>
   <link href="http://DavidSouther.github.io/"/>
-  <updated>2014-02-09T14:26:50-05:00</updated>
+  <updated>2014-02-17T23:14:37-05:00</updated>
   <id>http://DavidSouther.github.io/</id>
   <author>
     <name><![CDATA[David Souther]]></name>
@@ -12,6 +12,119 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[5 Surprisingly Not That Painful Things About Client-side JS]]></title>
+    <link href="http://DavidSouther.github.io/2014/02/5-surprisingly-not-that-painful-things-about-client-side-js"/>
+    <updated>2014-02-17T22:33:25-05:00</updated>
+    <id>http://DavidSouther.github.io/2014/02/5-surprisingly-not-that-painful-things-about-client-side-js</id>
+    <content type="html"><![CDATA[<p>I&rsquo;m a huge fan of <a href="[http://angularjs.org/]">AngularJS</a>. Over at <a href="https://sourcegraph.com/">Sourcegraph</a>,
+they seem to be <a href="https://sourcegraph.com/blog/switching-from-angularjs-to-server-side-html">having some problems</a>. Never one to back down from a
+holy war, I&rsquo;ll post a rebuttal for how we&rsquo;re using Angular to great effect at
+<a href="http://novus.com">Novus</a>, and how we&rsquo;ve gotten around the problems they mention.</p>
+
+<!--more-->
+
+
+<ol>
+<li><p><strong>Bad search ranking and Twitter/Facebook previews</strong></p>
+
+<p> Sourcegraph thinks it&rsquo;s hard to present a reasonable SPA to crawlers, and
+ they&rsquo;re absolutely correct. Especially for a site like theirs, which is creating
+ large amounts of dynamic content with few caching opportunities, rendering a
+ page for a crawler is expensive and will probably only be used a single time.
+ Their analysis of the solutions, either rewritting all your pages server side or
+ handling a farm of headless browsers to pre-render for the server are about the
+ only ways to handle the situation.</p>
+
+<p> This is a problem, and something that is being actively pursued by the
+ community. For Novus, however, we sidestep this. The places we need search
+ rankings, we publish a static site. Our primary application is for our customers
+ only, and even if you did crawl it, you&rsquo;d get a bunch of nvd3 graphs and charts.
+ Actually, I&rsquo;ll go even further for this. In the places you need SEO, you are
+ probably better using a static site generator &ndash; the SPA architecture is for
+ long-lived, data heavy, dynamic pages. I love angular, but this site is run on
+ <a href="[http://jekyllrb.com/]">Jekyll</a>.</p></li>
+<li><p><strong>Flaky stats and monitoring</strong></p>
+
+<p> Sourcegraph argue that it&rsquo;s hard to integrate a third-party analytics provider
+ with an SPA. There are tricky issues with the HTML5 history api, and what about
+ the replaceState events? And when you found out you tracked it wrong, it&rsquo;s nigh
+ impossible to recover those stats.</p>
+
+<p> This argument is dubious to me, at best. I can see that tacking tracking on
+ after the fact can get tricky. At Novus, we&rsquo;ve got very clear eventing seams,
+ which make obvious where to attach tracking hooks. We test our tracking hooks
+ during our regression tests (that&rsquo;s a blog post for itself). I wouldn&rsquo;t say it&rsquo;s
+ been easy, but with clear architecture up front, we&rsquo;re doing pretty well.</p></li>
+<li><p><strong>Slow, complex build tools</strong></p>
+
+<p> Sourcegraph doesn&rsquo;t like [ng-bilerplate]. They find Grunt configurations
+ complex, and FE build tools too be slow. I guess they&rsquo;ve never compiled a QT C++
+ application. JS build times are teh slowz! they say. And ngmin takes forever!</p>
+
+<p> I agree, ngbp has a mediocre Gruntfile at best. At Novus, we have IMHO a much
+ better setup. Currently, we can run our entire build suite, including feature
+ tests, in about a minute; that&rsquo;s six projects, three of which can be run
+ parallel, and 30 seconds of feature testing (more in 4). Each project,
+ individually, takes about a half second to lint &amp; build, and another 2 to 5
+ seconds to run their full suite of tests (between a dozen and half-a-hundred,
+ but growing). We have several mechanisms in place to pare down the test run, to
+ only run the tests of the component under active development.</p>
+
+<p> Don&rsquo;t get me wrong, the last project I was on had single-module build times of
+ over a minute (on the lead devs machine, one guy was getting three+ minute build
+ times for CSS changes). You can write bad build configurations. We haven&rsquo;t.</p>
+
+<p> Oh, if you want to see parts of our kick-ass build process, check out my <a href="http://davidsouther.com/tdd-angular/">TDD
+ AngularJS tutorial</a>.</p></li>
+<li><p><strong>Slow, flaky tests</strong></p>
+
+<p> Souregraph seems to have problems with browser-based feature tests. It took us
+ all of 8 lines in 3 config files to set up and run headless Firefox on our CI
+ server. Running the entire Browserstack matrix is going to be a different beast,
+ but that&rsquo;s because of our IT department&rsquo;s (justified) security concerns. As for
+ the &ldquo;flakiness&rdquo; of the tests, every time we&rsquo;ve had a feature test fail, it&rsquo;s
+ been because of a real regression we introduced into the codebase.</p>
+
+<p> We&rsquo;ve taken an approach to feature testing that I&rsquo;ve outlined as the <a href="http://davidsouther.com/2014/01/cucumber-selenium-mappings-model/">Cucumber
+ Selenium Mapping Model</a>. It&rsquo;s served us fantastically well, and I&rsquo;d
+ encourage others to take a look at it.</p></li>
+<li><p><strong>Slowness is swept under the rug, not addressed</strong></p>
+
+<p> Sourcegraph claims SPAs make it easier to ignore performance issues. This is not
+ an argument about SPAs, this is an argument against lazy programmers.</p>
+
+<p> I&rsquo;m about 4 hours in to re-architecting our page load/event flow because our
+ page has been loading too slowly. I have test harness code designed specifically
+ to introduce slowness into our system, to emulate long/hung/failed/exceptional
+ asynch requests, to see how well they&rsquo;re handled. I am doing this, because our
+ UX lead has been complaining (and I&rsquo;ve been noticing) stutterings in the UI,
+ which our metrics show are happening on requests that are, get this, over ~200
+ milliseconds.</p>
+
+<p> Angular does not make a page laggy, bad programmers make a page laggy.</p></li>
+</ol>
+
+
+<h2>Choose the right tool</h2>
+
+<p>Sourcegraph&rsquo;s closing line is a fine token gesture, &ldquo;[Angular wasn&rsquo;t] the right
+tool for our site.&rdquo; Looking at their site and team, I&rsquo;d tend to agree. I don&rsquo;t
+know how I&rsquo;d have architected it up front, but Angular (and indeed, SPAs) are
+not the best option for a small to medium traffic volume static on demand site.
+That is not a reason to decry all front end build tools as an immense web of
+problems.</p>
+
+<p>I don&rsquo;t know why they published their piece &ndash; they must be having (or have had)
+some frustrations. I am here to tell you that none of these needed to be
+problems. If you have a site that you think needs Angular, these problems have
+solutions. Better than that, many will not be problems, if you take a bit of
+pride and architecture in your projects.</p>
+
+<p>Happy hacking!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Cucumber Selenium Mappings Model]]></title>
@@ -563,66 +676,6 @@ return function(layer){
 <p>In this example, the SVG is preloaded in the HTML with a filter already defined. The script gets a canvas with a few custom properties, attaches a background image, then creates the Starmap and uses it immediately.</p>
 
 <p>This pattern has been very helpful keeping my code clean.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Observers? In *my* Syntax?]]></title>
-    <link href="http://DavidSouther.github.io/2012/12/observers-in-my-syntax"/>
-    <updated>2012-12-07T10:13:24-05:00</updated>
-    <id>http://DavidSouther.github.io/2012/12/observers-in-my-syntax</id>
-    <content type="html"><![CDATA[<p>Modern graphical programming is dependent on the <a href="http://en.wikipedia.org/wiki/Observer_pattern">observer pattern</a>. Its use in Model-View-Controller architectures vaulted the pattern into widespread use. Its continues to find applicability in event and interrupt based systems. The underlying conceptual pattern is astounding. In traditional APIs, the user is allowed to call library code arbitrarily, but there is no mechanism for a library to call user space code. While this is somewhat obviated by extensive callback usage, having formally defined and documented locations where library code calls user code is a great boon in large-scale software architectures. The observer pattern provides such a mechanism. In short, observers are great. How can they be worked even tighter into a coding environment?</p>
-
-<!-- more -->
-
-
-<p>This past year has seen an abundance of metamorphic languages targeting JavaScript. <a href="http://gkz.github.com/LiveScript/">LiveScript</a> especially has added a glut of incredibly useful syntax to CoffeeScript, borrowing heavily from Haskell. These improvements capture, in concise syntax, a myriad of concepts that normally take many lines of code. Users of the LiveScript language have access to functional currying, piping, backcalls, and dozens of other operations resulting in less typing and more straightforward programs. The results of these symbols occur in a myriad of ways- some are converted into appropriate JavaScript, while others are handled by introducing hidden functions to introduce the new features. The two mechanisms both work well and in tandem, allowing nearly any combination of additional language features.</p>
-
-<p>I would like to add a series of operations for handling observers in a language&rsquo;s syntax. The operations I propose have been implemented in a <a href="http://gkz.github.com/LiveScript/">fork</a> of LiveScript, and used to great effect in several programs compiled with the fork.</p>
-
-<p>The three symbols are</p>
-
-<ul>
-<li><code>:&gt;</code> Observe</li>
-<li><code>-:&gt;</code> Unobserve</li>
-<li><code>&lt;:</code> Trigger</li>
-</ul>
-
-
-<p>Each is a binary operation, taking on its left hand side a reference to some event, and on its right hand side either a function reference (for observe and unobserve) or a value (for trigger). Events in this syntax are simply properties on an object. Specifically, the left hand side can be a reference to any object, with the right-most property being the property and its container being the scope of the event. In practice:</p>
-
-<p><code>
-source = {}
-pass = false
-source :&gt; !(e) -&gt; pass := e
-source &lt;: true
-ok pass
-</code></p>
-
-<p>Here, <code>source</code> itself is the event. It has a single observer, which sets the global value of <code>pass</code> to the value that <code>source</code> was triggered with. Another example:</p>
-
-<p>```
-/<em> &ldquo;Observers and Advisors trigger in correct deep context&rdquo; </em>/
-source = {}
-source.child = new &ndash;></p>
-
-<pre><code>@pass = 0
-this
-</code></pre>
-
-<p>add = !&ndash;> @pass++
-source.child.event :> add
-source.child.event &lt;: {}
-equal source.child.pass, 1
-```</p>
-
-<p>Here, the object <code>source</code> has a single <code>child</code> with some <code>event</code>. When <code>event</code> is triggered, the observers are called with <code>this</code> bound to <code>source.child</code>, one level up from the event property.</p>
-
-<p>Having these operators is a huge boon in writing event-driven programs. Not only does the codified syntax mean less typing, it provides a clear visual symbol for the concept of observing and triggering a variable. The actual implementation of the eventing is abstracted behind whatever event library the compiler chooses to delegate to. In my original implementation, the event listeners are attached to an array on the event itself, but another library could make the event property a function, a la jQuery, or register it in a private list of event sources, a la string-keyed pub/sub libraries.</p>
-
-<p>My branch is available at <a href="http://github.com/DavidSouther/LiveScript">github.com/DavidSouther/LiveScript</a>. I intend to rewrite the eventing library used in two places. First, it should compile to a known method signature, with options on whether to include the function definition in the compiled scope. This will allow the eventing implementation to decouple from the compiler. Second, I would like to rework the implementation to detect if the event source is a function. This will allow the syntax to handle jQuery events natively.</p>
-
-<p>I would ask <a href="https://github.com/gkz">gkz</a> and other users of LiveScript to consider this approach to an eventing syntax.</p>
 ]]></content>
   </entry>
   

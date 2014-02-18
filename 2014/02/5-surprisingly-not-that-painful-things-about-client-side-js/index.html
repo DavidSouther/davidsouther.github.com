@@ -1,0 +1,418 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>5 Surprisingly Not That Painful Things About Client-side JS - David Souther</title>
+  <meta name="author" content="David Souther">
+
+  
+  <meta name="description" content="I&rsquo;m a huge fan of AngularJS. Over at Sourcegraph,
+they seem to be having some problems. Never one to back down from a
+holy war, I&rsquo;ll post &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://DavidSouther.github.io/2014/02/5-surprisingly-not-that-painful-things-about-client-side-js">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/feed.xml" rel="alternate" title="David Souther" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-505666-4']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Souther</a></h1>
+  
+    <h2>Crafstmanship - Software, Hardware, Art, Language</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:DavidSouther.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Posts</a></li>
+  <li><a href="/about-me/">About</a></li>
+  <li><a href="/resume/">Resume</a></li>
+  <li><a href="/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">5 Surprisingly Not That Painful Things About Client-side JS</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  <time datetime="2014-02-17T22:33:25-05:00" pubdate data-updated="true">Feb 17<span>th</span>, 2014</time>
+
+
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&rsquo;m a huge fan of <a href="[http://angularjs.org/]">AngularJS</a>. Over at <a href="https://sourcegraph.com/">Sourcegraph</a>,
+they seem to be <a href="https://sourcegraph.com/blog/switching-from-angularjs-to-server-side-html">having some problems</a>. Never one to back down from a
+holy war, I&rsquo;ll post a rebuttal for how we&rsquo;re using Angular to great effect at
+<a href="http://novus.com">Novus</a>, and how we&rsquo;ve gotten around the problems they mention.</p>
+
+<!--more-->
+
+
+<ol>
+<li><p><strong>Bad search ranking and Twitter/Facebook previews</strong></p>
+
+<p> Sourcegraph thinks it&rsquo;s hard to present a reasonable SPA to crawlers, and
+ they&rsquo;re absolutely correct. Especially for a site like theirs, which is creating
+ large amounts of dynamic content with few caching opportunities, rendering a
+ page for a crawler is expensive and will probably only be used a single time.
+ Their analysis of the solutions, either rewritting all your pages server side or
+ handling a farm of headless browsers to pre-render for the server are about the
+ only ways to handle the situation.</p>
+
+<p> This is a problem, and something that is being actively pursued by the
+ community. For Novus, however, we sidestep this. The places we need search
+ rankings, we publish a static site. Our primary application is for our customers
+ only, and even if you did crawl it, you&rsquo;d get a bunch of nvd3 graphs and charts.
+ Actually, I&rsquo;ll go even further for this. In the places you need SEO, you are
+ probably better using a static site generator &ndash; the SPA architecture is for
+ long-lived, data heavy, dynamic pages. I love angular, but this site is run on
+ <a href="[http://jekyllrb.com/]">Jekyll</a>.</p></li>
+<li><p><strong>Flaky stats and monitoring</strong></p>
+
+<p> Sourcegraph argue that it&rsquo;s hard to integrate a third-party analytics provider
+ with an SPA. There are tricky issues with the HTML5 history api, and what about
+ the replaceState events? And when you found out you tracked it wrong, it&rsquo;s nigh
+ impossible to recover those stats.</p>
+
+<p> This argument is dubious to me, at best. I can see that tacking tracking on
+ after the fact can get tricky. At Novus, we&rsquo;ve got very clear eventing seams,
+ which make obvious where to attach tracking hooks. We test our tracking hooks
+ during our regression tests (that&rsquo;s a blog post for itself). I wouldn&rsquo;t say it&rsquo;s
+ been easy, but with clear architecture up front, we&rsquo;re doing pretty well.</p></li>
+<li><p><strong>Slow, complex build tools</strong></p>
+
+<p> Sourcegraph doesn&rsquo;t like [ng-bilerplate]. They find Grunt configurations
+ complex, and FE build tools too be slow. I guess they&rsquo;ve never compiled a QT C++
+ application. JS build times are teh slowz! they say. And ngmin takes forever!</p>
+
+<p> I agree, ngbp has a mediocre Gruntfile at best. At Novus, we have IMHO a much
+ better setup. Currently, we can run our entire build suite, including feature
+ tests, in about a minute; that&rsquo;s six projects, three of which can be run
+ parallel, and 30 seconds of feature testing (more in 4). Each project,
+ individually, takes about a half second to lint &amp; build, and another 2 to 5
+ seconds to run their full suite of tests (between a dozen and half-a-hundred,
+ but growing). We have several mechanisms in place to pare down the test run, to
+ only run the tests of the component under active development.</p>
+
+<p> Don&rsquo;t get me wrong, the last project I was on had single-module build times of
+ over a minute (on the lead devs machine, one guy was getting three+ minute build
+ times for CSS changes). You can write bad build configurations. We haven&rsquo;t.</p>
+
+<p> Oh, if you want to see parts of our kick-ass build process, check out my <a href="http://davidsouther.com/tdd-angular/">TDD
+ AngularJS tutorial</a>.</p></li>
+<li><p><strong>Slow, flaky tests</strong></p>
+
+<p> Souregraph seems to have problems with browser-based feature tests. It took us
+ all of 8 lines in 3 config files to set up and run headless Firefox on our CI
+ server. Running the entire Browserstack matrix is going to be a different beast,
+ but that&rsquo;s because of our IT department&rsquo;s (justified) security concerns. As for
+ the &ldquo;flakiness&rdquo; of the tests, every time we&rsquo;ve had a feature test fail, it&rsquo;s
+ been because of a real regression we introduced into the codebase.</p>
+
+<p> We&rsquo;ve taken an approach to feature testing that I&rsquo;ve outlined as the <a href="http://davidsouther.com/2014/01/cucumber-selenium-mappings-model/">Cucumber
+ Selenium Mapping Model</a>. It&rsquo;s served us fantastically well, and I&rsquo;d
+ encourage others to take a look at it.</p></li>
+<li><p><strong>Slowness is swept under the rug, not addressed</strong></p>
+
+<p> Sourcegraph claims SPAs make it easier to ignore performance issues. This is not
+ an argument about SPAs, this is an argument against lazy programmers.</p>
+
+<p> I&rsquo;m about 4 hours in to re-architecting our page load/event flow because our
+ page has been loading too slowly. I have test harness code designed specifically
+ to introduce slowness into our system, to emulate long/hung/failed/exceptional
+ asynch requests, to see how well they&rsquo;re handled. I am doing this, because our
+ UX lead has been complaining (and I&rsquo;ve been noticing) stutterings in the UI,
+ which our metrics show are happening on requests that are, get this, over ~200
+ milliseconds.</p>
+
+<p> Angular does not make a page laggy, bad programmers make a page laggy.</p></li>
+</ol>
+
+
+<h2>Choose the right tool</h2>
+
+<p>Sourcegraph&rsquo;s closing line is a fine token gesture, &ldquo;[Angular wasn&rsquo;t] the right
+tool for our site.&rdquo; Looking at their site and team, I&rsquo;d tend to agree. I don&rsquo;t
+know how I&rsquo;d have architected it up front, but Angular (and indeed, SPAs) are
+not the best option for a small to medium traffic volume static on demand site.
+That is not a reason to decry all front end build tools as an immense web of
+problems.</p>
+
+<p>I don&rsquo;t know why they published their piece &ndash; they must be having (or have had)
+some frustrations. I am here to tell you that none of these needed to be
+problems. If you have a site that you think needs Angular, these problems have
+solutions. Better than that, many will not be problems, if you take a bit of
+pride and architecture in your projects.</p>
+
+<p>Happy hacking!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David Souther</span></span>
+
+      
+
+
+
+
+
+
+
+
+  <time datetime="2014-02-17T22:33:25-05:00" pubdate data-updated="true">Feb 17<span>th</span>, 2014</time>
+
+
+
+
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/technology/'>Technology</a>
+  
+</span>
+
+
+      
+        <span class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://DavidSouther.github.io/2014/02/5-surprisingly-not-that-painful-things-about-client-side-js" data-via="david_souther" data-counturl="http://DavidSouther.github.io/2014/02/5-surprisingly-not-that-painful-things-about-client-side-js" >Tweet</a>
+  
+  
+  <span class="g-plusone" data-size="medium"></span>
+  
+  
+    <span class="fb-like" data-send="true" data-width="450" data-show-faces="false"></span>
+  
+</span>
+
+      
+    </p>
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2014/01/cucumber-selenium-mappings-model" title="Previous Post: Cucumber Selenium Mappings Model">&laquo; Cucumber Selenium Mappings Model</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    
+<section>
+  <h1>Stack Overflow Answers</h1>
+  <ul id="stackoverflow">
+    <li class="loading">Answers updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $(function(){
+      getStackOverflowFeed("240358", 7);
+    });
+  </script>
+  <script src="/javascripts/stackoverflow.js" type="text/javascript"> </script>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/02/5-surprisingly-not-that-painful-things-about-client-side-js">5 Surprisingly Not That Painful Things About Client-side JS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/01/cucumber-selenium-mappings-model">Cucumber Selenium Mappings Model</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/01/angularjs-mock-render">AngularJS Mock Render</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/10/testing-its-hard-just-do-it">Testing. It's Hard. Just Do It!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/04/sitting-at-home">Sitting at Home, Listening to Beethoven, Thinking of Maenee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/national-gallery-west-building">National Gallery, West Building</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/7th-ave-between-the-square-and-the-park">7th Ave Between the Square and the Park</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/DavidSouther">@DavidSouther</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'DavidSouther',
+            count: 7,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/davidsouther?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David Souther -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
