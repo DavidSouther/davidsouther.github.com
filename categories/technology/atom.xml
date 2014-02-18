@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Technology | David Souther]]></title>
   <link href="http://DavidSouther.github.io/categories/technology/atom.xml" rel="self"/>
   <link href="http://DavidSouther.github.io/"/>
-  <updated>2014-02-18T08:47:06-05:00</updated>
+  <updated>2014-02-18T08:49:03-05:00</updated>
   <id>http://DavidSouther.github.io/</id>
   <author>
     <name><![CDATA[David Souther]]></name>
@@ -47,7 +47,7 @@ holy war, I&rsquo;ll post a rebuttal for how we&rsquo;re using Angular to great 
  <a href="http://jekyllrb.com/">Jekyll</a>.</p></li>
 <li><p><strong>Flaky stats and monitoring</strong></p>
 
-<p> Sourcegraph argue that it&rsquo;s hard to integrate a third-party analytics provider
+<p> Sourcegraph argues that it&rsquo;s hard to integrate a third-party analytics provider
  with an SPA. There are tricky issues with the HTML5 history api, and what about
  the replaceState events? When you found out you tracked it wrong, it&rsquo;s nigh
  impossible to recover those stats.</p>
