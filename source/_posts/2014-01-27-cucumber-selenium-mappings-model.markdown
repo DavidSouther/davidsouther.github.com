@@ -23,6 +23,8 @@ but in sum, mean less time wasted in a team discussing which piece of the
 solution is under discussion. This exact solution has some specific drawbacks,
 that I'll mention later.
 
+<!-- more -->
+
 A Cuke mapping, here, is a set of nouns and noun phrases that describe some part
 of a DOM interface. In one example, the application has a main content area. The
 mapping is relatively simple: `'main content': '#main'` (coffeescript key/value
@@ -32,7 +34,6 @@ with `'main menu': 'main [tab-nav="tab-nav"]'` and `'page menu': 'main div
 mappings concept. If the DOM changes, the tests can be fixed by eding the
 selector in a single place.
 
-<!-- more -->
 
 ## Given/When/Then
 
