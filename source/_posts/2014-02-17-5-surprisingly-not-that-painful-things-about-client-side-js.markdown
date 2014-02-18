@@ -104,7 +104,7 @@ holy war, I'll post a rebuttal for how we're using Angular to great effect at
 ## Choose the right tool
 
 Sourcegraph's closing line is a fine token gesture, "[Angular wasn't] the right
-tool for our site." Looking at their site and team, I'd tend to agree. I don't
+tool for our site." Looking at their site agnd team, I'd tend to agree. I don't
 know how I'd have architected it up front, but Angular (and indeed, SPAs) are
 not the best option for a small to medium traffic volume static on demand site.
 That is not a reason to decry all front end build tools as an immense web of
@@ -118,11 +118,11 @@ pride and architecture in your projects.
 
 Happy hacking!
 
-[angularjs]: [http://angularjs.org/]
+[angularjs]: http://angularjs.org/
 [sourcegraph]: https://sourcegraph.com/
 [switching]: https://sourcegraph.com/blog/switching-from-angularjs-to-server-side-html
 [novus]: http://novus.com
-[jekyll]: [http://jekyllrb.com/]
+[jekyll]: http://jekyllrb.com/
 [csmm]: http://davidsouther.com/2014/01/cucumber-selenium-mappings-model/
 [tdd-angular]: http://davidsouther.com/tdd-angular/
 [ngbp]: http://joshdmiller.github.io/ng-boilerplate/#/home
