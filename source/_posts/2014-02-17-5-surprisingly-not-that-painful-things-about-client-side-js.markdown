@@ -53,7 +53,7 @@ holy war, I'll post a rebuttal for how we're using Angular to great effect at
 
 1. **Slow, complex build tools**
 
-    Sourcegraph doesn't like [ng-bilerplate]. They find Grunt configurations
+    Sourcegraph doesn't like [ng-bilerplate][ngbp]. They find Grunt configurations
     complex, and FE build tools too be slow. I guess they've never compiled a QT C++
     application. JS build times are teh slowz! they say. And ngmin takes forever!
 
@@ -125,3 +125,4 @@ Happy hacking!
 [jekyll]: [http://jekyllrb.com/]
 [csmm]: http://davidsouther.com/2014/01/cucumber-selenium-mappings-model/
 [tdd-angular]: http://davidsouther.com/tdd-angular/
+[ngbp]: http://joshdmiller.github.io/ng-boilerplate/#/home
