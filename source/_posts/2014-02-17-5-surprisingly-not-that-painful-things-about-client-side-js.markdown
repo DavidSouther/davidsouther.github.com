@@ -21,7 +21,7 @@ holy war, I'll post a rebuttal for how we're using Angular to great effect at
 
 1. **Bad search ranking and Twitter/Facebook previews**
 
-    Sourcegraph thinks it's hard to present a reasonable SPA to crawlers, and
+    Sourcegraph thinks it's hard to present a reasonable SPA (Single-Page web Application) to crawlers, and
     they're absolutely correct. Especially for a site like theirs, which is creating
     large amounts of dynamic content with few caching opportunities, rendering a
     page for a crawler is expensive and will probably only be used a single time.
@@ -40,7 +40,7 @@ holy war, I'll post a rebuttal for how we're using Angular to great effect at
 
 1. **Flaky stats and monitoring**
 
-    Sourcegraph argue that it's hard to integrate a third-party analytics provider
+    Sourcegraph argues that it's hard to integrate a third-party analytics provider
     with an SPA. There are tricky issues with the HTML5 history api, and what about
     the replaceState events? When you found out you tracked it wrong, it's nigh
     impossible to recover those stats.
@@ -70,8 +70,8 @@ holy war, I'll post a rebuttal for how we're using Angular to great effect at
     over a minute (on the lead devs machine; another guy was getting three-plus minute build
     times for CSS changes). You can write bad build configurations. We haven't.
 
-    Oh, if you want to see parts of our kick-ass build process, check out my [TDD
-    AngularJS tutorial][tdd-angular].
+    Oh, if you want to see parts of our kick-ass build process, check out my
+    [TDD AngularJS tutorial][tdd-angular].
 
 1. **Slow, flaky tests**
 
@@ -82,8 +82,8 @@ holy war, I'll post a rebuttal for how we're using Angular to great effect at
     the "flakiness" of the tests, every time we've had a feature test fail, it's
     been because of a real regression we introduced into the codebase.
 
-    We've taken an approach to feature testing that I've outlined as the [Cucumber
-    Selenium Mapping Model][csmm]. It's served us fantastically well, and I'd
+    We've taken an approach to feature testing that I've outlined as the
+    [Cucumber Selenium Mapping Model][csmm]. It's served us fantastically well, and I'd
     encourage others to take a look at it.
 
 1. **Slowness is swept under the rug, not addressed**
@@ -118,11 +118,11 @@ pride and architecture in your projects.
 
 Happy hacking!
 
-[angularjs]: [http://angularjs.org/]
+[angularjs]: http://angularjs.org/
 [sourcegraph]: https://sourcegraph.com/
 [switching]: https://sourcegraph.com/blog/switching-from-angularjs-to-server-side-html
 [novus]: http://novus.com
-[jekyll]: [http://jekyllrb.com/]
+[jekyll]: http://jekyllrb.com/
 [csmm]: http://davidsouther.com/2014/01/cucumber-selenium-mappings-model/
 [tdd-angular]: http://davidsouther.com/tdd-angular/
 [ngbp]: http://joshdmiller.github.io/ng-boilerplate/#/home
