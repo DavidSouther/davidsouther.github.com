@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Technology | David Souther]]></title>
-  <link href="http://DavidSouther.github.io/categories/technology/atom.xml" rel="self"/>
-  <link href="http://DavidSouther.github.io/"/>
-  <updated>2014-02-18T08:52:19-05:00</updated>
-  <id>http://DavidSouther.github.io/</id>
+  <link href="http://davidsouther.com/categories/technology/atom.xml" rel="self"/>
+  <link href="http://davidsouther.com/"/>
+  <updated>2014-02-18T09:32:52-05:00</updated>
+  <id>http://davidsouther.com/</id>
   <author>
     <name><![CDATA[David Souther]]></name>
     <email><![CDATA[davidsouther@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[5 Surprisingly Not That Painful Things About Client-side JS]]></title>
-    <link href="http://DavidSouther.github.io/2014/02/5-surprisingly-not-that-painful-things-about-client-side-js"/>
+    <link href="http://davidsouther.com/2014/02/5-surprisingly-not-that-painful-things-about-client-side-js"/>
     <updated>2014-02-17T22:33:25-05:00</updated>
-    <id>http://DavidSouther.github.io/2014/02/5-surprisingly-not-that-painful-things-about-client-side-js</id>
+    <id>http://davidsouther.com/2014/02/5-surprisingly-not-that-painful-things-about-client-side-js</id>
     <content type="html"><![CDATA[<p>I&rsquo;m a huge fan of <a href="http://angularjs.org/">AngularJS</a>. Over at <a href="https://sourcegraph.com/">Sourcegraph</a>,
 they seem to be <a href="https://sourcegraph.com/blog/switching-from-angularjs-to-server-side-html">having some problems</a>. Never one to back down from a
 holy war, I&rsquo;ll post a rebuttal for how we&rsquo;re using Angular to great effect at
@@ -128,9 +128,9 @@ pride and architecture in your projects.</p>
   
   <entry>
     <title type="html"><![CDATA[Cucumber Selenium Mappings Model]]></title>
-    <link href="http://DavidSouther.github.io/2014/01/cucumber-selenium-mappings-model"/>
+    <link href="http://davidsouther.com/2014/01/cucumber-selenium-mappings-model"/>
     <updated>2014-01-27T10:52:00-05:00</updated>
-    <id>http://DavidSouther.github.io/2014/01/cucumber-selenium-mappings-model</id>
+    <id>http://davidsouther.com/2014/01/cucumber-selenium-mappings-model</id>
     <content type="html"><![CDATA[<p>To create a ubiquitous language for a project&rsquo;s interface, I recommend creating
 a semantic mapping. This is an in-code key/value object defining words and
 phrases in a <a href="http://martinfowler.com/bliki/UbiquitousLanguage.html">ubiquitous language</a> that maps to a specific CSS
@@ -297,9 +297,9 @@ itseld in improved communication.</p>
   
   <entry>
     <title type="html"><![CDATA[AngularJS Mock Render]]></title>
-    <link href="http://DavidSouther.github.io/2014/01/angularjs-mock-render"/>
+    <link href="http://davidsouther.com/2014/01/angularjs-mock-render"/>
     <updated>2014-01-05T11:30:00-05:00</updated>
-    <id>http://DavidSouther.github.io/2014/01/angularjs-mock-render</id>
+    <id>http://davidsouther.com/2014/01/angularjs-mock-render</id>
     <content type="html"><![CDATA[<p>We test. A lot. We have quite a few directives. We&rsquo;re using this mock render
 function to quickly test those directives. It takes the simple html name of the
 directive, an object with any parent scope properties, an object with any DOM
@@ -371,9 +371,9 @@ describe &lsquo;Performance Overview&rsquo;, &ndash;></p>
   
   <entry>
     <title type="html"><![CDATA[Testing. It's Hard. Just Do It!]]></title>
-    <link href="http://DavidSouther.github.io/2013/10/testing-its-hard-just-do-it"/>
+    <link href="http://davidsouther.com/2013/10/testing-its-hard-just-do-it"/>
     <updated>2013-10-30T13:31:11-04:00</updated>
-    <id>http://DavidSouther.github.io/2013/10/testing-its-hard-just-do-it</id>
+    <id>http://davidsouther.com/2013/10/testing-its-hard-just-do-it</id>
     <content type="html"><![CDATA[<p><a href="http://en.wikipedia.org/wiki/Linus's_Law">&ldquo;With enough eyeballs, all bugs are shallow.&rdquo;</a></p>
 
 <p>The bug might be shallow when it&rsquo;s first found, but how does it never happen again? Automated Testing. When a bug is found, prove it exists with a test. Then, that bug is guaranteed to never happen again &ndash; a little computer gremlin with eagle-eye focus will look at that bug every time your program runs, and the bug will NEVER HAPPEN AGAIN. It will never happen, because if you come close to making that bug, the gremlin will make your console bleed with the red of a failed test.</p>
@@ -439,9 +439,9 @@ describe &lsquo;Performance Overview&rsquo;, &ndash;></p>
   
   <entry>
     <title type="html"><![CDATA[Readable D3]]></title>
-    <link href="http://DavidSouther.github.io/2013/02/readable-d3"/>
+    <link href="http://davidsouther.com/2013/02/readable-d3"/>
     <updated>2013-02-25T22:26:58-05:00</updated>
-    <id>http://DavidSouther.github.io/2013/02/readable-d3</id>
+    <id>http://davidsouther.com/2013/02/readable-d3</id>
     <content type="html"><![CDATA[<p><a href="https://github.com/mbostock/d3/wiki/Gallery">d3 example code</a> is horribly convoluted, depending on dozens of unstructured variables (and often some global magic) to achieve even the simplest effects. To improve the readability of my d3 projects, I&rsquo;ve introduced a Canvas container, with the most commonly used properties conveniently encapsulated in a single object. Combined with mbostocks discussion in <a href="http://bost.ocks.org/mike/chart/">Towards Reusable Charts</a>, the canvas container can be used in nearly any project to greatly improve the structure and quality of d3 code.</p>
 
 <!-- more -->
