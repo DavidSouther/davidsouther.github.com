@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Technology | David Souther]]></title>
   <link href="http://DavidSouther.github.io/categories/technology/atom.xml" rel="self"/>
   <link href="http://DavidSouther.github.io/"/>
-  <updated>2014-02-18T08:44:26-05:00</updated>
+  <updated>2014-02-18T08:46:18-05:00</updated>
   <id>http://DavidSouther.github.io/</id>
   <author>
     <name><![CDATA[David Souther]]></name>
@@ -18,7 +18,7 @@
     <link href="http://DavidSouther.github.io/2014/02/5-surprisingly-not-that-painful-things-about-client-side-js"/>
     <updated>2014-02-17T22:33:25-05:00</updated>
     <id>http://DavidSouther.github.io/2014/02/5-surprisingly-not-that-painful-things-about-client-side-js</id>
-    <content type="html"><![CDATA[<p>I&rsquo;m a huge fan of <a href="[http://angularjs.org/]">AngularJS</a>. Over at <a href="https://sourcegraph.com/">Sourcegraph</a>,
+    <content type="html"><![CDATA[<p>I&rsquo;m a huge fan of <a href="http://angularjs.org/">AngularJS</a>. Over at <a href="https://sourcegraph.com/">Sourcegraph</a>,
 they seem to be <a href="https://sourcegraph.com/blog/switching-from-angularjs-to-server-side-html">having some problems</a>. Never one to back down from a
 holy war, I&rsquo;ll post a rebuttal for how we&rsquo;re using Angular to great effect at
 <a href="http://novus.com">Novus</a>, and how we&rsquo;ve gotten around the problems they mention.</p>
