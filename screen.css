@@ -1,0 +1,83 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+body > main[role="main"] {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -o-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+body > main[role="main"] > nav[role="navigation"] {
+  -webkit-box-ordinal-group: -1;
+  -moz-box-ordinal-group: -1;
+  -o-box-ordinal-group: -1;
+  -ms-flex-order: -1;
+  -webkit-order: -1;
+  order: -1;
+}
+@media (min-width: 46em) {
+  body > main[role="main"] {
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    -o-box-orient: horizontal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: distribute;
+    -moz-box-pack: distribute;
+    -o-box-pack: distribute;
+    -ms-flex-pack: distribute;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -o-box-flex: 1;
+    box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+  body > main[role="main"] > section.Content {
+    max-width: 32em;
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -o-box-flex: 1;
+    box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+  body > main[role="main"] > nav[role="navigation"],
+  body > main[role="main"] > aside[role="complementary"] {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -o-box-flex: 1;
+    box-flex: 1;
+    -webkit-flex: 0 0 16em;
+    -ms-flex: 0 0 16em;
+    flex: 0 0 16em;
+  }
+}
+
+footer[role="contentinfo"] {
+  color: #fff;
+  background: #a9a9a9;
+}
+
+.Sidebar > section {
+  margin: 0.5em 0;
+  padding: 0.25em 1em;
+  background-color: #fafad2;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  overflow: scroll;
+}

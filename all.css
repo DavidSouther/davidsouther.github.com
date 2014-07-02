@@ -1,0 +1,96 @@
+.PostList time {
+  margin: 0;
+  float: right;
+  color: #808080;
+  font-size: smaller;
+}
+
+.Content article header p:before {
+  font-style: italic;
+  color: #808080;
+}
+.Content article header ._publish-date {
+  color: #808080;
+  float: right;
+  margin: 0;
+}
+.Content article header ._publish-date:before {
+  content: 'Posted: ';
+  font-style: italic;
+}
+.Content article header ._author:before {
+  content: 'By: ';
+}
+.Content article footer {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -o-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: distribute;
+  -moz-box-pack: distribute;
+  -o-box-pack: distribute;
+  -ms-flex-pack: distribute;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+}
+
+section.Content {
+  text-align: justify;
+}
+
+body {
+  margin: 0;
+  font-family: 'Merriweather', sans-serif;
+}
+
+.Header {
+  padding: 0 2em;
+  color: #fff;
+  background-color: #000;
+  font-family: 'Quattrocento', serif;
+}
+.Header h1 {
+  display: inline-block;
+  letter-spacing: 0.5;
+}
+.Header h1 a {
+  color: #fff;
+  text-decoration: none;
+}
+.Header h2 {
+  letter-spacing: 0.2;
+  display: inline-block;
+  float: right;
+}
+
+.Footer {
+  padding: 0.5em 0;
+  text-align: center;
+  font-size: smaller;
+}
+
+.Navigation {
+  background-color: #fafad2;
+  padding: 0.25em 1em;
+  margin: 0.5em 0;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+}
+.Navigation > ul {
+  margin-left: 0.5em;
+}
+.Navigation ul {
+  list-style: circle;
+  padding-left: 0.5em;
+}
+.Navigation ul li {
+  padding-bottom: 0.25em;
+}
